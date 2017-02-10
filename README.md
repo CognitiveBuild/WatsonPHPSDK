@@ -1,6 +1,6 @@
 Installation setup.
 #1,you can use composer to install
-     composer require watson-ibm/phpsdk
+     composer require cognitivebuild/watsonphpsdk
 #2,git clone directly.
 
 Usage.
