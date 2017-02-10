@@ -6,18 +6,23 @@
  * Time: 9:53 AM
  */
 namespace watson\service;
+require_once 'vendor/autoload.php';
+use GuzzleHttp\Client;
 
 class ToneAnalyzer{
-    private $_url="https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone",$_urlPa;
+    private $_url="https://gateway.watsonplatform.net",$_uri="/tone-analyzer/api/v3/tone";
     private $_version="2016-05-19";
-    private $_request,$_http;
+    private $_request;
     private $_text;
     private $_method;
     private $_user,$_pass;
     private $_pa;
-    public function __construct($user=null,$pass=null,$text=null)
+    public function __construct($user=null,$pass=null,$text=null,$version=null)
     {
-        $this->_urlPa=$this->_url.'?version='.$this->_version;
+        if($version!=null){
+            $this->_version=$version;
+        }
+        $this->_uri=$this->_uri.'?version='.$this->_version;
         $this->_user=$user;
         $this->_pass=$pass;
         $this->_text=$text;
@@ -42,26 +47,24 @@ class ToneAnalyzer{
 
     public function toneGet(){
         if($this->_text!=null){
-            $this->_urlPa=$this->urlWithParam();
+            $this->_uri=$this->urlParam();
         }
-        $this->_request=new HttpClient($this->_urlPa);
-        $this->_request->basicAuth($this->_user,$this->_pass);
-        $this->_request->get();
-        return $this->_request->getBody();
+        $this->_request=new Client(['base_uri' => $this->_url]);
+        $response=$this->_request->request('GET', $this->_uri, [
+            'auth' => [$this->_user, $this->_pass]
+        ]);
+        return (string)$response->getBody();
     }
 
     public function tonePost(){
-        if($this->_text!=null){
-            $this->_urlPa=$this->urlWithParam();
-            $this->_pa=array('text'=>$this->_text);
-        }
-        $this->_request=new HttpClient($this->_urlPa);
-        $this->_request->setHeader('Content-Type','application/json');
-        $this->_request->basicAuth($this->_user,$this->_pass);
-        $this->_request->post('/tone-analyzer/api/v3/tone?version=2016-05-19',json_encode($this->_pa));
-        return $this->_request->getBody();
+        $this->_request=new Client(['base_uri' => $this->_url]);
+        $response=$this->_request->request('POST', $this->_uri, [
+            'auth' => [$this->_user, $this->_pass],
+            'json' => ['text' => $this->_text]
+        ]);
+        return (string)$response->getBody();
     }
-    private function urlWithParam(){
-        return $this->_urlPa.'&text='.$this->_text;
+    private function urlParam(){
+        return $this->_uri.'&text='.$this->_text;
     }
 }

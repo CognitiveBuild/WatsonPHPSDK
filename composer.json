@@ -1,5 +1,5 @@
 {
-    "name": "watson-ibm/phpsdk",
+    "name": "cognitivebuild/watsonphpsdk",
     "description": "phpsdk used for develop watson app.",
     "type": "library",
     "license": "Apache-2.0",
