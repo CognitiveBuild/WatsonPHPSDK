@@ -9,13 +9,8 @@
             "email": "dammer_66@163.com"
         }
     ],
-    "minimum-stability": "dev"
+    "version": "1.0.0",
     "require": {
         "php": ">=5.4.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
     }
 }
