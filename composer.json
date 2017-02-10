@@ -1,0 +1,7 @@
+{
+    "name": "watson/phpsdk",
+    "description": "phpsdk used for develop watson app.",
+    "type": "library",
+    "license": "Apache-2.0",
+    "require": {}
+}
