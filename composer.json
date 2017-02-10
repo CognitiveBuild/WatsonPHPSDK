@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "watson\\": "src/"
+            "watson\\service\\": "src/"
         }
     },
     "extra": {
