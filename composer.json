@@ -1,8 +1,11 @@
 {
     "name": "cognitivebuild/watsonphpsdk",
-    "description": "phpsdk used for develop watson app.",
-    "type": "library",
-    "license": "Apache-2.0",
+    "description": "PHP SDK for Watson so that the developer could apply Watson quickly in PHP applications",
+    "keywords": [
+        "ai",
+        "watson",
+        "php"
+            ],
     "authors": [
         {
             "name": "caopeng",
@@ -10,13 +13,11 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "php": ">=5.5.0"
     },
     "autoload": {
-        "files": ["src/functions_include.php"],
         "psr-4": {
-            "watsonphpsdk\\": "src/"
+            "watsonphpsdk\\": "src"
         }
     }
 }
