@@ -1,6 +1,7 @@
 {
     "name": "cognitivebuild/watsonphpsdk",
     "description": "PHP SDK for Watson so that the developer could apply Watson quickly in PHP applications",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.0"
     }
