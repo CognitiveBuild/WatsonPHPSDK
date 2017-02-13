@@ -96,7 +96,7 @@ class ToneAnalyzer{
         }
         if($this->_version=='GET')
             return $this->toneGet();
-        else if($this->_version=='POST')
+        else
             return $this->tonePost();
     }
     private function urlParam(){
