@@ -23,9 +23,11 @@ require 'vendor/autoload.php';
 ```
 
 ## Issues:
-1,if you use https request,and no cacert.pem file,you would be met CURL error 6-:SSL certificate:unable to get local issuer certificate
+1,if you use https request,and got the SSL issue as below
 
-- Perfect solution:to get the real certification.
+`CURL error 6-:SSL certificate:unable to get local issuer certificate.`
+
+- Perfect solution:Change your curl to SSL version.
 
 - Minor solution: access(https://curl.haxx.se/docs/caextract.html),download the cacert.pem file,modify your php.ini.
 find field "curl.cainfo".change it as below and restart your server after then.
