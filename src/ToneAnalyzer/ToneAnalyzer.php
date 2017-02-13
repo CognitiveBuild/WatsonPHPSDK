@@ -8,7 +8,7 @@
 namespace Watson\Service;
 require_once 'vendor/autoload.php';
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\RequestException;
 
 class ToneAnalyzer{
@@ -29,25 +29,25 @@ class ToneAnalyzer{
         $this->_pass=$pass;
         $this->_text=$text;
     }
-    public function setUrl($url){
+    private function setUrl($url){
         $this->_url=$url;
     }
-    public function setVersion($pa){
+    private function setVersion($pa){
             $this->_version=$pa;
     }
-    public function setText($pa){
+    private function setText($pa){
             $this->_text=$pa;
     }
-    public function setAuth($user,$pass){
+    private function setAuth($user,$pass){
             $this->_user=$user;
             $this->_pass=$pass;
 
     }
-    public function setMethod($method){
+    private function setMethod($method){
         $this->_method=$method;
     }
 
-    public function toneGet(){
+    private function toneGet(){
         if($this->_text!=null){
             $this->_uri=$this->urlParam();
         }
@@ -67,7 +67,7 @@ class ToneAnalyzer{
         return (string)$response->getBody();
     }
 
-    public function tonePost(){
+    private function tonePost(){
         $this->_request=new Client(['base_uri' => $this->_url]);
         try {
             $response=$this->_request->request('POST', $this->_uri, [
@@ -82,6 +82,18 @@ class ToneAnalyzer{
                 return Psr7\str($e->getRequest());
         }
         return (string)$response->getBody();
+    }
+    public function Tone($user=null,$pass=null,$text=null,$version=null){
+        if($user!=null&&$pass!=null){
+            $this->setAuth($user,$pass);
+        }
+        if($text!=null){
+            $this->setText($text);
+        }
+        if($version!=null){
+            $this->setVersion($version);
+        }
+        $this->tonePost();
     }
     private function urlParam(){
         return $this->_uri.'&text='.$this->_text;
