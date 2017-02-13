@@ -6,9 +6,9 @@
  * Time: 9:53 AM
  */
 namespace Watson\Service;
-require_once 'vendor/autoload.php';
+//require_once 'vendor/autoload.php';
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
 class ToneAnalyzer{
@@ -23,8 +23,7 @@ class ToneAnalyzer{
     {
         if($version!=null){
             $this->_version=$version;
-        }else
-            $this->_version='POST';
+        }
         $this->_uri=$this->_uri.'?version='.$this->_version;
         $this->_user=$user;
         $this->_pass=$pass;
@@ -94,8 +93,10 @@ class ToneAnalyzer{
         if($version!=null){
             $this->setVersion($version);
         }
-        if($this->_version=='GET')
+        if($this->_version=='GET'){
             return $this->toneGet();
+        }
+
         else
             return $this->tonePost();
     }

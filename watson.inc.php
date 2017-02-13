@@ -9,5 +9,5 @@
  * Time: 10:53 AM
  */
 //require_once __DIR__ . 'vendor/guzzlehttp/guzzle/src//ToneAnalyzer.php';
-require_once __DIR__ . '/src/watson/ToneAnalyzer.php';
-require_once __DIR__ . '/src/watson/httpclient.php';
+require_once __DIR__ . '/src/ToneAnalyzer/ToneAnalyzer.php';
+require_once __DIR__.'vendor/guzzlehttp/guzzle/src/Client.php';
