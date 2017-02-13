@@ -13,7 +13,7 @@ curl -sS https://getcomposer.org/installer | php
 Next, run the Composer command to install the latest stable version of WatsonPHPSdk:
 
 ```bash
-php composer.phar require cognitivebuild/watsonphpsdk
+php composer.phar require cognitivebuild/watsonphpsdk:master-dev
 ```
 
 After installing, you need to require Composer's autoloader:
@@ -41,12 +41,12 @@ find field "curl.cainfo".change it as below and restart your server after then.
 require 'vendor/autoload.php';
 
 use watson\service\ToneAnalyzer;
-$tone=new ToneAnalyzer('yourusername','yourpassword','yourtext');
+$tone=new ToneAnalyzer();
 
 //Use post method to toneAnalyzer service.
-var_dump($tone->tonePost());
+var_dump($tone->Tone('yourusername','yourpassword','yourtext'));
 //Use get method to toneAnalyzer service.
-var_dump($tone->toneGet());
+var_dump($tone->Tone('yourusername','yourpassword','yourtext','GET'));
 ```
 
 
