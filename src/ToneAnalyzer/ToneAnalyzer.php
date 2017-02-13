@@ -23,7 +23,8 @@ class ToneAnalyzer{
     {
         if($version!=null){
             $this->_version=$version;
-        }
+        }else
+            $this->_version='POST';
         $this->_uri=$this->_uri.'?version='.$this->_version;
         $this->_user=$user;
         $this->_pass=$pass;
