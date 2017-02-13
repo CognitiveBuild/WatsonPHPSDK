@@ -6,7 +6,7 @@
  * Time: 9:53 AM
  */
 namespace Watson\Service;
-//require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
