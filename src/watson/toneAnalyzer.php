@@ -8,6 +8,8 @@
 namespace watson\service;
 require_once 'vendor/autoload.php';
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
 
 class ToneAnalyzer{
     private $_url="https://gateway.watsonplatform.net",$_uri="/tone-analyzer/api/v3/tone";
@@ -50,18 +52,35 @@ class ToneAnalyzer{
             $this->_uri=$this->urlParam();
         }
         $this->_request=new Client(['base_uri' => $this->_url]);
-        $response=$this->_request->request('GET', $this->_uri, [
-            'auth' => [$this->_user, $this->_pass]
-        ]);
+        try{
+            $response=$this->_request->request('GET', $this->_uri, [
+                'auth' => [$this->_user, $this->_pass]
+            ]);
+        }catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return Psr7\str($e->getResponse());
+            }
+            else
+                return Psr7\str($e->getRequest());
+        }
+
         return (string)$response->getBody();
     }
 
     public function tonePost(){
         $this->_request=new Client(['base_uri' => $this->_url]);
-        $response=$this->_request->request('POST', $this->_uri, [
-            'auth' => [$this->_user, $this->_pass],
-            'json' => ['text' => $this->_text]
-        ]);
+        try {
+            $response=$this->_request->request('POST', $this->_uri, [
+                'auth' => [$this->_user, $this->_pass],
+                'json' => ['text' => $this->_text]
+            ]);
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return Psr7\str($e->getResponse());
+            }
+            else
+                return Psr7\str($e->getRequest());
+        }
         return (string)$response->getBody();
     }
     private function urlParam(){
