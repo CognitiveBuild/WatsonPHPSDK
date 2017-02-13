@@ -19,13 +19,9 @@
     },
     "autoload": {
         "psr-4": {
-            "watson\\service\\": "src/watson/"
+            "Watson\\Service\\": "src/ToneAnalyzer/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
-    }
+    "version":"dev-master"
 }
 
