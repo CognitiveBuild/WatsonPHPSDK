@@ -17,17 +17,18 @@ class HttpClient{
     protected $_text;
     protected $_method;
     protected $_user,$_pass,$_token;
-    protected $_pa;
-    public function __construct()
-    {
-        $this->setUrl("https://gateway.watsonplatform.net");
-        $this->setMethod('POST');
+    protected $_param;
+    public function __construct(){
+
     }
     protected function setUrl($url){
         $this->_url=$url;
     }
     protected function setUri($uri){
         $this->_uri=$uri.($this->_version!=null?'?version='.$this->_version:'');
+    }
+    protected function getUri(){
+        return $this->_uri;
     }
     protected function setVersion($pa){
         $this->_version=$pa;
@@ -45,6 +46,12 @@ class HttpClient{
     }
     protected function getMethod(){
         return $this->_method;
+    }
+    protected function setParam($param){
+        $this->_param=$param;
+    }
+    protected function getParam(){
+        return $this->_param;
     }
     protected function toneGet(){
         if($this->_text!=null){
@@ -82,7 +89,18 @@ class HttpClient{
         }
         return (string)$response->getBody();
     }
-    protected function urlParam(){
-        return $this->_uri.'&text='.$this->_text;
+    protected function request(){
+        $this->_request=new Client(['base_uri' => $this->_url]);
+        try{
+            $response=$this->_request->request($this->getMethod(), $this->getUri(), $this->getParam());
+        }catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return Psr7\str($e->getResponse());
+            }
+            else
+                return Psr7\str($e->getRequest());
+        }
+
+        return (string)$response->getBody();
     }
 }

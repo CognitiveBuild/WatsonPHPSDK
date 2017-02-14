@@ -14,14 +14,18 @@ class ToneAnalyzer extends HttpClient{
             $this->setVersion($version);
         else
             $this->setVersion("2016-05-19");
+        $this->setUrl("https://gateway.watsonplatform.net");
+        $this->setMethod('POST');
         $this->setUri("/tone-analyzer/api/v3/tone");
         $this->_user=$user;
         $this->_pass=$pass;
         $this->_text=$text;
     }
     public function Tone($user=null,$pass=null,$text=null,$version=null,$method=null){
+        $pa=array();
         if($user!=null&&$pass!=null){
             $this->setAuth($user,$pass);
+            $pa['auth']=[$user,$pass];
         }
         if($text!=null){
             $this->setText($text);
@@ -32,11 +36,17 @@ class ToneAnalyzer extends HttpClient{
         if($method!=null){
             $this->setMethod($method);
         }
-        if($this->getMethod()=='GET'){
-            return $this->toneGet();
+        if($this->getMethod()=='POST'){
+            $pa['json']=['text'=>$text];
+        }else if($this->getMethod()=='GET'){
+            $this->urlParam();
         }
-
-        else
-            return $this->tonePost();
+        if($pa!=null){
+            $this->setParam($pa);
+        }
+        return $this->request();
+    }
+    protected function urlParam(){
+        return $this->_uri.'&text='.$this->_text;
     }
 }
