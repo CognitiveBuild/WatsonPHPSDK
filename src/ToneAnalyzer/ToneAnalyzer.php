@@ -5,9 +5,9 @@
  * Date: 09/02/2017
  * Time: 9:53 AM
  */
-namespace WatsonSDK\Service;
+namespace WatsonSDK\Service\ToneAnalyzer;
 require_once 'vendor/autoload.php';
-
+use WatsonSDK\Common\HttpClient;
 class ToneAnalyzer extends HttpClient{
     public function __construct($user=null,$pass=null,$text=null,$version=null)
     {
