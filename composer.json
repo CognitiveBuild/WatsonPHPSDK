@@ -1,10 +1,11 @@
 {
-    "name": "cognitivebuild/watsonphpsdk",
+    "name": "CognitiveBuild/WatsonPHPSDK",
     "description": "PHP SDK for Watson so that the developer could apply Watson quickly in PHP applications",
     "keywords": [
         "ai",
         "watson",
-        "php"
+        "php", 
+        "sdk"
             ],
     "authors": [
         {
@@ -19,9 +20,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Watson\\Service\\": "src/ToneAnalyzer/"
+            "WatsonSDK\\Service\\": "src/ToneAnalyzer/"
         }
     },
-    "version":"dev-master"
+    "version":"master"
 }
 
