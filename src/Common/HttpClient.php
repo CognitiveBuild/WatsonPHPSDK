@@ -5,7 +5,7 @@
  * Date: 14/02/2017
  * Time: 13:56 PM
  */
-namespace WatsonSDK\Common;
+namespace WatsonSDK\Service;
 require_once 'vendor/autoload.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
