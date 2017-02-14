@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "WatsonSDK\\Service\\": ["Source/ToneAnalyzer/","src/Common/"]
+            "WatsonSDK\\Service\\": ["Source/ToneAnalyzer/","Source/Common/"]
         }
     },
     "version":"master"
