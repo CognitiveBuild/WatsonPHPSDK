@@ -8,5 +8,5 @@
  * Date: 09/02/2017
  * Time: 10:53 AM
  */
-require __DIR__ . '/src/Common/HttpClient.php';
-require __DIR__ . '/src/ToneAnalyzer/ToneAnalyzer.php';
+require __DIR__ . '/Source/Common/HttpClient.php';
+require __DIR__ . '/Source/ToneAnalyzer/ToneAnalyzer.php';

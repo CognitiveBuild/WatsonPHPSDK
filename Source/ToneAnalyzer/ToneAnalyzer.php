@@ -6,6 +6,7 @@
  * Time: 9:53 AM
  */
 namespace WatsonSDK\Service;
+use WatsonSDK\Service\HttpClient;
 class ToneAnalyzer extends HttpClient{
     public function __construct($user=null,$pass=null,$text=null,$version=null)
     {
