@@ -1,8 +1,9 @@
 # Watson PHP SDK
 Watson PHP SDK for IBM Watson Developer Cloud
-## Installing WatsonPHPSdk
 
-The recommended way to install WatsonPHPSdk is through
+##Installation
+
+The recommended way to install Watson PHP SDK is through
 [Composer](http://getcomposer.org).
 
 ```bash
@@ -10,10 +11,10 @@ The recommended way to install WatsonPHPSdk is through
 curl -sS https://getcomposer.org/installer | php
 ```
 
-Next, run the Composer command to install the latest stable version of WatsonPHPSdk:
+Run the Composer command to install the latest version of the Watson PHP SDK:
 
 ```bash
-php composer.phar require cognitivebuild/watsonphpsdk:master-dev
+php composer.phar require CognitiveBuild/WatsonPHPSDK:master
 ```
 
 After installing, you need to require Composer's autoloader:
@@ -22,33 +23,28 @@ After installing, you need to require Composer's autoloader:
 require 'vendor/autoload.php';
 ```
 
-## Issues:
-1,if you use https request,and got the SSL issue as below
-
-`CURL error 6-:SSL certificate:unable to get local issuer certificate.`
-
-- Perfect solution:Change your curl to SSL version.
-
-- Minor solution: access(https://curl.haxx.se/docs/caextract.html),download the cacert.pem file,modify your php.ini.
-find field "curl.cainfo".change it as below and restart your server after then.
+##Usage
+####Tone Analyzer
 ```php
- curl.cainfo = "your saved path\cacert.pem"
+// Using WatsonSDK\Service\ToneAnalyzer namespace
+use WatsonSDK\Service\ToneAnalyzer;
+
+$toneAnalyzer = new ToneAnalyzer();
+$result = $toneAnalyzer->Tone('your_username', 'your_password', 'text to be analyzed');
+var_dump($result);
 ```
 
-## Usage.
-#### 1.Tone Analyzer
-```php
-require 'vendor/autoload.php';
+##Issues
+- If you use https request,and got the SSL issue as below
 
-use watson\service\ToneAnalyzer;
-$tone=new ToneAnalyzer();
+ `CURL error 6-:SSL certificate:unable to get local issuer certificate.`
+- Solutions
+  - Change your cURL to SSL version
+  - Minor solution: access(https://curl.haxx.se/docs/caextract.html), download the cacert.pem file, modify your php.ini, find field `curl.cainfo`, then change it as below and restart your server
 
-//Use post method to toneAnalyzer service.
-var_dump($tone->Tone('yourusername','yourpassword','yourtext'));
-//Use get method to toneAnalyzer service.
-var_dump($tone->Tone('yourusername','yourpassword','yourtext','GET'));
-```
-
+    ```php
+curl.cainfo = "your saved path\cacert.pem"
+    ```
 
 ##License
 Copyright 2016 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
