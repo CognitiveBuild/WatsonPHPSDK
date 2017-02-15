@@ -53,42 +53,6 @@ class HttpClient{
     protected function getParam(){
         return $this->_param;
     }
-    protected function toneGet(){
-        if($this->_text!=null){
-            $this->_uri=$this->urlParam();
-        }
-        $this->_request=new Client(['base_uri' => $this->_url]);
-        try{
-            $response=$this->_request->request('GET', $this->_uri, [
-                'auth' => [$this->_user, $this->_pass]
-            ]);
-        }catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                return Psr7\str($e->getResponse());
-            }
-            else
-                return Psr7\str($e->getRequest());
-        }
-
-        return (string)$response->getBody();
-    }
-
-    protected function tonePost(){
-        $this->_request=new Client(['base_uri' => $this->_url]);
-        try {
-            $response=$this->_request->request('POST', $this->_uri, [
-                'auth' => [$this->_user, $this->_pass],
-                'json' => ['text' => $this->_text]
-            ]);
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                return Psr7\str($e->getResponse());
-            }
-            else
-                return Psr7\str($e->getRequest());
-        }
-        return (string)$response->getBody();
-    }
     protected function request(){
         $this->_request=new Client(['base_uri' => $this->_url]);
         try{
