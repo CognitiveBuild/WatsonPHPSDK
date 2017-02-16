@@ -1,9 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: caopeng
- * Date: 14/02/2017
- * Time: 13:56 PM
+ * Copyright 2017 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 namespace WatsonSDK\Service;
 require_once 'vendor/autoload.php';
@@ -12,9 +21,7 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 class HttpClient{
     protected $_url,$_uri;
-    protected $_version;
     protected $_request;
-    protected $_text;
     protected $_method;
     protected $_user,$_pass,$_token;
     protected $_param;
@@ -25,16 +32,19 @@ class HttpClient{
         $this->_url=$url;
     }
     protected function setUri($uri){
-        $this->_uri=$uri.($this->_version!=null?'?version='.$this->_version:'');
+        $this->_uri=$uri;
     }
     protected function getUri(){
         return $this->_uri;
     }
-    protected function setVersion($pa){
-        $this->_version=$pa;
+    protected function setUser($user){
+        $this->_user=$user;
     }
-    protected function setText($pa){
-        $this->_text=$pa;
+    protected function getUser(){
+        return $this->_user;
+    }
+    protected function setPass($pass){
+        $this->_pass=$pass;
     }
     protected function setAuth($user,$pass){
         $this->_user=$user;
@@ -59,12 +69,12 @@ class HttpClient{
             $response=$this->_request->request($this->getMethod(), $this->getUri(), $this->getParam());
         }catch (RequestException $e) {
             if ($e->hasResponse()) {
-                return Psr7\str($e->getResponse());
+                return $e->getResponse();
             }
             else
-                return Psr7\str($e->getRequest());
+                return $e->getRequest();
         }
 
-        return (string)$response->getBody();
+        return $response;
     }
 }
