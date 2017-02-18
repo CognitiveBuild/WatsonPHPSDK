@@ -14,67 +14,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace WatsonSDK\Service;
-require_once 'vendor/autoload.php';
+
+namespace WatsonSDK\Common;
+
+use WatsonSDK\Common\HttpClientConfiguration;
+use WatsonSDK\Common\HttpClientException;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
-class HttpClient{
-    protected $_url,$_uri;
-    protected $_request;
-    protected $_method;
-    protected $_user,$_pass,$_token;
-    protected $_param;
-    public function __construct(){
 
-    }
-    protected function setUrl($url){
-        $this->_url=$url;
-    }
-    protected function setUri($uri){
-        $this->_uri=$uri;
-    }
-    protected function getUri(){
-        return $this->_uri;
-    }
-    protected function setUser($user){
-        $this->_user=$user;
-    }
-    protected function getUser(){
-        return $this->_user;
-    }
-    protected function setPass($pass){
-        $this->_pass=$pass;
-    }
-    protected function setAuth($user,$pass){
-        $this->_user=$user;
-        $this->_pass=$pass;
+class HttpClient {
 
+    // HttpClient instance
+    private $_request;
+
+    /**
+     * Constructor
+     * @param 
+     */
+    function __construct() {
+        $this->_request = new Client();
     }
-    protected function setMethod($method){
-        $this->_method=$method;
-    }
-    protected function getMethod(){
-        return $this->_method;
-    }
-    protected function setParam($param){
-        $this->_param=$param;
-    }
-    protected function getParam(){
-        return $this->_param;
-    }
-    protected function request(){
-        $this->_request=new Client(['base_uri' => $this->_url]);
-        try{
-            $response=$this->_request->request($this->getMethod(), $this->getUri(), $this->getParam());
-        }catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                return $e->getResponse();
-            }
-            else
-                return $e->getRequest();
+
+    /**
+     * Send out HTTP request
+     */
+    public function request(HttpClientConfiguration $config) {
+        try {
+            // Convert to Guzzle request options
+            $options = $config->toOptions();
+
+            // Send out HTTP request
+            $response = $this->_request->request($config->getMethod(), $config->getURL(), $options);
+            return new HttpResponse($response->getStatusCode(), $response->getBody()->getContents(), $response->getBody()->getSize());
         }
+        catch (RequestException $e) {
+            $message = $e->getMessage();
 
-        return $response;
+            if ($e->hasResponse()) {
+                $message = Psr7\str($e->getResponse());
+            }
+            throw new HttpClientException($message, $e->getCode());
+        }
     }
+
 }
