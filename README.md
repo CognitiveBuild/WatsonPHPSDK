@@ -42,7 +42,7 @@ $model    = new ToneAnalyzerModel();
 Invoke Tone Analyzer API using credentials, 
 ```php
 $model->setUsername('your_username');
-$model->setUsername('your_password');
+$model->setPassword('your_password');
 ```
 
 or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample of TokenProvider, we recommend you to implement your own Token Provider, by implementing the `TokenProviderInterface`
