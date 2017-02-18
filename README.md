@@ -2,7 +2,7 @@
 
 [![Language: PHP](https://img.shields.io/badge/php->=5.6-orange.svg?style=flat)](http://php.net/)
 [![Build Status](https://travis-ci.org/mihui/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/mihui/WatsonPHPSDK)
-[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK)
+[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/mihui/WatsonPHPSDK)
 
 
 
