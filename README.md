@@ -2,7 +2,7 @@
 
 [![Language: PHP](https://img.shields.io/badge/php->=5.6-orange.svg?style=flat)](http://php.net/)
 [![Build Status](https://travis-ci.org/mihui/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/mihui/WatsonPHPSDK)
-[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK)
+[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/mihui/WatsonPHPSDK)
 
 
 
@@ -50,9 +50,10 @@ or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample o
 $model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
 ```
 
+Place the content to be analyzed, call the Tone API and check the result: 
 ```php
 $model->setText('your text to be analyzed');
-$result   = $analyzer->Tone($model);
+$result = $analyzer->Tone($model);
 
 // View results
 echo $result->getContent();
