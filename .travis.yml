@@ -12,7 +12,7 @@ matrix:
   - php: nightly
   fast_finish: true
 script:
-- ./vendor/bin/phpunit --coverage-clover=clover.xml  --configuration $DB.phpunit.xml
+- ./vendor/bin/phpunit --coverage-clover=clover.xml
 after_script:
 - bash <(curl -s https://codecov.io/bash)
 env:
