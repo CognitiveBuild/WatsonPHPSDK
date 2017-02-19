@@ -1,22 +1,21 @@
 language: php
-
 php:
-  - '5.6'
-  - '7.0'
-  - '7.1'
-  - hhvm
-  - nightly
-
+- '5.6'
+- '7.0'
+- '7.1'
+- hhvm
+- nightly
 before_script:
-  - composer install --no-interaction --prefer-source --dev
-
+- composer install --no-interaction --prefer-source --dev
 matrix:
   allow_failures:
-    - php: nightly
+  - php: nightly
   fast_finish: true
-
-script: 
-  - ./vendor/bin/phpunit --coverage-clover=clover.xml
-
+script:
+- ./vendor/bin/phpunit --coverage-clover=clover.xml  --configuration $DB.phpunit.xml
 after_script:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+  - secure: YSTFZ3LrnSuEnE2IwiV6EUeOd1YnIgJsE0++ZR53vwVnadGmy4LNF3iylNiz09ymEwfecyxdDSSI1aeG4Ar7TG4odsyseLjEK9D273gjquzs4X6Jtmq+nmggXuKIxExW/9C0z8wzG41e7P0mTQ16yGLxMtRRhaGOyQt/GokoegElwmfMRPHn9LybtG4TPSVGuz4DwDoICye8u7hzFE6Md9qMiMOQNCixW5f7pUI8o7b7Uvdq139z5pqR7BFFXtJP+q5iqCMSsGGr7PMOjzWf9CEHcC4c04obZihfDsKyy5T2DPr5mO/L3O0zr7bV71XviasYT4nsECTp0XT7bycfjHU6Q2+0EDjMkj9x3U/KpDEayrEijTVfShXz/mDhbiErgfirTPWwTuVAsjJJjgYSjv6ZN6OYSb2RgaJ0I5aFlED2HJ6U6BSV5vYDTBdcGTD0psvAkoHv/D1CqkezfNyOWCHWMcMK4JEpWnsdvmGaDBIMiWows4GcAynyo9tF2K2xcydwxyrv852JNLvd+KeHRzfYVWNNPMGQgG3kns4wAjyVIlSlzifdFyw3XlkeNpFJrjx5bSB3/o2DVdmvM4hsZAxoBR/vvFKXyupOWTWHVR5Abe5odRYh2MAqaODaKKAPfBzHN2ISsyJTSldeYWY+QuEOlQa4hSIlZ8uoIN5sVVw=
+  - secure: ihH/yXlZdvBBjOWzNJXGe7JLY3Egwuh7Z8a3hNRTdFoMQpF/wWfA9gXy2RVzp9C5AxYv+56QurNUVEhVw1Q+U4L6YwijrL1qJSGMzpjL3lL2i8eL5wMCFeeaJsbJ+KcY0+KBYh14L3ieYMeW/yG+JiNTJzCUYMNUKr5YqJxlO5WBGSQ0pzxvrynXi18MGPphws2iwaAOCU4LKZv6xi9veMJegFmZCjAHa06ujha/4S+lYXvfSGuOATQcMD0mgo6FUjOBf1gvOpB+qpX1pGNBBclKn5uzklF4WxNOp2d+zzMKgAlhNzsc8cQQSSHIDnbGtv9VAUlND53mZ2/ri7aik3qxnAFOzhBzyB/caKRAN+bcgsOEFnJhn1esFpJokVLtNrmPyvMp4rDwW5KOq9ouTgarxIkE42mlQT19tpnTTxAHrMzLjQ8wWA54WriyXsZewJmMvY5Ne6USEfNNXTZL5twBjFpU4rDkjZGRidrkGxo2t8AHSGbjqzkkPeHoSWPqymr5fQLvdvQq8awAqTpLiTttP54QR9FWXG/Qa9wOnn9HA82cAAhIaanbHcbClfGO3Wv8igCCgY0anHN8EQ/F9Q64UxG9rD0kBkNlm1dplDEKeWg+NwMcssvohrY8ntZg6OcZ9dIr+Loyqwb/4+eKRGDwhBQqV8Oe6aSzABQhSrM=
