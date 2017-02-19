@@ -18,6 +18,7 @@
 namespace WatsonSDK\Services;
 
 use WatsonSDK\Common\HttpClient;
+use WatsonSDK\Common\HttpResponse;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
 
@@ -63,7 +64,7 @@ class ToneAnalyzer {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            return $ex->getMessage();
+            return new HttpResponse($ex->getMessage(), $ex->getCode());
         }
     }
 }

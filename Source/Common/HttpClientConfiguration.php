@@ -87,11 +87,11 @@ class HttpClientConfiguration {
      */
     public function toOptions() {
 
-        $options = array();
+        $options = [];
         $type = $this->getType();
 
         // Set request body
-        if(is_array($this->getData()) && count($this->getData()) > 0) {
+        if(is_string($type) && is_array($this->getData()) && count($this->getData()) > 0) {
             $options[$type] = $this->getData();
         }
 
@@ -104,7 +104,9 @@ class HttpClientConfiguration {
             $options['headers'] = $this->getHeader();
         }
 
-        $options['auth'] = $this->getCredentials();
+        if(is_array($this->getCredentials()) && count($this->getCredentials()) > 0) {
+            $options['auth'] = $this->getCredentials();
+        }
 
         // Set response timeout
         if($this->getTimeout() > 0) {
@@ -181,23 +183,6 @@ class HttpClientConfiguration {
     }
 
     /**
-     * Append request data
-     * @param $val array
-     */
-    public function appendData($val) {
-        $this->_data = array_merge($this->_data, $val);
-    }
-
-    /**
-     * Update request data
-     * @param $key string
-     * @param $val mix
-     */
-    public function updateData($key, $val) {
-        $this->_data[$key] = $val;
-    }
-
-    /**
      * Get request query
      * @return array
      */
@@ -214,14 +199,6 @@ class HttpClientConfiguration {
     }
 
     /**
-     * Append request query
-     * @param $val array
-     */
-    public function appendQuery($val) {
-        $this->_query = array_merge($this->_query, $val);
-    }
-
-    /**
      * Get request header
      * @return array
      */
@@ -235,23 +212,6 @@ class HttpClientConfiguration {
      */
     public function setHeader($val) {
         $this->_header = $val;
-    }
-
-    /**
-     * Append request header
-     * @param $val array
-     */
-    public function appendHeader($val) {
-        $this->_header = array_merge($this->_header, $val);;
-    }
-
-    /**
-     * Update request header
-     * @param $key string
-     * @param $val mix
-     */
-    public function updateHeader($key, $val) {
-        $this->_header[$key] = $val;
     }
 
     /**

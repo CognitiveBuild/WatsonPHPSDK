@@ -19,10 +19,11 @@ namespace WatsonSDK\Common;
 
 use WatsonSDK\Common\ITokenProvider;
 use WatsonSDK\Common\InvalidParameterException;
+use WatsonSDK\Common\HttpClientException;
 
 class SimpleTokenProvider implements TokenProviderInterface {
 
-    private $_token = NULL;
+    private static $_token = NULL;
     private $_url = '';
 
     function __construct($url = NULL) {
@@ -36,14 +37,19 @@ class SimpleTokenProvider implements TokenProviderInterface {
 
     public function getToken() {
 
-        if(is_null($this->_token)) {
+        if(is_null(self::$_token)) {
             $httpClient = new HttpClient();
             $config = new HttpClientConfiguration();
             $config->setURL($this->_url);
-            $response = $httpClient->request($config);
-            $this->_token = $response->getContent();
+            try {
+                $response = $httpClient->request($config);
+                self::$_token = $response->getContent();
+            }
+            catch (HttpClientException $ex) {
+                self::$_token = NULL;
+            }
         }
 
-        return $this->_token;
+        return self::$_token;
     }
 }
