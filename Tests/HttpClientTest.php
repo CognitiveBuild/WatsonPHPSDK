@@ -19,12 +19,13 @@ namespace WatsonSDK\Tests;
 
 use WatsonSDK\Common\HttpClient;
 use WatsonSDK\Common\HttpClientConfiguration;
+use WatsonSDK\Common\HttpClientException;
 
 use PHPUnit\Framework\TestCase;
 
 final class HttpClientTest extends TestCase {
 
-    public function testHttpClientConfigurationDefaultValues(){
+    public function testHttpClientConfigurationDefaultValues() {
 
         $config = new HttpClientConfiguration();
 
@@ -37,27 +38,56 @@ final class HttpClientTest extends TestCase {
         $this->assertEquals($config->getMethod(), 'GET');
         $this->assertNull($config->getURL());
         $this->assertEquals($config->getTimeout(), 0);
-
-        $options = $config->toOptions();
+        $this->assertNull($config->getType());
+        $this->assertEquals($config->getQuery(), []);
+        $this->assertEquals($config->getQuery(), []);
+        $this->assertEquals($config->toOptions(), []);
+        // 
+        $config->setCredentials([ 'username', 'password' ]);
+        $this->assertEquals($config->toOptions(), [ 'auth' => [ 'username', 'password' ] ]);
+        // 
+        $config->setData([ 'key' => 'value' ]);
+        $this->assertEquals($config->getData(), [ 'key' => 'value' ]);
+        // 
+        $config->setQuery([ 'p' => 'q' ]);
+        $this->assertEquals($config->getQuery(), [ 'p' => 'q' ]);
+        //
+        $config->setHeader([ 'p' => 'q' ]);
+        $this->assertEquals($config->getHeader(), [ 'p' => 'q' ]);
+        // 
+        $config->setTimeout(20000);
+        $this->assertEquals($config->getTimeout(), 20000);
+        // 
+        $config->setURL('https://www.ibm.com/watson/developercloud/');
+        $this->assertEquals($config->getURL(), 'https://www.ibm.com/watson/developercloud/');
     }
 
     // 
-    public function testHttpClientRequest(){
+    public function testHttpClientRequest() {
 
+        return;
         $httpClient = new HttpClient();
         $config = new HttpClientConfiguration();
         $config->setURL('https://www.ibm.com/watson/developercloud/');
-        $this->assertEquals($config->getURL(), 'https://www.ibm.com/watson/developercloud/');
-        $response = $httpClient->request($config);
 
         $this->assertInstanceOf(
             HttpClient::class, 
             $httpClient
         );
 
+        $response = $httpClient->request($config);
+
         $this->assertEquals($response->getStatusCode(), 200);
         $this->assertNotEquals($response->getContent(), '');
         $this->assertNotEquals($response->getSize(), 0);
+
+        try {
+            $response = $httpClient->request(new HttpClientConfiguration('http://mihui.net/404'));
+        }
+        catch (HttpClientException $ex) {
+            $this->assertEquals($ex->getCode(), 404);
+            $this->assertNotEquals($ex->getMessage(), '');
+        }
     }
 
 }

@@ -17,13 +17,72 @@
 
 namespace WatsonSDK\Tests;
 
-use WatsonSDK\Service\ToneAnalyzer;
+use WatsonSDK\Common\TokenProviderInterface;
+use WatsonSDK\Common\SimpleTokenProvider;
+use WatsonSDK\Services\ToneAnalyzer;
+use WatsonSDK\Services\ToneAnalyzerModel;
 
 use PHPUnit\Framework\TestCase;
 
-class ToneAnalyzerTest extends TestCase{
+class ToneAnalyzerTest extends TestCase {
 
-    public function testToneAnalyzer(){
-        $this->assertEquals('true', 'true');
+    public function testToneAnalyzerTokenProvider () {
+
+        $provider = new SimpleTokenProvider('https://your-token-factory-url');
+
+        $this->assertInstanceOf(
+            SimpleTokenProvider::class, 
+            $provider
+        );
+
+        $this->assertEquals($provider->getToken(), NULL);
+    }
+
+    public function testToneAnalyzerModel () {
+
+        $model    = new ToneAnalyzerModel();
+        $provider = new SimpleTokenProvider('https://your-token-factory-url');
+
+        $this->assertInstanceOf(
+            ToneAnalyzerModel::class, 
+            $model
+        );
+
+        $this->assertInstanceOf(
+            ToneAnalyzerModel::class, 
+            $model
+        );
+
+        $model->setUsername('u');
+        $model->setPassword('p');
+        $model->setText('t');
+        $model->setTokenProvider($provider);
+
+        $this->assertEquals($model->getUsername(), 'u');
+        $this->assertEquals($model->getPassword(), 'p');
+        $this->assertEquals($model->getText(), 't');
+
+        $this->assertEquals($model->getTokenProvider(), $provider);
+
+    }
+
+    public function testToneAnalyzer() {
+
+        $analyzer = new ToneAnalyzer();
+        $model    = new ToneAnalyzerModel();
+
+        $this->assertInstanceOf(
+            ToneAnalyzer::class, 
+            $analyzer
+        );
+        $username = getenv('TONE_ANALYZER_USERNAME');
+        $password = getenv('TONE_ANALYZER_PASSWORD');
+
+        // $model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
+        $model->setText('I am so happy!');
+
+        $result = $analyzer->Tone($model);
+
+        print_r($result);
     }
 }
