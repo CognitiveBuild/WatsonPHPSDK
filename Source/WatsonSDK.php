@@ -14,6 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require __DIR__ . '/Source/Common/HttpClient.php';
-require __DIR__ . '/Source/ToneAnalyzer/ToneAnalyzer.php';
-require __DIR__.'/demoToken.php';
+
+require __DIR__ . './../vendor/autoload.php';

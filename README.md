@@ -1,19 +1,23 @@
 # Watson PHP SDK
+
+[![Language: PHP](https://img.shields.io/badge/php->=5.6-orange.svg?style=flat)](http://php.net/)
+[![Build Status](https://travis-ci.org/mihui/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/mihui/WatsonPHPSDK)
+[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/mihui/WatsonPHPSDK)
+
 Watson PHP SDK for IBM Watson Developer Cloud
 
 ##Installation
 
-The recommended way to install Watson PHP SDK is through
-[Composer](http://getcomposer.org).
+The recommended way to install Watson PHP SDK is through [Composer](http://getcomposer.org).
 
-```bash
+```shell
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 ```
 
 Run the Composer command to install the latest version of the Watson PHP SDK:
 
-```bash
+```shell
 php composer.phar require CognitiveBuild/WatsonPHPSDK:master
 ```
 
@@ -24,27 +28,34 @@ require 'vendor/autoload.php';
 ```
 
 ##Usage
-####Tone Analyzer
-```php
-// Using WatsonSDK\Service\ToneAnalyzer namespace
-use WatsonSDK\Service\ToneAnalyzer;
 
-$toneAnalyzer = new ToneAnalyzer();
-$result = $toneAnalyzer->Tone('your_username', 'your_password', 'text to be analyzed');
-var_dump($result);
+```php
+// Using WatsonSDK\Services\ToneAnalyzer namespace
+use WatsonSDK\Services\ToneAnalyzer;
+
+$analyzer = new ToneAnalyzer();
+$model    = new ToneAnalyzerModel();
 ```
 
-##Issues
-- If you use https request,and got the SSL issue as below
+Invoke Tone Analyzer API using credentials, 
+```php
+$model->setUsername('your_username');
+$model->setPassword('your_password');
+```
 
- `CURL error 6-:SSL certificate:unable to get local issuer certificate.`
-- Solutions
-  - Change your cURL to SSL version
-  - Minor solution: access(https://curl.haxx.se/docs/caextract.html), download the cacert.pem file, modify your php.ini, find field `curl.cainfo`, then change it as below and restart your server
+or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample of TokenProvider, we recommend you to implement your own Token Provider, by implementing the `TokenProviderInterface`
+```php
+$model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
+```
 
-    ```php
-curl.cainfo = "your saved path\cacert.pem"
-    ```
+Place the content to be analyzed, call the Tone API and check the result: 
+```php
+$model->setText('your text to be analyzed');
+$result = $analyzer->Tone($model);
+
+// View results
+echo $result->getContent();
+```
 
 ##License
 Copyright 2016 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
