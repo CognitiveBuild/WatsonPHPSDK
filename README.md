@@ -1,17 +1,19 @@
 # Watson PHP SDK
 
-[![Language: PHP](https://img.shields.io/badge/php->=5.6-orange.svg?style=flat)](http://php.net/)
-[![Build Status](https://travis-ci.org/mihui/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/mihui/WatsonPHPSDK)
-[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/mihui/WatsonPHPSDK)
+[![Language: PHP](https://img.shields.io/badge/php-5.6+-orange.svg?style=flat)](http://php.net/)
+[![Build Status](https://travis-ci.org/CognitiveBuild/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/CognitiveBuild/WatsonPHPSDK)
+[![codecov](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK)
 
 Watson PHP SDK for IBM Watson Developer Cloud
 
-##Installation
+## Installation
 
-The recommended way to install Watson PHP SDK is through [Composer](http://getcomposer.org).
+#### Dependency Management
 
+We recommend installing [Composer](http://getcomposer.org) to manage dependencies for your application.
+
+You can install Composer with curl: 
 ```shell
-# Install Composer
 curl -sS https://getcomposer.org/installer | php
 ```
 
@@ -21,17 +23,25 @@ Run the Composer command to install the latest version of the Watson PHP SDK:
 php composer.phar require CognitiveBuild/WatsonPHPSDK:master
 ```
 
-After installing, you need to require Composer's autoloader:
+After installation, include `autoload.php`:
 
 ```php
 require 'vendor/autoload.php';
 ```
 
-##Usage
+## Services
+* [Tone Analyzer](#tone-analyzer)
+
+## Tone Analyzer
+The IBM Watson Tone Analyzer service can be used to discover, understand, and revise the language tones in text. The service uses linguistic analysis to detect three types of tones from written text: emotions, social tendencies, and writing style.
+
+Emotions identified include things like anger, fear, joy, sadness, and disgust. Identified social tendencies include things from the Big Five personality traits used by some psychologists. These include openness, conscientiousness, extraversion, agreeableness, and emotional range. Identified writing styles include confident, analytical, and tentative.
+
+The following example demonstrates how to use the Tone Analyzer service:
 
 ```php
-// Using WatsonSDK\Services\ToneAnalyzer namespace
 use WatsonSDK\Services\ToneAnalyzer;
+use WatsonSDK\Services\ToneAnalyzerModel;
 
 $analyzer = new ToneAnalyzer();
 $model    = new ToneAnalyzerModel();
@@ -43,7 +53,7 @@ $model->setUsername('your_username');
 $model->setPassword('your_password');
 ```
 
-or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample of TokenProvider, we recommend you to implement your own Token Provider, by implementing the `TokenProviderInterface`
+or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample of TokenProvider, we recommend you to implement your own Token Provider, by implementing the `TokenProviderInterface`.
 ```php
 $model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
 ```
@@ -57,5 +67,5 @@ $result = $analyzer->Tone($model);
 echo $result->getContent();
 ```
 
-##License
-Copyright 2016 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
+## License
+Copyright 2017 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
