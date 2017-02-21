@@ -75,8 +75,13 @@ class ToneAnalyzerTest extends TestCase {
             ToneAnalyzer::class, 
             $analyzer
         );
+
+        print_r($_ENV);
+
         $username = getenv('TONE_ANALYZER_USERNAME');
         $password = getenv('TONE_ANALYZER_PASSWORD');
+        $model->setUsername($username);
+        $model->setPassword($password);
 
         // $model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
         $model->setText('I am so happy!');
