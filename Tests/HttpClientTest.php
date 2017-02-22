@@ -65,7 +65,6 @@ final class HttpClientTest extends TestCase {
     // 
     public function testHttpClientRequest() {
 
-        return;
         $httpClient = new HttpClient();
         $config = new HttpClientConfiguration();
         $config->setURL('https://www.ibm.com/watson/developercloud/');
