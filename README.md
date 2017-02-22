@@ -1,8 +1,8 @@
 # Watson PHP SDK
 
 [![Language: PHP](https://img.shields.io/badge/php-5.6+-orange.svg?style=flat)](http://php.net/)
-[![Build Status](https://travis-ci.org/mihui/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/mihui/WatsonPHPSDK)
-[![codecov](https://codecov.io/gh/mihui/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/mihui/WatsonPHPSDK)
+[![Build Status](https://travis-ci.org/CognitiveBuild/WatsonPHPSDK.svg?branch=master)](https://travis-ci.org/CognitiveBuild/WatsonPHPSDK)
+[![codecov](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK/branch/master/graph/badge.svg)](https://codecov.io/gh/CognitiveBuild/WatsonPHPSDK)
 
 Watson PHP SDK for IBM Watson Developer Cloud
 
