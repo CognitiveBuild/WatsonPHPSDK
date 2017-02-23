@@ -16,8 +16,12 @@
  */
 
 namespace WatsonSDK\Tests;
+require_once ('Samples/TokenService.php');
+require_once ('Samples/TokenServiceModel.php');
 use WatsonSDK\Common\TokenProviderInterface;
 use WatsonSDK\Common\SimpleTokenProvider;
+use WatsonSDK\Samples\TokenService;
+use WatsonSDK\Samples\TokenServiceModel;
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
 use WatsonSDK\Common\HttpResponse;
@@ -67,27 +71,7 @@ class ToneAnalyzerTest extends TestCase {
 
     }
 
-    /**
-     * @dataProvider toneWithBasicAuthProvider
-     */
-    public function testToneAnalyzer($Username,$Password,$Statuscode,$Text='Im so happy') {
-        $analyzer = new ToneAnalyzer();
-        $model    = new ToneAnalyzerModel();
-
-        $this->assertInstanceOf(
-            ToneAnalyzer::class,
-            $analyzer
-        );
-        $model->setUsername($Username);
-        $model->setPassword($Password);
-
-        $model->setText($Text);
-
-        $result = $analyzer->Tone($model);
-        $this->assertEquals($Statuscode,$result->getStatusCode());
-    }
-
-    public function testTone() {
+    public function testToneAnalyzer() {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
 
@@ -99,40 +83,12 @@ class ToneAnalyzerTest extends TestCase {
         $model->setUsername(getenv('TONE_ANALYZER_USERNAME'));
         $model->setPassword(getenv('TONE_ANALYZER_PASSWORD'));
 
-
-        print_r($_ENV);
-
-        $username = getenv('TONE_ANALYZER_USERNAME');
-        $password = getenv('TONE_ANALYZER_PASSWORD');
-        $model->setUsername($username);
-        $model->setPassword($password);
-
-
         $model->setText('I am so happy!');
 
         $result = $analyzer->Tone($model);
+        $this->assertEquals(200,$result->getStatusCode());
         return $result;
 
-    }
-
-
-    /**
-     * @depends testTone
-     */
-    public function testResponseAttribute(){
-        $this->assertObjectHasAttribute('_content',func_get_args()[0]);
-        $this->assertObjectHasAttribute('_status_code',func_get_args()[0]);
-        $this->assertObjectHasAttribute('_size',func_get_args()[0]);
-    }
-
-
-    /**
-     * @depends testTone
-     */
-    public function testStatus(){
-        $this->assertObjectHasAttribute('_content',func_get_args()[0]);
-        $this->assertObjectHasAttribute('_status_code',func_get_args()[0]);
-        $this->assertObjectHasAttribute('_size',func_get_args()[0]);
     }
 
     /**
@@ -156,33 +112,27 @@ class ToneAnalyzerTest extends TestCase {
         $this->assertEquals($Statuscode,$result->getStatusCode());
     }
 
-    public function toneWithBasicAuthProvider()
+    public function toneWithTokenProvider()
     {
-        $Username=getenv('TONE_ANALYZER_USERNAME');
-        $Password=getenv('TONE_ANALYZER_PASSWORD');
+        $validToken=$this->obtainToken();
+        $invalidToken='token';
         return [
-            [$Username, $Password, 200],
-            [$Username, $Password,400,''],
-            ['username', $Password, 401],
-            [$Username, 'password', 401],
-            ['username', 'password', 401],
-            ['', $Password, 401],
-            [$Username,'', 401],
-            ['','', 401]
+            'case0'=>[$validToken, 200]
         ];
     }
 
-    public function toneWithTokenProvider()
-    {
-        $validToken=getenv('TONE_ANALYZER_TOKEN');
-        $invalidToken='token';
-        return [
-            'case0'=>[$validToken, 200],
-            'case1'=>[$validToken,400,''],
-            'case2'=>[$invalidToken,403],
-            'case3'=>[$invalidToken,403,''],
-            'case4'=>['',401],
-            'case5'=>['',401,''],
-        ];
+    public function obtainToken(){
+
+        $token = new TokenService();
+        $model    = new TokenServiceModel();
+
+        $model->setUsername(getenv('TONE_ANALYZER_USERNAME'));
+        $model->setPassword(getenv('TONE_ANALYZER_PASSWORD'));
+
+        $model->setUrl('https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19');
+
+        $result = $token->Token($model);
+
+        return $result;
     }
 }
