@@ -91,35 +91,23 @@ class ToneAnalyzerTest extends TestCase {
 
     }
 
-    /**
-     * @dataProvider toneWithTokenProvider
-     */
-    public function testToneWithTokenProvider($Token,$Statuscode,$Text='I feel so happy') {
+    public function testToneWithTokenProvider() {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
+        $Text='I feel so happy';
+        $validToken=$this->obtainToken();
 
-        $this->assertInstanceOf(
-            ToneAnalyzer::class,
-            $analyzer
-        );
+
         $tokenProvider=new SimpleTokenProvider('http://www.baidu.com');
-        $tokenProvider->setToken($Token);
+        $tokenProvider->setToken($validToken);
          $model->setTokenProvider($tokenProvider);
         $model->setText($Text);
 
         $result = $analyzer->Tone($model);
 
-        $this->assertEquals($Statuscode,$result->getStatusCode());
+        $this->assertEquals(200,$result->getStatusCode());
     }
 
-    public function toneWithTokenProvider()
-    {
-        $validToken=$this->obtainToken();
-        $invalidToken='token';
-        return [
-            'case0'=>[$validToken, 200]
-        ];
-    }
 
     public function obtainToken(){
 
