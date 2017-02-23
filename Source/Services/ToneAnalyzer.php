@@ -64,7 +64,8 @@ class ToneAnalyzer {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            return new HttpResponse($ex->getMessage(), $ex->getCode());
+            $response=new HttpResponse($ex->getCode(),$ex->getMessage());
+            return $response;
         }
     }
 }

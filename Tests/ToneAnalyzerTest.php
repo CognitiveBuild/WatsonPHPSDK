@@ -16,11 +16,12 @@
  */
 
 namespace WatsonSDK\Tests;
-
 use WatsonSDK\Common\TokenProviderInterface;
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
+use WatsonSDK\Common\HttpResponse;
+use WatsonSDK\Common\HttpClientException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -66,23 +67,112 @@ class ToneAnalyzerTest extends TestCase {
 
     }
 
-    public function testToneAnalyzer() {
-
+    /**
+     * @dataProvider toneWithBasicAuthProvider
+     */
+    public function testToneAnalyzer($Username,$Password,$Statuscode,$Text='Im so happy') {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
 
         $this->assertInstanceOf(
-            ToneAnalyzer::class, 
+            ToneAnalyzer::class,
             $analyzer
         );
-        $username = getenv('TONE_ANALYZER_USERNAME');
-        $password = getenv('TONE_ANALYZER_PASSWORD');
+        $model->setUsername($Username);
+        $model->setPassword($Password);
 
-        // $model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
+        $model->setText($Text);
+
+        $result = $analyzer->Tone($model);
+        $this->assertEquals($Statuscode,$result->getStatusCode());
+    }
+
+    public function testTone() {
+        $analyzer = new ToneAnalyzer();
+        $model    = new ToneAnalyzerModel();
+
+        $this->assertInstanceOf(
+            ToneAnalyzer::class,
+            $analyzer
+        );
+        $model->setUsername(getenv('TONE_ANALYZER_USERNAME'));
+        $model->setPassword(getenv('TONE_ANALYZER_PASSWORD'));
+
         $model->setText('I am so happy!');
 
         $result = $analyzer->Tone($model);
+        return $result;
 
-        print_r($result);
+    }
+
+
+    /**
+     * @depends testTone
+     */
+    public function testResponseAttribute(){
+        $this->assertObjectHasAttribute('_content',func_get_args()[0]);
+        $this->assertObjectHasAttribute('_status_code',func_get_args()[0]);
+        $this->assertObjectHasAttribute('_size',func_get_args()[0]);
+    }
+
+
+    /**
+     * @depends testTone
+     */
+    public function testStatus(){
+        $this->assertObjectHasAttribute('_content',func_get_args()[0]);
+        $this->assertObjectHasAttribute('_status_code',func_get_args()[0]);
+        $this->assertObjectHasAttribute('_size',func_get_args()[0]);
+    }
+
+    /**
+     * @dataProvider toneWithTokenProvider
+     */
+    public function testToneWithTokenProvider($Token,$Statuscode,$Text='I feel so happy') {
+        $analyzer = new ToneAnalyzer();
+        $model    = new ToneAnalyzerModel();
+
+        $this->assertInstanceOf(
+            ToneAnalyzer::class,
+            $analyzer
+        );
+        $tokenProvider=new SimpleTokenProvider('http://www.baidu.com');
+        $tokenProvider->setToken($Token);
+         $model->setTokenProvider($tokenProvider);
+        $model->setText($Text);
+
+        $result = $analyzer->Tone($model);
+
+        $this->assertEquals($Statuscode,$result->getStatusCode());
+    }
+
+    public function toneWithBasicAuthProvider()
+    {
+        $Username=getenv('TONE_ANALYZER_USERNAME');
+        $Password=getenv('TONE_ANALYZER_PASSWORD');
+        return [
+            [$Username, $Password, 200],
+            [$Username, $Password,400,''],
+            ['username', $Password, 401],
+            [$Username, 'password', 401],
+            ['username', 'password', 401],
+            ['', $Password, 401],
+            [$Username,'', 401],
+            ['','', 401]
+        ];
+    }
+
+    public function toneWithTokenProvider()
+    {
+        $validToken=getenv('TONE_ANALYZER_TOKEN');
+        $invalidToken='token';
+        return [
+            'case0'=>[$validToken, 200],
+            'case1'=>[$validToken,400,''],
+            'case2'=>[$invalidToken,403],
+            'case3'=>[$invalidToken,403,''],
+            'case4'=>['',401],
+            'case5'=>['',401,''],
+        ];
     }
 }
