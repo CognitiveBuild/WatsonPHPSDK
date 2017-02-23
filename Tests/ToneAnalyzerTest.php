@@ -24,8 +24,6 @@ use WatsonSDK\Samples\TokenService;
 use WatsonSDK\Samples\TokenServiceModel;
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
-use WatsonSDK\Common\HttpResponse;
-use WatsonSDK\Common\HttpClientException;
 
 use PHPUnit\Framework\TestCase;
 
