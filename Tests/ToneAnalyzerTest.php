@@ -18,7 +18,6 @@
 namespace WatsonSDK\Tests;
 require_once ('Samples/TokenService.php');
 require_once ('Samples/TokenServiceModel.php');
-use WatsonSDK\Common\TokenProviderInterface;
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Samples\TokenService;
 use WatsonSDK\Samples\TokenServiceModel;
