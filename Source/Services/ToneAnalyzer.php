@@ -54,12 +54,15 @@ class ToneAnalyzer {
             $token = $model->getTokenProvider()->getToken();
             $this->_httpConfig->setHeader([ 'X-Watson-Authorization-Token' => $token ]);
         }
-
+        $query=array('version' => $model->getVersion());
+        if(!is_null($model->getTones()))
+            $query['tones'] = $model->getTones();
+        if(!is_null($model->getSentences()))
+            $query['sentences'] = $model->getSentences();
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setQuery([ 'version' => $model->getVersion() ]);
+        $this->_httpConfig->setQuery($query);
         $this->_httpConfig->setURL(ToneAnalyzerModel::BASE_URL."/tone");
-
         try {
             return $this->_httpClient->request($this->_httpConfig);
         }

@@ -27,7 +27,7 @@ use WatsonSDK\Services\ToneAnalyzerModel;
 use PHPUnit\Framework\TestCase;
 
 class ToneAnalyzerTest extends TestCase {
-
+    //test ToneAnalyzerTokenProvider to be sure it worked well.
     public function testToneAnalyzerTokenProvider () {
 
         $provider = new SimpleTokenProvider('https://your-token-factory-url');
@@ -39,7 +39,7 @@ class ToneAnalyzerTest extends TestCase {
 
         $this->assertEquals($provider->getToken(), NULL);
     }
-
+    //test ToneAnalyzerModel to confirm the properties were all worked well with getter and setter.
     public function testToneAnalyzerModel () {
 
         $model    = new ToneAnalyzerModel();
@@ -59,15 +59,18 @@ class ToneAnalyzerTest extends TestCase {
         $model->setPassword('p');
         $model->setText('t');
         $model->setTokenProvider($provider);
+        $model->setTones('e');
+        $model->setSentences(true);
 
         $this->assertEquals($model->getUsername(), 'u');
         $this->assertEquals($model->getPassword(), 'p');
         $this->assertEquals($model->getText(), 't');
-
         $this->assertEquals($model->getTokenProvider(), $provider);
+        $this->assertEquals($model->getTones(),'e');
+        $this->assertEquals($model->getSentences(),true);
 
     }
-
+    //test ToneAnalyzer using basic auth.
     public function testToneAnalyzer() {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
@@ -83,11 +86,12 @@ class ToneAnalyzerTest extends TestCase {
         $model->setText('I am so happy!');
 
         $result = $analyzer->Tone($model);
+
         $this->assertEquals(200,$result->getStatusCode());
         return $result;
 
     }
-
+    //test ToneAnalyzer using token with obtainToken method to get valid token everytime.
     public function testToneWithTokenProvider() {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
@@ -105,7 +109,7 @@ class ToneAnalyzerTest extends TestCase {
         $this->assertEquals(200,$result->getStatusCode());
     }
 
-
+    //obtainToken method used to getToken.just for testcase.
     public function obtainToken(){
 
         $token = new TokenService();
@@ -120,4 +124,5 @@ class ToneAnalyzerTest extends TestCase {
 
         return $result;
     }
+
 }
