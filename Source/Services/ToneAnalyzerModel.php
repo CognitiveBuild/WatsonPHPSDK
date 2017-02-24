@@ -32,7 +32,7 @@ class ToneAnalyzerModel extends ServiceModel {
     // Sentences with less than three words cannot be analyzed.
     protected $text;
     // Filter the results by a specific tone. Valid values for tones are emotion, language, and social.
-    protected $tones;
+    protected $_tones;
     // When we make breaking changes to the API, we release a new, dated version. 
     // The value for the version parameter is the date for the version of the API that you want to call. 
     // The current version is 2016-05-19, and the documentation reflects the current version. 
@@ -40,13 +40,13 @@ class ToneAnalyzerModel extends ServiceModel {
     // Filter your response to remove the sentence level analysis. Valid values for sentences are true and false. 
     // This parameter defaults to true when it's not set, which means that a sentence level analysis is automatically provided. 
     // Change sentences=false to filter out the sentence level analysis. 
-    protected $sentences;
+    protected $_sentences;
 
     function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19') {
 
         $this->text = $text;
-        $this->tones = $tones;
-        $this->sentences = $sentences;
+        $this->_tones = $tones;
+        $this->_sentences = $sentences;
         $this->_version = $version;
     }
 
@@ -71,7 +71,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @return string
      */
     public function getTones() {
-        return $this->tones;
+        return $this->_tones;
     }
 
     /**
@@ -79,7 +79,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @param $val
      */
     public function setTones($val) {
-        $this->tones = $val;
+        $this->_tones = $val;
     }
 
     /**
@@ -87,7 +87,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @return string
      */
     public function getSentences() {
-        return $this->sentences;
+        return $this->_sentences;
     }
 
     /**
@@ -95,7 +95,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @param $val
      */
     public function setSentences($val) {
-        $this->sentences = $val;
+        $this->_sentences = $val;
     }
 
     /**
