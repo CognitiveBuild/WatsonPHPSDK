@@ -84,12 +84,20 @@ class ToneAnalyzerTest extends TestCase {
         $model->setPassword(getenv('TONE_ANALYZER_PASSWORD'));
 
         $model->setText('I am so happy!');
+        $model->setTones('social');
 
         $result = $analyzer->Tone($model);
-
         $this->assertEquals(200,$result->getStatusCode());
-        return $result;
+        return $result->getContent();
+    }
 
+    /**
+     * @depends testToneAnalyzer
+     * setTones to sure the response could be affected
+     */
+    public function testTones($content){
+        $obj=\GuzzleHttp\json_decode($content);
+        $this->assertEquals('social_tone',$obj->document_tone->tone_categories[0]->category_id);
     }
     //test ToneAnalyzer using token with obtainToken method to get valid token everytime.
     public function testToneWithTokenProvider() {

@@ -28,18 +28,32 @@ class ToneAnalyzerModel extends ServiceModel {
 
     const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';
 
-    // Text that contains the content to be analyzed. The Tone Analyzer Service supports up to 128KB of text, or about 1000 sentences. 
-    // Sentences with less than three words cannot be analyzed.
+    /**
+     * Text that contains the content to be analyzed. The Tone Analyzer Service supports up to 128KB of text,
+     * or about 1000 sentences.Sentences with less than three words cannot be analyzed.
+     */
     protected $text;
-    // Filter the results by a specific tone. Valid values for tones are emotion, language, and social.
+
+    /**
+     * @query
+     * Filter the results by a specific tone. Valid values for tones are emotion, language, and social.
+     */
     protected $_tones;
-    // When we make breaking changes to the API, we release a new, dated version. 
-    // The value for the version parameter is the date for the version of the API that you want to call. 
-    // The current version is 2016-05-19, and the documentation reflects the current version. 
+
+    /**
+     * @query
+     * When we make breaking changes to the API, we release a new, dated version.
+     * The value for the version parameter is the date for the version of the API that you want to call.
+     * The current version is 2016-05-19, and the documentation reflects the current version.
+     */
     private $_version;
-    // Filter your response to remove the sentence level analysis. Valid values for sentences are true and false. 
-    // This parameter defaults to true when it's not set, which means that a sentence level analysis is automatically provided. 
-    // Change sentences=false to filter out the sentence level analysis. 
+
+    /**
+     * @query
+     * Filter your response to remove the sentence level analysis. Valid values for sentences are true and false.
+     * This parameter defaults to true when it's not set, which means that a sentence level analysis is automatically provided.
+     * Change sentences=false to filter out the sentence level analysis.
+     */
     protected $_sentences;
 
     function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19') {

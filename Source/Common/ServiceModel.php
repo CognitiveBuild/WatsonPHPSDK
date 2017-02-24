@@ -91,4 +91,21 @@ class ServiceModel {
 
         return $vars;
     }
+
+    /**
+     * Generate request query data
+     * @return string
+     */
+    public function getQueryData($model) {
+        $vars=null;
+        $reflect=(new \ReflectionClass($model));
+        foreach($reflect->getProperties() as $value){
+            $value->setAccessible(true);
+            if(!is_null($value->getValue($model))&&preg_match('/@query(.*?)\n/',$value->getDocComment())===1){
+                $vars[substr_replace($value->getName(),'',0,1)]=$value->getValue($model);
+            }
+        }
+
+        return $vars;
+    }
 }
