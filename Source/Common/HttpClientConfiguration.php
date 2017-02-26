@@ -99,6 +99,7 @@ class HttpClientConfiguration {
         if(is_array($this->getQuery()) && count($this->getQuery()) > 0) {
             $options['query'] = $this->getQuery();
         }
+
         // Set header
         if(is_array($this->getHeader()) && count($this->getHeader()) > 0) {
             $options['headers'] = $this->getHeader();
