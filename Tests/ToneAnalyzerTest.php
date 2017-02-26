@@ -19,7 +19,6 @@ namespace WatsonSDK\Tests;
 
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Common\HttpClient;
-use WatsonSDK\Common\HttpResponse;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
 
@@ -115,6 +114,7 @@ class ToneAnalyzerTest extends TestCase {
         $analyzer = new ToneAnalyzer();
         $model    = new ToneAnalyzerModel();
         $tokenProvider = new SimpleTokenProvider('');
+
         $username = getenv('TONE_ANALYZER_USERNAME');
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
@@ -144,7 +144,7 @@ class ToneAnalyzerTest extends TestCase {
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
         if(isset($username) && isset($password)) {
-            
+
             $httpConfig->setCredentials([ $username, $password ]);
             $httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
             $httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
