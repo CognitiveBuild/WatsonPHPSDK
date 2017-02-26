@@ -44,6 +44,7 @@ class ToneAnalyzer {
     public function Tone(ToneAnalyzerModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
+        $this->_httpConfig->setQuery($model->getData('@query'));
 
         if(is_null($model->getTokenProvider())) {
             // Basic authentication
@@ -58,7 +59,6 @@ class ToneAnalyzer {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setQuery($model->getData('@query'));
         $this->_httpConfig->setURL(ToneAnalyzerModel::BASE_URL."/tone");
 
         try {

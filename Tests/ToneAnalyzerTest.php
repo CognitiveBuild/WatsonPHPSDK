@@ -17,10 +17,11 @@
 
 namespace WatsonSDK\Tests;
 
-use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Common\HttpClient;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
+use WatsonSDK\Common\SimpleTokenProvider;
+use WatsonSDK\Common\SimpleTokenHelper;
 
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
@@ -119,7 +120,7 @@ class ToneAnalyzerTest extends TestCase {
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
         try {
-            $token = $this->getToken();
+            $token = $this->getToken($username, $password);
             $tokenProvider->setToken($token);
             $model->setTokenProvider($tokenProvider);
             $model->setText('I feel so happy');
@@ -133,28 +134,14 @@ class ToneAnalyzerTest extends TestCase {
         }
     }
 
-    private function getToken() {
+    /**
+     * Request a new token
+     */ 
+    private function getToken($username, $password) {
 
         $serviceUrl = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19';
-        $authUrl = 'https://gateway.watsonplatform.net/authorization/api/v1/token';
-        $httpClient = new HttpClient();
-        $httpConfig = new HttpClientConfiguration();
 
-        $username = getenv('TONE_ANALYZER_USERNAME');
-        $password = getenv('TONE_ANALYZER_PASSWORD');
-
-        if(isset($username) && isset($password)) {
-
-            $httpConfig->setCredentials([ $username, $password ]);
-            $httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
-            $httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-            $httpConfig->setQuery([ 'url' => $serviceUrl ]);
-            $httpConfig->setURL($authUrl);
-
-            return $httpClient->request($httpConfig);
-        }
-
-        return NULL;
+        return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
     }
 
 }
