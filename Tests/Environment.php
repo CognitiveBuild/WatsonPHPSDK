@@ -21,7 +21,7 @@ class Environment {
 
     private $_path = '';
 
-    function __construct($path = __DIR__, $file = '.env') {
+    function __construct($path = __DIR__, $file = 'Credentials.env') {
 
         $this->_path = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$file;
     }
@@ -32,7 +32,6 @@ class Environment {
             $autodetect = ini_get('auto_detect_line_endings');
             ini_set('auto_detect_line_endings', '1');
             $data = file($this->_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            ini_set('auto_detect_line_endings', $autodetect);
 
             foreach ($data as $line) {
                 if(strpos($line, '=') !== false) {
@@ -40,6 +39,8 @@ class Environment {
                     putenv("{$name}={$value}");
                 }
             }
+
+            ini_set('auto_detect_line_endings', $autodetect);
         }
     }
 
