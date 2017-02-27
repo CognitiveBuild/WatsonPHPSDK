@@ -29,7 +29,7 @@ use WatsonSDK\Services\ToneAnalyzerModel;
 
 use PHPUnit\Framework\TestCase;
 
-class ToneAnalyzerTest extends TestCase {
+final class ToneAnalyzerTest extends TestCase {
 
     protected function setUp() {
         $env = new Environment(__DIR__);
@@ -37,34 +37,19 @@ class ToneAnalyzerTest extends TestCase {
     }
 
     /**
-     * ToneAnalyzerTokenProvider unit test
-     */
-    public function testToneAnalyzerTokenProvider () {
-
-        $provider = new SimpleTokenProvider('https://your-token-factory-url');
-
-        $this->assertInstanceOf(
-            SimpleTokenProvider::class,
-            $provider
-        );
-
-        $this->assertEquals($provider->getToken(), NULL);
-    }
-
-    /**
      * ToneAnalyzerModel unit test
      */
     public function testToneAnalyzerModel () {
 
-        $model    = new ToneAnalyzerModel();
+        $model = new ToneAnalyzerModel();
 
         $this->assertInstanceOf(
-            ToneAnalyzerModel::class,
+            ToneAnalyzerModel::class, 
             $model
         );
 
         $this->assertInstanceOf(
-            ToneAnalyzerModel::class,
+            ToneAnalyzerModel::class, 
             $model
         );
 
@@ -73,7 +58,7 @@ class ToneAnalyzerTest extends TestCase {
         $model->setSentences(true);
 
         $this->assertEquals($model->getText(), 't');
-        $this->assertEquals($model->getTones(),'e');
+        $this->assertEquals($model->getTones(), 'e');
         $this->assertEquals($model->getSentences(), true);
     }
 
@@ -85,11 +70,11 @@ class ToneAnalyzerTest extends TestCase {
         $username = getenv('TONE_ANALYZER_USERNAME');
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
-        $analyzer = new ToneAnalyzer(new WatsonCredential($username, $password));
+        $analyzer = new ToneAnalyzer(WatsonCredential::initWithCredentials($username, $password));
         $model    = new ToneAnalyzerModel();
 
         $this->assertInstanceOf(
-            ToneAnalyzer::class,
+            ToneAnalyzer::class, 
             $analyzer
         );
 
