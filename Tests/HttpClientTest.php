@@ -40,7 +40,8 @@ final class HttpClientTest extends TestCase {
         $this->assertEquals($config->getTimeout(), 0);
         $this->assertNull($config->getType());
         $this->assertEquals($config->getQuery(), []);
-        $this->assertEquals($config->getQuery(), []);
+        $this->assertEquals($config->getHeader(), []);
+        $this->assertEquals($config->getData(), []);
         $this->assertEquals($config->toOptions(), []);
         // 
         $config->setCredentials([ 'username', 'password' ]);
@@ -60,6 +61,9 @@ final class HttpClientTest extends TestCase {
         // 
         $config->setURL('https://www.ibm.com/watson/developercloud/');
         $this->assertEquals($config->getURL(), 'https://www.ibm.com/watson/developercloud/');
+        //
+        $config->setType(HttpClientConfiguration::DATA_TYPE_FORM);
+        $this->assertEquals($config->getType(), 'form_params');
     }
 
     // 
