@@ -37,30 +37,23 @@ The IBM Watson Tone Analyzer service can be used to discover, understand, and re
 
 Emotions identified include things like anger, fear, joy, sadness, and disgust. Identified social tendencies include things from the Big Five personality traits used by some psychologists. These include openness, conscientiousness, extraversion, agreeableness, and emotional range. Identified writing styles include confident, analytical, and tentative.
 
-The following example demonstrates how to use the Tone Analyzer service:
+The following example demonstrates how to use the Tone Analyzer service by using credentials:
 
 ```php
-use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzerModel;
-
-$analyzer = new ToneAnalyzer();
-$model    = new ToneAnalyzerModel();
-```
-
-Invoke Tone Analyzer API using credentials, 
-```php
-$model->setUsername('your_username');
-$model->setPassword('your_password');
+$analyzer = new ToneAnalyzer( WatsonCredential::initWithCredentials('your_username', 'your_password') );
 ```
 
 or invoke Tone Analyzer API using token, the `SimpleTokenProvider` is a sample of TokenProvider, we recommend you to implement your own Token Provider, by implementing the `TokenProviderInterface`.
 ```php
-$model->setTokenProvider( new SimpleTokenProvider('https://your-token-factory-url') );
+$tokenProvider = new SimpleTokenProvider('https://your-token-factory-url');
+$analyzer = new ToneAnalyzer( WatsonCredential::initWithTokenProvider( $tokenProvider ) );
 ```
 
 Place the content to be analyzed, call the Tone API and check the result: 
 ```php
-$model->setText('your text to be analyzed');
+$model  = new ToneAnalyzerModel();
+$model->setText('your text to be analyzed.');
+
 $result = $analyzer->Tone($model);
 
 // View results
