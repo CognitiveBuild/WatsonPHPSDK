@@ -22,6 +22,7 @@ use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Common\SimpleTokenHelper;
+use WatsonSDK\Common\WatsonCredential;
 
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
@@ -56,7 +57,6 @@ class ToneAnalyzerTest extends TestCase {
     public function testToneAnalyzerModel () {
 
         $model    = new ToneAnalyzerModel();
-        $provider = new SimpleTokenProvider('https://your-token-factory-url');
 
         $this->assertInstanceOf(
             ToneAnalyzerModel::class,
@@ -68,17 +68,11 @@ class ToneAnalyzerTest extends TestCase {
             $model
         );
 
-        $model->setUsername('u');
-        $model->setPassword('p');
         $model->setText('t');
-        $model->setTokenProvider($provider);
         $model->setTones('e');
         $model->setSentences(true);
 
-        $this->assertEquals($model->getUsername(), 'u');
-        $this->assertEquals($model->getPassword(), 'p');
         $this->assertEquals($model->getText(), 't');
-        $this->assertEquals($model->getTokenProvider(), $provider);
         $this->assertEquals($model->getTones(),'e');
         $this->assertEquals($model->getSentences(), true);
     }
@@ -87,19 +81,17 @@ class ToneAnalyzerTest extends TestCase {
      * ToneAnalyzer unit test with basic authentication
      */
     public function testToneAnalyzer() {
-        $analyzer = new ToneAnalyzer();
+
+        $username = getenv('TONE_ANALYZER_USERNAME');
+        $password = getenv('TONE_ANALYZER_PASSWORD');
+
+        $analyzer = new ToneAnalyzer(new WatsonCredential($username, $password));
         $model    = new ToneAnalyzerModel();
 
         $this->assertInstanceOf(
             ToneAnalyzer::class,
             $analyzer
         );
-
-        $username = getenv('TONE_ANALYZER_USERNAME');
-        $password = getenv('TONE_ANALYZER_PASSWORD');
-
-        $model->setUsername($username);
-        $model->setPassword($password);
 
         $model->setText('I am so happy!');
         $model->setTones('social');
@@ -112,17 +104,15 @@ class ToneAnalyzerTest extends TestCase {
     }
 
     public function testToneWithTokenProvider() {
-        $analyzer = new ToneAnalyzer();
-        $model    = new ToneAnalyzerModel();
-        $tokenProvider = new SimpleTokenProvider('');
-
-        $username = getenv('TONE_ANALYZER_USERNAME');
-        $password = getenv('TONE_ANALYZER_PASSWORD');
 
         try {
+            $username = getenv('TONE_ANALYZER_USERNAME');
+            $password = getenv('TONE_ANALYZER_PASSWORD');
             $token = $this->getToken($username, $password);
-            $tokenProvider->setToken($token);
-            $model->setTokenProvider($tokenProvider);
+
+            $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider(new SimpleTokenProvider(NULL, $token)));
+
+            $model = new ToneAnalyzerModel();
             $model->setText('I feel so happy');
 
             $result = $analyzer->Tone($model);

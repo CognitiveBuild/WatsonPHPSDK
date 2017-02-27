@@ -21,76 +21,12 @@ use \ReflectionClass;
 
 class ServiceModel {
 
-    // Username
-    private $_username;
-    // Password
-    private $_password;
-    // Token provider
-    private $_token_provider;
-    // Token
-    private $_token;
-
     /**
-     * Get username
-     * @return string
+     * Generate attributes with data using annotations
+     * 
+     * @return array
      */
-    public function getUsername() {
-        return $this->_username;
-    }
-
-    /**
-     * Set username
-     * @param $val string
-     */
-    public function setUsername($val) {
-        $this->_username = $val;
-    }
-
-    /**
-     * Get password
-     * @return string
-     */
-    public function getPassword() {
-        return $this->_password;
-    }
-
-    /**
-     * Set password
-     * @param $val string
-     */
-    public function setPassword($val) {
-        $this->_password = $val;
-    }
-
-    /**
-     * Get token provider
-     * @return TokenProviderInterface
-     */
-    public function getTokenProvider() {
-        return $this->_token_provider;
-    }
-
-    /**
-     * Set token provider
-     * @param $val TokenProviderInterface
-     */
-    public function setTokenProvider(TokenProviderInterface $val) {
-        $this->_token_provider = $val;
-    }
-
-    /**
-     * Get token string
-     * @param $val string
-     */
-    public function getToken() {
-        return $this->_token;
-    }
-
-    public function setToken($token) {
-        $this->_token = $token;
-    }
-
-    public function getData($type = '@query') {
+    final public function getData($type = '@query') {
 
         $reflection = new ReflectionClass($this);
         $attributes = $reflection->getProperties();
