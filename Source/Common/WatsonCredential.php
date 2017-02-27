@@ -37,6 +37,12 @@ class WatsonCredential {
         $this->setPassword($password);
     }
 
+    final public static function initWithCredentials($username, $password) {
+
+        $credential = new WatsonCredential($username, $password);
+        return $credential;
+    }
+
     final public static function initWithTokenProvider(TokenProviderInterface $token_provider) {
 
         $credential = new WatsonCredential();
