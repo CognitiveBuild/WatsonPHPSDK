@@ -6,7 +6,7 @@ The IBM Watson Tone Analyzer entity class used to config Parameters such as $tex
 
 --- 
 
-```
+```php
 function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19')
 ```
 Init the ToneAnalyzerModel.
@@ -20,70 +20,54 @@ Init the ToneAnalyzerModel.
 | version   | The release date of the version of the API to use. Specify the date in “YYYY-MM-DD” format.      |
 
 ###Getter and Setter
-```
- /**
+```php
+    /**
      * Get text
      * @return string
      */
-    public function getText() {
-        return $this->text;
-    }
+    public function getText();
 
     /**
      * Set text
      * @param $val
      */
-    public function setText($val) {
-        $this->text = $val;
-    }
+    public function setText($val);
 
     /**
      * Get tones
      * @return string
      */
-    public function getTones() {
-        return $this->_tones;
-    }
+    public function getTones();
 
     /**
      * Set tones
      * @param $val
      */
-    public function setTones($val) {
-        $this->_tones = $val;
-    }
+    public function setTones($val);
 
     /**
      * Get sentences
      * @return string
      */
-    public function getSentences() {
-        return $this->_sentences;
-    }
+    public function getSentences();
 
     /**
      * Set sentences
      * @param $val
      */
-    public function setSentences($val) {
-        $this->_sentences = $val;
-    }
+    public function setSentences($val);
 
     /**
      * Get version
      * @return string
      */
-    public function getVersion() {
-        return $this->_version;
-    }
+    public function getVersion();
 
     /**
      * Set version
      * @param $val
      */
-    public function setVersion($val) {
-        $this->_version = $val;
-    }
+    public function setVersion($val);
 ```
 ## License
 Copyright 2017 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
