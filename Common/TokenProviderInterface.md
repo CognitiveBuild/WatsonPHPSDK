@@ -1,11 +1,10 @@
 # TokenProviderInterface
 
-*** 
 > interface TokenProviderInterface 
 
 The IBM Watson TokenProviderInterface interface used to define the token_provider structure,and any classes need to implement this insterface to realize getToken method.
 
-***  
+---  
 
 ```
 public function getToken();

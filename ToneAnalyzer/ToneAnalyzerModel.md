@@ -1,10 +1,10 @@
 # ToneAnalyzerModel
 
-*** 
 > public class ToneAnalyzerModel
 
 The IBM Watson Tone Analyzer entity class used to config Parameters such as $text,$tones,$version,$sentences
-***  
+
+--- 
 
 ```
 function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19')
@@ -85,3 +85,5 @@ Init the ToneAnalyzerModel.
         $this->_version = $val;
     }
 ```
+## License
+Copyright 2017 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).

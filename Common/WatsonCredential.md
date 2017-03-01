@@ -1,10 +1,10 @@
 # WatsonCredential
 
-*** 
 > public class WatsonCredential
 
 The IBM Watson WatsonCredential class used to config authentication such as $_username,$_password or $_token,$_token_Provider
-***  
+
+---  
 
 ```
 function __construct($username = NULL, $password = NULL)
@@ -101,3 +101,5 @@ Init the credential with token_provider.
         $this->_token = $token;
     }
 ```
+## License
+Copyright 2017 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
