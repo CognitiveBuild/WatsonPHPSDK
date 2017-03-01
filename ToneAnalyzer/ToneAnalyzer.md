@@ -6,19 +6,19 @@ The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotiona
 
 ---
 
-```
+```php
 function __construct(WatsonCredential $credential)
 ```
 
 Init the ToneAnalyzer of the given instance of `WatsonCredential`.
 
-```
+```php
 public function Tone(ToneAnalyzerModel $model)
 ```
 
 Analyze the tone of the given instance of `ToneAnalyzerModel`.
 ###Usage
-```
+```php
 $analyzer = new ToneAnalyzer(WatsonCredential::initWithCredentials('your username', 'your password'));  
 
 $model    = new ToneAnalyzerModel();
