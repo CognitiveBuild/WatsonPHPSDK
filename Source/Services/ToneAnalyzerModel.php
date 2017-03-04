@@ -21,8 +21,6 @@ use WatsonSDK\Common\ServiceModel;
 
 /**
  * Tone Analyzer entity class
- * 
- * @todo: Properties to be sent to the services need to be protected
  */
 class ToneAnalyzerModel extends ServiceModel {
 
@@ -61,6 +59,14 @@ class ToneAnalyzerModel extends ServiceModel {
      */
     protected $_sentences;
 
+    /**
+     * Constructor
+     * 
+     * @param $text string
+     * @param $tones string | NULL
+     * @param $sentences string | NULL
+     * @param $version string
+     */
     function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19') {
 
         $this->text = $text;
@@ -79,7 +85,7 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * Set text
-     * @param $val
+     * @param $val string
      */
     public function setText($val) {
         $this->text = $val;
@@ -95,7 +101,7 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * Set tones
-     * @param $val
+     * @param $val string
      */
     public function setTones($val) {
         $this->_tones = $val;
@@ -111,7 +117,7 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * Set sentences
-     * @param $val
+     * @param $val string
      */
     public function setSentences($val) {
         $this->_sentences = $val;
@@ -127,7 +133,7 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * Set version
-     * @param $val
+     * @param $val string
      */
     public function setVersion($val) {
         $this->_version = $val;

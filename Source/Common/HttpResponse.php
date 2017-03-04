@@ -19,10 +19,28 @@ namespace WatsonSDK\Common;
 
 class HttpResponse {
 
+    /**
+     * Response body, normally string
+     */
     private $_content;
+
+    /**
+     * Standard HTTP status code
+     */
     private $_status_code;
+
+    /**
+     * Response size
+     */
     private $_size;
 
+    /**
+     * Constructor
+     * 
+     * @param $code int
+     * @param $content string
+     * @param $size int
+     */
     function __construct($code = 200, $content = '', $size = 0) {
 
         $this->_status_code = $code;
@@ -30,18 +48,38 @@ class HttpResponse {
         $this->_content = $content;
     }
 
+    /**
+     * Return response body for common use
+     * 
+     * @return string
+     */
     public function __toString() {
         return $this->_content;
     }
 
+    /**
+     * Return response body
+     * 
+     * @return string
+     */
     public function getContent() {
         return $this->_content;
     }
 
+    /**
+     * Return response size
+     * 
+     * @return int
+     */
     public function getSize() {
         return $this->_size;
     }
 
+    /**
+     * Return HTTP status code
+     * 
+     * @return int
+     */
     public function getStatusCode() {
         return $this->_status_code;
     }

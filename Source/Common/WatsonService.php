@@ -26,6 +26,11 @@ class WatsonService {
     protected $_httpClient;
     protected $_httpConfig;
 
+    /**
+     * Constructor
+     * 
+     * @param $credential WatsonCredential
+     */
     function __construct(WatsonCredential $credential) {
 
         $this->_httpClient = new HttpClient();

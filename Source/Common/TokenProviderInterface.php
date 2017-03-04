@@ -19,5 +19,10 @@ namespace WatsonSDK\Common;
 
 interface TokenProviderInterface {
 
+    /**
+     * To be called before sending requests to Watson services.
+     * 
+     * @return string
+     */
     public function getToken();
 }

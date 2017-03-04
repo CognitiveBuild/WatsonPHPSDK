@@ -29,6 +29,11 @@ class SimpleTokenHelper {
     /**
      * Request a new token
      * 
+     * @param $username string
+     * @param $password string
+     * @param $serviceUrl string
+     * @param $authenticationUrl string
+     * 
      * @return string
      */
     public static function requestToken($username, $password, $serviceUrl, $authenticationUrl = self::SERVICE_AUTHENTICATION_URL) {

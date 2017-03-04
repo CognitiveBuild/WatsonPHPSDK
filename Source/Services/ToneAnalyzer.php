@@ -28,6 +28,8 @@ class ToneAnalyzer extends WatsonService {
 
     /**
      * Constructor
+     * 
+     * @param $credential WatsonCredential
      */
     function __construct(WatsonCredential $credential) {
 
@@ -37,6 +39,7 @@ class ToneAnalyzer extends WatsonService {
     /**
      * Invoke `tone` service
      * 
+     * @param $model ToneAnalyzerModel
      * @return HttpResponse
      */
     public function Tone(ToneAnalyzerModel $model) {
