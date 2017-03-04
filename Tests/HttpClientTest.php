@@ -64,6 +64,9 @@ final class HttpClientTest extends TestCase {
         //
         $config->setType(HttpClientConfiguration::DATA_TYPE_FORM);
         $this->assertEquals($config->getType(), 'form_params');
+        //
+        $this->assertEquals($config->toOptions(), [ 'form_params' => [ 'key' => 'value' ], 'query' => [ 'p' => 'q' ], 
+        'headers' => [ 'p' => 'q' ], 'auth' => [ 'username', 'password' ], 'timeout' => 20000 ]);
     }
 
     // 
