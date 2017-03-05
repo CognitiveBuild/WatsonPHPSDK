@@ -59,8 +59,8 @@ final class HttpClientTest extends TestCase {
         $config->setTimeout(20000);
         $this->assertEquals($config->getTimeout(), 20000);
         // 
-        $config->setURL('https://www.ibm.com/watson/developercloud/');
-        $this->assertEquals($config->getURL(), 'https://www.ibm.com/watson/developercloud/');
+        $config->setURL('https://phpsdk.mybluemix.net/');
+        $this->assertEquals($config->getURL(), 'https://phpsdk.mybluemix.net/');
         //
         $config->setType(HttpClientConfiguration::DATA_TYPE_FORM);
         $this->assertEquals($config->getType(), 'form_params');
@@ -74,7 +74,7 @@ final class HttpClientTest extends TestCase {
 
         $httpClient = new HttpClient();
         $config = new HttpClientConfiguration();
-        $config->setURL('https://www.ibm.com/watson/developercloud/');
+        $config->setURL('https://phpsdk.mybluemix.net/');
 
         $this->assertInstanceOf(
             HttpClient::class, 
@@ -88,7 +88,7 @@ final class HttpClientTest extends TestCase {
         $this->assertNotEquals($response->getSize(), 0);
 
         try {
-            $response = $httpClient->request(new HttpClientConfiguration('http://mihui.net/404'));
+            $response = $httpClient->request(new HttpClientConfiguration('https://phpsdk.mybluemix.net/404.php'));
         }
         catch (HttpClientException $ex) {
             $this->assertEquals($ex->getCode(), 404);

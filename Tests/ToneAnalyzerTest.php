@@ -23,6 +23,7 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Common\SimpleTokenHelper;
 use WatsonSDK\Common\WatsonCredential;
+use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzerModel;
@@ -32,6 +33,7 @@ use PHPUnit\Framework\TestCase;
 final class ToneAnalyzerTest extends TestCase {
 
     protected function setUp() {
+
         $env = new Environment(__DIR__);
         $env->load();
     }
@@ -103,6 +105,20 @@ final class ToneAnalyzerTest extends TestCase {
         }
     }
 
+    public function testTokenProviderException() {
+
+        $this->expectException(InvalidParameterException::class);
+        $provider = new SimpleTokenProvider();
+    }
+
+    public function testTokenProvider() {
+
+        $provider = new SimpleTokenProvider('https://phpsdk.mybluemix.net/token.php');
+        $token = $provider->getToken();
+
+        $this->assertEquals($token, 'This is a token');
+    }
+
     public function testToneWithTokenProvider() {
 
         try {
@@ -110,7 +126,8 @@ final class ToneAnalyzerTest extends TestCase {
             $password = getenv('TONE_ANALYZER_PASSWORD');
             $token = $this->getToken($username, $password);
 
-            $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider(new SimpleTokenProvider(NULL, $token)));
+            $provider = new SimpleTokenProvider(NULL, $token);
+            $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
             $model = new ToneAnalyzerModel();
             $model->setText('I feel so happy');
