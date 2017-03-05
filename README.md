@@ -30,7 +30,7 @@ require 'vendor/autoload.php';
 ```
 
 ## API Reference
-Please [visit our wiki](wiki).
+Please [visit our wiki](https://github.com/CognitiveBuild/WatsonPHPSDK/wiki).
 
 ## Services
 * [Tone Analyzer](#tone-analyzer)
