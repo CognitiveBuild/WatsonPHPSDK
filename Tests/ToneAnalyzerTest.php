@@ -114,9 +114,13 @@ final class ToneAnalyzerTest extends TestCase {
     public function testTokenProvider() {
 
         $provider = new SimpleTokenProvider('https://phpsdk.mybluemix.net/token.php');
-        $token = $provider->getToken();
+        $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-        $this->assertEquals($token, 'This is a token');
+        $model = new ToneAnalyzerModel();
+        $model->setText('This is a test.');
+        $result = $analyzer->Tone($model);
+
+        $this->assertEquals($result->getStatusCode(), 403);
     }
 
     public function testToneWithTokenProvider() {
