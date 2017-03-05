@@ -29,6 +29,9 @@ After installation, include `autoload.php`:
 require 'vendor/autoload.php';
 ```
 
+## API Reference
+Please [visit our wiki](wiki).
+
 ## Services
 * [Tone Analyzer](#tone-analyzer)
 
