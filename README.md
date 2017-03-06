@@ -8,25 +8,32 @@ Watson PHP SDK for IBM Watson Developer Cloud
 
 ## Installation
 
-#### Dependency Management
-
-We recommend installing [Composer](http://getcomposer.org) to manage dependencies for your application.
-
-You can install Composer with curl: 
-```shell
-curl -sS https://getcomposer.org/installer | php
-```
+Installing [Composer](http://getcomposer.org) will be easier to manage dependencies for your application.
 
 Run the Composer command to install the latest version of the Watson PHP SDK:
 
 ```shell
-php composer.phar require CognitiveBuild/WatsonPHPSDK:master
+composer require cognitivebuild/watsonphpsdk:dev-master
 ```
 
-After installation, include `autoload.php`:
+If the Watson PHP SDK is downloaded from GitHub already, run the update command:
+```shell
+composer update
+```
+
+Include `autoload.php` in your application:
 
 ```php
 require 'vendor/autoload.php';
+```
+
+## Namespaces
+For common use, one of the namespaces of `WatsonCredential` or `SimpleTokenProvider` can be optional, depends on how to invoke the Watson services, and you can reference the classes like so:
+```php
+use WatsonSDK\Common\WatsonCredential;
+use WatsonSDK\Common\SimpleTokenProvider;
+use WatsonSDK\Services\ToneAnalyzer;
+use WatsonSDK\Services\ToneAnalyzerModel;
 ```
 
 ## API Reference
