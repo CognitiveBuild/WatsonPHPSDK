@@ -52,7 +52,6 @@ class PersonalityInsights extends WatsonService {
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
         $this->_httpConfig->setURL(PersonalityInsightsModel::BASE_URL."/profile");
 
-        var_dump($model->getData('@data'));
         try {
             return $this->_httpClient->request($this->_httpConfig);
         }

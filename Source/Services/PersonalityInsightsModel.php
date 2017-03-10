@@ -48,7 +48,7 @@ class PersonalityInsightsModel extends ServiceModel {
      * The value for the version parameter is the date for the version of the API that you want to call.
      * The current version is 2016-05-19, and the documentation reflects the current version.
      */
-    private $_version;
+    protected $_version;
 
     /**
      * @query(consumption_preferences)
