@@ -212,7 +212,10 @@ class HttpClientConfiguration {
      * @param $val array
      */
     public function setHeader($val) {
-        $this->_header = $val;
+        if(is_null($this->_header))
+            $this->_header=$val;
+        else
+            $this->_header=array_merge($this->_header,$val);
     }
 
     /**
