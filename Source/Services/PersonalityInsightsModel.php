@@ -24,6 +24,7 @@ use WatsonSDK\Common\ServiceModel;
  */
 class PersonalityInsightsModel extends ServiceModel {
 
+    const VERSION = '2016-10-20';
     const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
 
     /**
@@ -31,7 +32,7 @@ class PersonalityInsightsModel extends ServiceModel {
      * 
      * An array of ContentItem objects that provides the input text for the request.
      */
-    protected $contentItems;
+    protected $_contentItems;
 
     /**
      * @query(raw_scores)
@@ -124,9 +125,9 @@ class PersonalityInsightsModel extends ServiceModel {
      * @param $Content_Language string | NULL
      * @param $version string
      */
-    function __construct($contentItems = '', $raw_scores = NULL, $consumption_preferences = NULL,$csv_headers=null,$Accept_Language=null,$Accept=null,$Content_Language=null, $version = '2016-10-20') {
+    function __construct($contentItems = '', $raw_scores = NULL, $consumption_preferences = NULL,$csv_headers=null,$Accept_Language=null,$Accept=null,$Content_Language=null, $version = self::VERSION) {
 
-        $this->contentItems = $contentItems;
+        $this->_contentItems = $contentItems;
         $this->_raw_scores=$raw_scores;
         $this->_consumption_preferences=$consumption_preferences;
         $this->_csv_headers=$csv_headers;
@@ -141,7 +142,7 @@ class PersonalityInsightsModel extends ServiceModel {
      */
     public function getContentItems()
     {
-        return $this->contentItems;
+        return $this->_contentItems;
     }
 
     /**
@@ -149,7 +150,7 @@ class PersonalityInsightsModel extends ServiceModel {
      */
     public function setContentItems($contentItems)
     {
-        $this->contentItems = $contentItems;
+        $this->_contentItems = $contentItems;
     }
 
     /**
