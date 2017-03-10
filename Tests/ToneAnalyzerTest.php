@@ -50,16 +50,9 @@ final class ToneAnalyzerTest extends TestCase {
             $model
         );
 
-        $this->assertInstanceOf(
-            ToneAnalyzerModel::class, 
-            $model
-        );
-
         $model->setText('t');
         $model->setTones('e');
         $model->setSentences(TRUE);
-
-        $this->assertEquals($model->getVersion(), '2016-05-19');
         $model->setVersion('new-version');
 
         $this->assertEquals($model->getVersion(), 'new-version');

@@ -24,6 +24,7 @@ use WatsonSDK\Common\ServiceModel;
  */
 class ToneAnalyzerModel extends ServiceModel {
 
+    const VERSION = '2016-05-19';
     const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';
 
     /**
@@ -42,15 +43,6 @@ class ToneAnalyzerModel extends ServiceModel {
     protected $_tones;
 
     /**
-     * @query(version)
-     * 
-     * When we make breaking changes to the API, we release a new, dated version.
-     * The value for the version parameter is the date for the version of the API that you want to call.
-     * The current version is 2016-05-19, and the documentation reflects the current version.
-     */
-    private $_version;
-
-    /**
      * @query(sentences)
      * 
      * Filter your response to remove the sentence level analysis. Valid values for sentences are true and false.
@@ -67,7 +59,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @param $sentences string | NULL
      * @param $version string
      */
-    function __construct($text = '', $tones = NULL, $sentences = NULL, $version = '2016-05-19') {
+    function __construct($text = '', $tones = NULL, $sentences = NULL, $version = self::VERSION) {
 
         $this->text = $text;
         $this->_tones = $tones;
@@ -121,22 +113,6 @@ class ToneAnalyzerModel extends ServiceModel {
      */
     public function setSentences($val) {
         $this->_sentences = $val;
-    }
-
-    /**
-     * Get version
-     * @return string
-     */
-    public function getVersion() {
-        return $this->_version;
-    }
-
-    /**
-     * Set version
-     * @param $val string
-     */
-    public function setVersion($val) {
-        $this->_version = $val;
     }
 
 }

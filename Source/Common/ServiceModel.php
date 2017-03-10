@@ -22,6 +22,15 @@ use \ReflectionClass;
 class ServiceModel {
 
     /**
+     * @query(version)
+     * 
+     * When we make breaking changes to the API, we release a new, dated version.
+     * The value for the version parameter is the date for the version of the API that you want to call.
+     * The current version is 2016-05-19, and the documentation reflects the current version.
+     */
+    protected $_version;
+
+    /**
      * Generate attributes with data using annotations
      * 
      * @return array
@@ -35,6 +44,8 @@ class ServiceModel {
         foreach($attributes as $attribute) {
             $attribute->setAccessible(true);
             $docComment = $attribute->getDocComment();
+            $value = $attribute->getValue($this);
+
             $matches = [];
             $match = preg_match("/{$type}(.*?)\n/", $docComment, $matches);
 
@@ -44,13 +55,36 @@ class ServiceModel {
                     $name = trim($matches[1]);
                     $name = preg_replace('/[<>()\[\]{}#\* ]/', '', $name);
                     if($name !== '') {
-                        $key = $name;
+                        if($name === '=' && is_array($value)) {
+                            $key = key($value);
+                            $value = $value[$key];
+                        }
+                        else {
+                            $key = $name;
+                        }
                     }
                 }
-                $queries[$key] = $attribute->getValue($this);
+                $queries[$key] = $value;
             }
         }
 
         return $queries;
     }
+
+    /**
+     * Get version
+     * @return string
+     */
+    public function getVersion() {
+        return $this->_version;
+    }
+
+    /**
+     * Set version
+     * @param $val string
+     */
+    public function setVersion($val) {
+        $this->_version = $val;
+    }
+
 }
