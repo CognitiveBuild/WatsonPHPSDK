@@ -94,7 +94,6 @@ final class ToneAnalyzerTest extends TestCase {
         if(isset($username) && isset($password)) {
             $result = $analyzer->Tone($model);
             $this->assertEquals(200, $result->getStatusCode());
-            // @todo: evaluate $result->getContent();
         }
     }
 
@@ -121,6 +120,7 @@ final class ToneAnalyzerTest extends TestCase {
         try {
             $username = getenv('TONE_ANALYZER_USERNAME');
             $password = getenv('TONE_ANALYZER_PASSWORD');
+
             $token = $this->getToken($username, $password);
 
             $provider = new SimpleTokenProvider(NULL, $token);
@@ -143,7 +143,7 @@ final class ToneAnalyzerTest extends TestCase {
      */ 
     private function getToken($username, $password) {
 
-        $serviceUrl = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2016-05-19';
+        $serviceUrl = ToneAnalyzerModel::BASE_URL.'/analyze?version='.ToneAnalyzerModel::VERSION;
 
         return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
     }
