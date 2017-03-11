@@ -108,7 +108,10 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
         }
     }
 
-    public function testAnalyzeError() {
+    /**
+     * NaturalLanguageUnderstanding unit test for handling error response from Analyze method
+     */
+    public function testAnalyzeResponseError() {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
@@ -116,38 +119,13 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
         $this->assertEquals(401, $result->getStatusCode());
     }
 
-    public function testListModelsError() {
+    /**
+     * NaturalLanguageUnderstanding unit test for handling error response from ListModels method
+     */
+    public function testListModelsResponseError() {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $result = $nlu->ListModels();
         $this->assertEquals(401, $result->getStatusCode());
     }
-
-    public function testNaturalLanguageUnderstandingWithTokenProvider() {
-
-        $username = getenv('NATURAL_LANGUAGE_UNDERSTANDING_USERNAME');
-        $password = getenv('NATURAL_LANGUAGE_UNDERSTANDING_PASSWORD');
-
-        $token = $this->getToken($username, $password);
-
-        $provider = new SimpleTokenProvider(NULL, $token);
-        $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithTokenProvider($provider));
-        $models = $nlu->listModels();
-        $this->assertEquals(200, $models->getStatusCode());
-
-        $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
-        $result = $nlu->Analyze($model);
-        $this->assertEquals(200, $result->getStatusCode());
-    }
-
-    /**
-     * Request a new token
-     */ 
-    private function getToken($username, $password) {
-
-        $serviceUrl = NaturalLanguageUnderstandingModel::BASE_URL.'/analyze?version='.NaturalLanguageUnderstandingModel::VERSION;
-
-        return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
-    }
-
 }
