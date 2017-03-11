@@ -99,7 +99,7 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
         );
 
         if(isset($username) && isset($password)) {
-            $models = $nlu->listModels();
+            $models = $nlu->ListModels();
             $this->assertEquals(200, $models->getStatusCode());
 
             $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
