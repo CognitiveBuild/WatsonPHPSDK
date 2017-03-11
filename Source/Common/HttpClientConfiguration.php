@@ -50,7 +50,7 @@ class HttpClientConfiguration {
     private $_query;
     // Associative array of headers to add to the request. 
     // Each key is the name of a header, and each value is a string or array of strings representing the header field values
-    private $_header;
+    private $_headers;
     // Float describing the timeout of the request in seconds. Use 0 to wait indefinitely (the default behavior)
     private $_timeout;
     // Pass an array of HTTP authentication parameters to use with the request. 
@@ -65,17 +65,17 @@ class HttpClientConfiguration {
      * @param $query
      * @param $data
      * @param $type
-     * @param $header
+     * @param $headers
      * @param $timeout
      */
-    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = null, $header = [], $timeout = 0, $credentials = NULL) {
+    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = null, $headers = [], $timeout = 0, $credentials = NULL) {
 
         $this->setURL($url);
         $this->setMethod($method);
         $this->setData($data);
         $this->setQuery($query);
         $this->setType($type);
-        $this->setHeader($header);
+        $this->setHeaders($headers);
         $this->setTimeout($timeout);
         $this->setCredentials($credentials);
     }
@@ -101,8 +101,8 @@ class HttpClientConfiguration {
         }
 
         // Set header
-        if(is_array($this->getHeader()) && count($this->getHeader()) > 0) {
-            $options['headers'] = $this->getHeader();
+        if(is_array($this->getHeaders()) && count($this->getHeaders()) > 0) {
+            $options['headers'] = $this->getHeaders();
         }
 
         if(is_array($this->getCredentials()) && count($this->getCredentials()) > 0) {
@@ -203,19 +203,24 @@ class HttpClientConfiguration {
      * Get request header
      * @return array
      */
-    public function getHeader() {
-        return $this->_header;
+    public function getHeaders() {
+        return $this->_headers;
     }
 
     /**
-     * Set request header
+     * Merge request headers
      * @param $val array
      */
-    public function setHeader($val) {
-        if(is_null($this->_header))
-            $this->_header=$val;
-        else
-            $this->_header=array_merge($this->_header,$val);
+    public function addHeaders($val) {
+        $this->_headers = array_merge($this->_headers, $val);
+    }
+
+    /**
+     * Override request headers
+     * @param $val array
+     */
+    public function setHeaders($val) {
+        $this->_headers = $val;
     }
 
     /**

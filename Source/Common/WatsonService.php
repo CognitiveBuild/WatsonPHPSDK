@@ -44,7 +44,7 @@ class WatsonService {
             // Token authentication
             $token = $credential->getTokenProvider()->getToken();
             $credential->setToken($token);
-            $this->_httpConfig->setHeader([ 'X-Watson-Authorization-Token' => $credential->getToken() ]);
+            $this->_httpConfig->setHeaders([ 'X-Watson-Authorization-Token' => $credential->getToken() ]);
         }
     }
 }

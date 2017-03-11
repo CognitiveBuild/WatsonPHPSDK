@@ -40,7 +40,7 @@ final class HttpClientTest extends TestCase {
         $this->assertEquals($config->getTimeout(), 0);
         $this->assertNull($config->getType());
         $this->assertEquals($config->getQuery(), []);
-        $this->assertEquals($config->getHeader(), []);
+        $this->assertEquals($config->getHeaders(), []);
         $this->assertEquals($config->getData(), []);
         $this->assertEquals($config->toOptions(), []);
         // 
@@ -53,8 +53,10 @@ final class HttpClientTest extends TestCase {
         $config->setQuery([ 'p' => 'q' ]);
         $this->assertEquals($config->getQuery(), [ 'p' => 'q' ]);
         //
-        $config->setHeader([ 'p' => 'q' ]);
-        $this->assertEquals($config->getHeader(), [ 'p' => 'q' ]);
+        $config->setHeaders([ 'p' => 'q' ]);
+        $this->assertEquals($config->getHeaders(), [ 'p' => 'q' ]);
+        $config->addHeaders([ 'x' => 'y' ]);
+        $this->assertEquals($config->getHeaders(), [ 'p' => 'q', 'x' => 'y' ]);
         // 
         $config->setTimeout(20000);
         $this->assertEquals($config->getTimeout(), 20000);
@@ -65,8 +67,7 @@ final class HttpClientTest extends TestCase {
         $config->setType(HttpClientConfiguration::DATA_TYPE_FORM);
         $this->assertEquals($config->getType(), 'form_params');
         //
-        $this->assertEquals($config->toOptions(), [ 'form_params' => [ 'key' => 'value' ], 'query' => [ 'p' => 'q' ], 
-        'headers' => [ 'p' => 'q' ], 'auth' => [ 'username', 'password' ], 'timeout' => 20000 ]);
+        $this->assertEquals($config->toOptions(), [ 'form_params' => [ 'key' => 'value' ], 'query' => [ 'p' => 'q' ], 'headers' => [ 'p' => 'q', 'x' => 'y' ], 'auth' => [ 'username', 'password' ], 'timeout' => 20000 ]);
     }
 
     // 
