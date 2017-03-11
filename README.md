@@ -41,6 +41,7 @@ Please [visit our wiki](https://github.com/CognitiveBuild/WatsonPHPSDK/wiki).
 
 ## Services
 * [Tone Analyzer](#tone-analyzer)
+* [Natural Language Understanding](#natural-language-understanding)
 * [Personality Insights](#personality-insights)
 
 ## Tone Analyzer
@@ -66,6 +67,39 @@ $model  = new ToneAnalyzerModel();
 $model->setText('your text to be analyzed.');
 
 $result = $analyzer->Tone($model);
+
+// View results
+echo $result->getContent();
+```
+
+## Natural Language Understanding
+Analyze text to extract meta-data from content such as concepts, entities, keywords, categories, sentiment, emotion, relations, semantic roles, using natural language understanding. With custom annotation models developed using Watson Knowledge Studio, identify industry/domain specific entities and relations in unstructured text.
+
+The following example demonstrates how to use the Natural Language Understanding:
+```php
+$nlu = new NaturalLanguageUnderstanding( WatsonCredential::initWithCredentials('your_username', 'your_password') );
+```
+
+List available custom models:
+```php
+$result = $nlu->ListModels();
+
+// View results
+echo $result->getContent();
+```
+
+Delete a custom model:
+```php
+$result = $nlu->DeleteModels('your_custom_model_id');
+
+// View results
+echo $result->getContent();
+```
+
+Analyze features of natural language content: 
+```php
+$model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
+$result = $nlu->Analyze($model);
 
 // View results
 echo $result->getContent();
