@@ -117,25 +117,20 @@ final class ToneAnalyzerTest extends TestCase {
 
     public function testToneWithTokenProvider() {
 
-        try {
-            $username = getenv('TONE_ANALYZER_USERNAME');
-            $password = getenv('TONE_ANALYZER_PASSWORD');
+        $username = getenv('TONE_ANALYZER_USERNAME');
+        $password = getenv('TONE_ANALYZER_PASSWORD');
 
-            $token = $this->getToken($username, $password);
+        $token = $this->getToken($username, $password);
 
-            $provider = new SimpleTokenProvider(NULL, $token);
-            $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
+        $provider = new SimpleTokenProvider(NULL, $token);
+        $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-            $model = new ToneAnalyzerModel();
-            $model->setText('I feel so happy');
+        $model = new ToneAnalyzerModel();
+        $model->setText('I feel so happy');
 
-            $result = $analyzer->Tone($model);
+        $result = $analyzer->Tone($model);
 
-            $this->assertEquals(200, $result->getStatusCode());
-        }
-        catch(HttpClientException $ex) {
-            
-        }
+        $this->assertEquals(200, $result->getStatusCode());
     }
 
     /**
