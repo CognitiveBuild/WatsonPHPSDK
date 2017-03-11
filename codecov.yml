@@ -1,0 +1,9 @@
+codecov:
+  notify:
+    require_ci_to_pass: yes
+
+coverage:
+  notify:
+    slack: 
+      default:
+        url: "https://hooks.slack.com/services/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"
