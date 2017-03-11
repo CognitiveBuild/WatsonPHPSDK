@@ -27,8 +27,10 @@ class PersonalityInsightsModel extends ServiceModel {
     const VERSION = '2016-10-20';
     const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
 
-    const TYPE_TEXT = 'text';
     const TYPE_CONTENT_ITEMS = 'contentItems';
+
+    const CONTENT_TYPE_TEXT = 'text/plain';
+    const CONTENT_TYPE_HTML = 'text/html';
 
     /**
      * @data(=)
@@ -111,6 +113,7 @@ class PersonalityInsightsModel extends ServiceModel {
      * 
      * @param $content array | string
      * @param $type string
+     * @param $content_type string
      * @param $raw_scores boolean | NULL
      * @param $consumption_preferences boolean | NULL
      * @param $csv_headers boolean | NULL
@@ -119,9 +122,9 @@ class PersonalityInsightsModel extends ServiceModel {
      * @param $content_language string | NULL
      * @param $version string
      */
-    function __construct($content = '', $type = self::TYPE_TEXT, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
+    function __construct($content = '', $content_type = self::CONTENT_TYPE_TEXT, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
 
-        $this->_mix = [ $type => $content ];
+        $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ [ 'content' => $content, 'contenttype' => $content_type ] ] ];
         $this->_raw_scores = $raw_scores;
         $this->_consumption_preferences = $consumption_preferences;
         $this->_csv_headers = $csv_headers;
@@ -141,11 +144,18 @@ class PersonalityInsightsModel extends ServiceModel {
 
     /**
      * Set the array of ContentItem objects that provides the input text for the request
-     * @param $key string
-     * @param $val mixed (string | array)
+     * @param $val array
      */
-    public function setContents($key, $val) {
-        $this->_mix = [ $key => $val ];
+    public function setContents($val) {
+        $this->_mix = [ self::TYPE_CONTENT_ITEMS => $val ];
+    }
+
+    /**
+     * Set the array of ContentItem objects that provides the input text for the request
+     * @param $val array
+     */
+    public function addContent($content, $type = self::CONTENT_TYPE_TEXT) {
+        array_push($this->_mix[self::TYPE_CONTENT_ITEMS], [ 'content' => $content, 'contenttype' => $type ]);
     }
 
     /**
