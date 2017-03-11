@@ -29,22 +29,22 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * @data(text)
-     * 
+     *
      * Text that contains the content to be analyzed. The Tone Analyzer Service supports up to 128KB of text,
      * or about 1000 sentences.Sentences with less than three words cannot be analyzed.
      */
-    protected $text;
+    protected $_text;
 
     /**
      * @query(tones)
-     * 
+     *
      * Filter the results by a specific tone. Valid values for tones are emotion, language, and social.
      */
     protected $_tones;
 
     /**
      * @query(sentences)
-     * 
+     *
      * Filter your response to remove the sentence level analysis. Valid values for sentences are true and false.
      * This parameter defaults to true when it's not set, which means that a sentence level analysis is automatically provided.
      * Change sentences=false to filter out the sentence level analysis.
@@ -53,7 +53,7 @@ class ToneAnalyzerModel extends ServiceModel {
 
     /**
      * Constructor
-     * 
+     *
      * @param $text string
      * @param $tones string | NULL
      * @param $sentences string | NULL
@@ -61,7 +61,7 @@ class ToneAnalyzerModel extends ServiceModel {
      */
     function __construct($text = '', $tones = NULL, $sentences = NULL, $version = self::VERSION) {
 
-        $this->text = $text;
+        $this->_text = $text;
         $this->_tones = $tones;
         $this->_sentences = $sentences;
         $this->_version = $version;
@@ -72,7 +72,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @return string
      */
     public function getText() {
-        return $this->text;
+        return $this->_text;
     }
 
     /**
@@ -80,7 +80,7 @@ class ToneAnalyzerModel extends ServiceModel {
      * @param $val string
      */
     public function setText($val) {
-        $this->text = $val;
+        $this->_text = $val;
     }
 
     /**
