@@ -27,12 +27,15 @@ class PersonalityInsightsModel extends ServiceModel {
     const VERSION = '2016-10-20';
     const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
 
+    const TYPE_TEXT = 'text';
+    const TYPE_CONTENT_ITEMS = 'contentItems';
+
     /**
-     * @data(contentItems)
+     * @data(=)
      * 
      * An array of ContentItem objects that provides the input text for the request.
      */
-    protected $_contentItems;
+    protected $_mix;
 
     /**
      * @query(raw_scores)
@@ -41,15 +44,6 @@ class PersonalityInsightsModel extends ServiceModel {
      * only normalized percentiles are returned.
      */
     protected $_raw_scores;
-
-    /**
-     * @query(version)
-     * 
-     * When we make breaking changes to the API, we release a new, dated version.
-     * The value for the version parameter is the date for the version of the API that you want to call.
-     * The current version is 2016-05-19, and the documentation reflects the current version.
-     */
-    protected $_version;
 
     /**
      * @query(consumption_preferences)
@@ -76,10 +70,11 @@ class PersonalityInsightsModel extends ServiceModel {
      * ja (Japanese)
      * Regional variants are treated as their parent language; for example, en-US is interpreted as en. The effect of the Content-Language header depends on the Content-Type header:
      * When Content-Type is text/plain or text/html, Content-Language is the only way to specify the language.
-     * When Content-Type is application/json, Content-Language overrides a language specified with the language parameter of a ContentItem object; content items that specify a different language are ignored. Omit this header to base the language on the specification of the content items.
+     * When Content-Type is application/json, Content-Language overrides a language specified with the language parameter of a ContentItem object; content items that specify a different language are ignored. 
+     * Omit this header to base the language on the specification of the content items.
      * You can specify any combination of languages for Content-Language and Accept-Language.
      */
-    protected $_Content_Language;
+    protected $_content_language;
 
     /**
      * @header(Accept)
@@ -89,7 +84,7 @@ class PersonalityInsightsModel extends ServiceModel {
      * text/csv for CSV output
      * CSV output includes a fixed number of columns and optional headers.
      */
-    protected $_Accept;
+    protected $_accept;
 
     /**
      * @header(Accept-Language)
@@ -109,160 +104,145 @@ class PersonalityInsightsModel extends ServiceModel {
      * For two-character arguments, regional variants are treated as their parent language;
      * for example, en-US is interpreted as en. You can specify any combination of languages for the request and the response.
      */
-    protected $_Accept_Language;
-
+    protected $_accept_language;
 
     /**
      * Constructor
      * 
-     * @param $contentItems string
+     * @param $content array | string
+     * @param $type string
      * @param $raw_scores boolean | NULL
      * @param $consumption_preferences boolean | NULL
      * @param $csv_headers boolean | NULL
-     * @param $csv_headers boolean | NULL
-     * @param $Accept_Language string | NULL
-     * @param $Accept string | NULL
-     * @param $Content_Language string | NULL
+     * @param $accept_language string | NULL
+     * @param $accept string | NULL
+     * @param $content_language string | NULL
      * @param $version string
      */
-    function __construct($contentItems = '', $raw_scores = NULL, $consumption_preferences = NULL,$csv_headers=null,$Accept_Language=null,$Accept=null,$Content_Language=null, $version = self::VERSION) {
+    function __construct($content = '', $type = self::TYPE_TEXT, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
 
-        $this->_contentItems = $contentItems;
-        $this->_raw_scores=$raw_scores;
-        $this->_consumption_preferences=$consumption_preferences;
-        $this->_csv_headers=$csv_headers;
-        $this->_Accept=$Accept;
-        $this->_Accept_Language=$Accept_Language;
-        $this->_Content_Language=$Content_Language;
+        $this->_mix = [ $type => $content ];
+        $this->_raw_scores = $raw_scores;
+        $this->_consumption_preferences = $consumption_preferences;
+        $this->_csv_headers = $csv_headers;
+        $this->_accept_language = $accept_language;
+        $this->_accept = $accept;
+        $this->_content_language = $content_language;
         $this->_version = $version;
     }
 
     /**
-     * @return mixed
+     * Get the array of ContentItem objects that provides the input text for the request
+     * @return array
      */
-    public function getContentItems()
-    {
-        return $this->_contentItems;
+    public function getContents() {
+        return $this->_mix;
     }
 
     /**
-     * @param mixed $contentItems
+     * Set the array of ContentItem objects that provides the input text for the request
+     * @param $key string
+     * @param $val mixed (string | array)
      */
-    public function setContentItems($contentItems)
-    {
-        $this->_contentItems = $contentItems;
+    public function setContents($key, $val) {
+        $this->_mix = [ $key => $val ];
     }
 
     /**
-     * @return mixed
+     * Get indicator of raw scores
+     * @return boolean
      */
-    public function getRawScores()
-    {
+    public function getRawScores() {
         return $this->_raw_scores;
     }
 
     /**
-     * @param mixed $raw_scores
+     * Set the indicator to show raw scores
+     * @param $val boolean
      */
-    public function setRawScores($raw_scores)
-    {
-        $this->_raw_scores = $raw_scores;
+    public function setRawScores($val) {
+        $this->_raw_scores = $val;
     }
 
     /**
-     * @return mixed
+     * Get consumption preferences
+     * @return boolean
      */
-    public function getVersion()
-    {
-        return $this->_version;
-    }
-
-    /**
-     * @param mixed $version
-     */
-    public function setVersion($version)
-    {
-        $this->_version = $version;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConsumptionPreferences()
-    {
+    public function getConsumptionPreferences() {
         return $this->_consumption_preferences;
     }
 
     /**
-     * @param mixed $consumption_preferences
+     * Set consumption preferences
+     * @param $val boolean
      */
-    public function setConsumptionPreferences($consumption_preferences)
-    {
-        $this->_consumption_preferences = $consumption_preferences;
+    public function setConsumptionPreferences($val) {
+        $this->_consumption_preferences = $val;
     }
 
     /**
-     * @return mixed
+     * Get the response format if it is set to CSV format, or not
+     * @return boolean
      */
-    public function getCsvHeaders()
-    {
+    public function getCsvHeaders() {
         return $this->_csv_headers;
     }
 
     /**
-     * @param mixed $csv_headers
+     * Set response as the CSV format.
+     * If set to TRUE, it only applies when the Accept header is set to text/csv
+     * @param $val boolean
      */
-    public function setCsvHeaders($csv_headers)
-    {
-        $this->_csv_headers = $csv_headers;
+    public function setCsvHeaders($val) {
+        $this->_csv_headers = $val;
     }
 
     /**
-     * @return mixed
+     * Set language of the input text for the request
+     * @return string
      */
-    public function getContentLanguage()
-    {
-        return $this->_Content_Language;
+    public function getContentLanguage() {
+        return $this->_content_language;
     }
 
     /**
-     * @param mixed $Content_Language
+     * Set language of the input text for the request
+     * @param $val string
      */
-    public function setContentLanguage($Content_Language)
-    {
-        $this->_Content_Language = $Content_Language;
+    public function setContentLanguage($val) {
+        $this->_content_language = $val;
     }
 
     /**
-     * @return mixed
+     * Get desired content type of the response
+     * @return string
      */
-    public function getAccept()
-    {
-        return $this->_Accept;
+    public function getAccept() {
+        return $this->_accept;
     }
 
     /**
-     * @param mixed $Accept
+     * Set desired content type of the response
+     * @param $val string
      */
-    public function setAccept($Accept)
-    {
-        $this->_Accept = $Accept;
+    public function setAccept($val) {
+        $this->_accept = $val;
     }
 
     /**
-     * @return mixed
+     * Get the desired language of the response
+     * @return $val string
      */
-    public function getAcceptLanguage()
-    {
-        return $this->_Accept_Language;
+    public function getAcceptLanguage() {
+        return $this->_accept_language;
     }
 
     /**
-     * @param mixed $Accept_Language
+     * Set the desired language of the response
+     * @param $val string
      */
-    public function setAcceptLanguage($Accept_Language)
-    {
-        $this->_Accept_Language = $Accept_Language;
+    public function setAcceptLanguage($val) {
+        $this->_accept_language = $val;
     }
 
 }
