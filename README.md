@@ -41,6 +41,7 @@ Please [visit our wiki](https://github.com/CognitiveBuild/WatsonPHPSDK/wiki).
 
 ## Services
 * [Tone Analyzer](#tone-analyzer)
+* [Personality Insights](#personality-insights)
 
 ## Tone Analyzer
 The IBM Watson Tone Analyzer service can be used to discover, understand, and revise the language tones in text. The service uses linguistic analysis to detect three types of tones from written text: emotions, social tendencies, and writing style.
@@ -69,6 +70,24 @@ $result = $analyzer->Tone($model);
 // View results
 echo $result->getContent();
 ```
+
+## Personality Insights
+Personality Insights extracts personality characteristics based on how a person writes. You can use the service to match individuals to other individuals, opportunities, and products, or tailor their experience with personalized messaging and recommendations. Characteristics include the Big 5 Personality Traits, Values, and Needs. At least 1200 words of input text are recommended when using this service.
+
+The following example demonstrates how to use the Personality Insights service:
+
+```php
+$insights = new PersonalityInsights( WatsonCredential::initWithCredentials('your_username', 'your_password') );
+$model    = new PersonalityInsightsModel('Enter more than 100 unique words here...');
+$mode->setConsumptionPreferences(TRUE);
+$result   = $insights->Profile($model);
+
+// View results
+echo $result->getContent();
+```
+
+## Token based authentication
+Refer to the samples of [Tone Analyzer](#tone-analyzer) about how to invoke the service by using TokenProvider.
 
 ## License
 Copyright 2017 GCG GBS CTO Office under [the Apache 2.0 license](LICENSE).
