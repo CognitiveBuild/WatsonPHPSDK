@@ -24,6 +24,7 @@ class Environment {
     function __construct($path = __DIR__, $file = 'Credentials.env') {
 
         $this->_path = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$file;
+        date_default_timezone_set('PRC');
     }
 
     public function load() {
