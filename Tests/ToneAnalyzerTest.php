@@ -97,15 +97,21 @@ final class ToneAnalyzerTest extends TestCase {
         }
     }
 
+    /**
+     * Unit Test for invalid parameters of SimpleTokenProvider
+     */ 
     public function testTokenProviderException() {
 
         $this->expectException(InvalidParameterException::class);
         $provider = new SimpleTokenProvider();
     }
 
+    /**
+     * Unit Test for invalid token
+     */ 
     public function testTokenProvider() {
 
-        $provider = new SimpleTokenProvider('https://phpsdk.mybluemix.net/token.php');
+        $provider = new SimpleTokenProvider('https://phpsdk.mybluemix.net/invalidToken.php');
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
         $model = new ToneAnalyzerModel();
@@ -115,6 +121,9 @@ final class ToneAnalyzerTest extends TestCase {
         $this->assertEquals($result->getStatusCode(), 403);
     }
 
+    /**
+     * Unit Test for ToneAnalzyer with Token Provider
+     */ 
     public function testToneWithTokenProvider() {
 
         $username = getenv('TONE_ANALYZER_USERNAME');
