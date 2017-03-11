@@ -1,4 +1,6 @@
-/vendor/
+vendor/
 .idea/
+Reports/
 *.DS_Store
 *Credentials.env
+clover.xml
