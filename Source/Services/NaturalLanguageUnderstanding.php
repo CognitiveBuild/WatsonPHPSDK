@@ -61,7 +61,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
     }
 
     /**
-     * Invoke `list models` service
+     * List available custom models
      * 
      * @return HttpResponse
      */
@@ -84,7 +84,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
     }
 
     /**
-     * Invoke `delete models` service
+     * Delete a custom model
      * 
      * @codeCoverageIgnore
      * 

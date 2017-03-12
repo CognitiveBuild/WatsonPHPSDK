@@ -111,6 +111,8 @@ class NaturalLanguageUnderstandingModel extends ServiceModel {
      * @param $type string
      * @param $language string | NULL
      * @param $clean boolean | NULL
+     * @param $fallback_to_raw boolean | NULL
+     * @param $return_analyzed_text boolean | NULL
      * @param $version string
      */
     function __construct($content, $features, $type = self::TYPE_TEXT, $language = NULL, $clean = NULL, $fallback_to_raw = NULL, $return_analyzed_text = NULL, $version = self::VERSION) {
@@ -151,7 +153,7 @@ class NaturalLanguageUnderstandingModel extends ServiceModel {
     }
 
     /**
-     * Set type of the content to be analyzed
+     * Set features
      * @param $val array
      */
     public function setFeatures($val) {
