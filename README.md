@@ -66,7 +66,7 @@ Place the content to be analyzed, call the Tone API and check the result:
 $model  = new ToneAnalyzerModel();
 $model->setText('your text to be analyzed.');
 
-$result = $analyzer->Tone($model);
+$result = $analyzer->getTone($model);
 
 // View results
 echo $result->getContent();
@@ -82,7 +82,7 @@ $nlu = new NaturalLanguageUnderstanding( WatsonCredential::initWithCredentials('
 
 List available custom models:
 ```php
-$result = $nlu->ListModels();
+$result = $nlu->listModels();
 
 // View results
 echo $result->getContent();
@@ -90,7 +90,7 @@ echo $result->getContent();
 
 Delete a custom model:
 ```php
-$result = $nlu->DeleteModels('your_custom_model_id');
+$result = $nlu->deleteModels('your_custom_model_id');
 
 // View results
 echo $result->getContent();
@@ -99,7 +99,7 @@ echo $result->getContent();
 Analyze features of natural language content: 
 ```php
 $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
-$result = $nlu->Analyze($model);
+$result = $nlu->analyze($model);
 
 // View results
 echo $result->getContent();
@@ -114,7 +114,7 @@ The following example demonstrates how to use the Personality Insights service:
 $insights = new PersonalityInsights( WatsonCredential::initWithCredentials('your_username', 'your_password') );
 $model    = new PersonalityInsightsModel('Enter more than 100 unique words here...');
 $mode->setConsumptionPreferences(TRUE);
-$result   = $insights->Profile($model);
+$result   = $insights->getProfile($model);
 
 // View results
 echo $result->getContent();

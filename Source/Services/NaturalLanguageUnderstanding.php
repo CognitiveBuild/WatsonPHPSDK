@@ -45,7 +45,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
      * @param $model NaturalLanguageUnderstandingModel
      * @return HttpResponse
      */
-    public function Analyze(NaturalLanguageUnderstandingModel $model) {
+    public function analyze(NaturalLanguageUnderstandingModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
@@ -68,7 +68,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
      * 
      * @return HttpResponse
      */
-    public function ListModels() {
+    public function listModels() {
 
         $this->_httpConfig->setData([]);
         $this->_httpConfig->setQuery( [ 'version' => NaturalLanguageUnderstandingModel::VERSION ] );
@@ -94,7 +94,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
      * @param $modelId string
      * @return HttpResponse
      */
-    public function DeleteModels($modelId) {
+    public function deleteModels($modelId) {
 
         $this->_httpConfig->setData([]);
         $this->_httpConfig->setQuery( [ 'version' => NaturalLanguageUnderstandingModel::VERSION ] );

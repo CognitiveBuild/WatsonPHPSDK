@@ -92,7 +92,7 @@ final class ToneAnalyzerTest extends TestCase {
         $model->setTones('social');
 
         if(isset($username) && isset($password)) {
-            $result = $analyzer->Tone($model);
+            $result = $analyzer->getTone($model);
             $this->assertEquals(200, $result->getStatusCode());
         }
     }
@@ -116,7 +116,7 @@ final class ToneAnalyzerTest extends TestCase {
 
         $model = new ToneAnalyzerModel();
         $model->setText('This is a test.');
-        $result = $analyzer->Tone($model);
+        $result = $analyzer->getTone($model);
 
         $this->assertEquals($result->getStatusCode(), 403);
     }
@@ -137,7 +137,7 @@ final class ToneAnalyzerTest extends TestCase {
         $model = new ToneAnalyzerModel();
         $model->setText('I feel so happy');
 
-        $result = $analyzer->Tone($model);
+        $result = $analyzer->getTone($model);
 
         $this->assertEquals(200, $result->getStatusCode());
     }

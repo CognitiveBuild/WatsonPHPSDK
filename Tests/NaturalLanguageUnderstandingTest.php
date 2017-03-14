@@ -99,11 +99,11 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
         );
 
         if(isset($username) && isset($password)) {
-            $models = $nlu->ListModels();
+            $models = $nlu->listModels();
             $this->assertEquals(200, $models->getStatusCode());
 
             $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
-            $result = $nlu->Analyze($model);
+            $result = $nlu->analyze($model);
             $this->assertEquals(200, $result->getStatusCode());
         }
     }
@@ -115,17 +115,17 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
-        $result = $nlu->Analyze($model);
+        $result = $nlu->analyze($model);
         $this->assertEquals(401, $result->getStatusCode());
     }
 
     /**
-     * NaturalLanguageUnderstanding unit test for handling error response from ListModels method
+     * NaturalLanguageUnderstanding unit test for handling error response from listModels method
      */
     public function testListModelsResponseError() {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
-        $result = $nlu->ListModels();
+        $result = $nlu->listModels();
         $this->assertEquals(401, $result->getStatusCode());
     }
 }

@@ -49,7 +49,7 @@ class PersonalityInsights extends WatsonService {
      * @param $model PersonalityInsightsModel
      * @return HttpResponse
      */
-    public function Profile(PersonalityInsightsModel $model) {
+    public function getProfile(PersonalityInsightsModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));

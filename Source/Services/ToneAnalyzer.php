@@ -45,7 +45,7 @@ class ToneAnalyzer extends WatsonService {
      * @param $model ToneAnalyzerModel
      * @return HttpResponse
      */
-    public function Tone(ToneAnalyzerModel $model) {
+    public function getTone(ToneAnalyzerModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));

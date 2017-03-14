@@ -24,11 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 final class CommonTest extends TestCase {
 
-    // protected function setUp() {
-        // $env = new Environment(__DIR__);
-        // $env->load();
-    // }
-
     /**
      * ToneAnalyzerTokenProvider unit test
      */

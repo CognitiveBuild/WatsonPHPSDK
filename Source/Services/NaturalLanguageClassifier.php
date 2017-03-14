@@ -42,7 +42,7 @@ class NaturalLanguageClassifier extends WatsonService {
     /**
      * Sends data to create and train a classifier and returns information about the new classifier.
      */
-    public function CreateClassifier($training_file, $language = NaturalLanguageClassifierModel::LANGUAGE_EN, $name = '') {
+    public function createClassifier($training_file, $language = NaturalLanguageClassifierModel::LANGUAGE_EN, $name = '') {
 
         $this->_httpConfig->setData([ 'training_data' => $training_file, 'training_metadata' => [ 'language' => $language, 'name' => $name ] ]);
 
@@ -64,7 +64,7 @@ class NaturalLanguageClassifier extends WatsonService {
      * 
      * @return HttpResponse
      */
-    public function ListClassifiers() {
+    public function listClassifiers() {
 
         $this->_httpConfig->setData([]);
 
@@ -86,7 +86,7 @@ class NaturalLanguageClassifier extends WatsonService {
      * 
      * @return HttpResponse
      */
-    public function GetClassifier($classifier_id) {
+    public function getClassifier($classifier_id) {
 
         $this->_httpConfig->setData([]);
 
@@ -106,7 +106,7 @@ class NaturalLanguageClassifier extends WatsonService {
     /**
      * Deletes a classifier.
      */
-    public function DeleteClassifier($classifier_id) {
+    public function deleteClassifier($classifier_id) {
 
         $this->_httpConfig->setData([]);
 
@@ -128,7 +128,7 @@ class NaturalLanguageClassifier extends WatsonService {
      * The status must be "Available" before you can classify calls. 
      * Use the Get information about a classifier method to retrieve the status. 
      */
-    public function Classify($text, $classifier_id) {
+    public function classify($text, $classifier_id) {
 
         $this->_httpConfig->setData([ 'text' => $text ]);
 
