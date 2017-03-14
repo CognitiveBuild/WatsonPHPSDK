@@ -24,6 +24,9 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
+/**
+ * Tone Analyzer class
+ */
 class ToneAnalyzer extends WatsonService {
 
     /**
@@ -55,7 +58,7 @@ class ToneAnalyzer extends WatsonService {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(),$ex->getMessage());
+            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
             return $response;
         }
     }

@@ -24,6 +24,9 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
+/**
+ * Natural Language Understanding class
+ */
 class NaturalLanguageUnderstanding extends WatsonService {
 
     /**
@@ -37,7 +40,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
     }
 
     /**
-     * Invoke `analyze` service
+     * Analyze features of natural language content.
      * 
      * @param $model NaturalLanguageUnderstandingModel
      * @return HttpResponse
@@ -55,7 +58,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(),$ex->getMessage());
+            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
             return $response;
         }
     }
@@ -78,7 +81,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(),$ex->getMessage());
+            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
             return $response;
         }
     }
@@ -104,7 +107,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
             return $this->_httpClient->request($this->_httpConfig);
         }
         catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(),$ex->getMessage());
+            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
             return $response;
         }
     }

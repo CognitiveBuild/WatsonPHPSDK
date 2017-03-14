@@ -20,7 +20,7 @@ namespace WatsonSDK\Services;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Tone Analyzer entity class
+ * Natural Language Understanding entity class
  */
 class NaturalLanguageUnderstandingModel extends ServiceModel {
 
