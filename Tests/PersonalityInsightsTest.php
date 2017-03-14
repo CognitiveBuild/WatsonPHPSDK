@@ -106,7 +106,7 @@ class PersonalityInsightsTest extends TestCase {
         $model->setConsumptionPreferences(TRUE);
 
         if(isset($username) && isset($password)) {
-            $result = $insights->Profile($model);
+            $result = $insights->getProfile($model);
 
             $this->assertEquals(200, $result->getStatusCode());
         }
@@ -133,7 +133,7 @@ class PersonalityInsightsTest extends TestCase {
         $model->setRawScores(TRUE);
 
         if(isset($username) && isset($password)) {
-            $result = $insights->Profile($model);
+            $result = $insights->getProfile($model);
 
             $this->assertEquals(200, $result->getStatusCode());
         }
@@ -146,7 +146,7 @@ class PersonalityInsightsTest extends TestCase {
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $model = new PersonalityInsightsModel();
-        $result = $insights->Profile($model);
+        $result = $insights->getProfile($model);
         $this->assertEquals(401, $result->getStatusCode());
     }
 
