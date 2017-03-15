@@ -19,6 +19,9 @@ namespace WatsonSDK\Common;
 
 use \ReflectionClass;
 
+/**
+ * Base class of model
+ */
 class ServiceModel {
 
     /**
@@ -35,7 +38,7 @@ class ServiceModel {
      * 
      * @return array
      */
-    final public function getData($type = '@query') {
+    final public function getData($type = '@query', $nullable = FALSE) {
 
         $reflection = new ReflectionClass($this);
         $attributes = $reflection->getProperties();
@@ -45,6 +48,10 @@ class ServiceModel {
             $attribute->setAccessible(true);
             $docComment = $attribute->getDocComment();
             $value = $attribute->getValue($this);
+
+            if(is_null($value) && $nullable === FALSE) {
+                continue;
+            }
 
             $matches = [];
             $match = preg_match("/{$type}(.*?)\n/", $docComment, $matches);
