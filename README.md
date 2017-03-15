@@ -112,7 +112,7 @@ The following example demonstrates how to use the Personality Insights service:
 
 ```php
 $insights = new PersonalityInsights( WatsonCredential::initWithCredentials('your_username', 'your_password') );
-$model    = new PersonalityInsightsModel('Enter more than 100 unique words here...');
+$model    = new PersonalityInsightsModel( new ContentItemModel('Enter more than 100 unique words here...'));
 $mode->setConsumptionPreferences(TRUE);
 $result   = $insights->getProfile($model);
 
