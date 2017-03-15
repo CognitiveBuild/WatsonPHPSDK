@@ -16,10 +16,12 @@ use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Common\SimpleTokenHelper;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
-use PHPUnit\Framework\TestCase;
-use WatsonSDK\Services\ContentItems;
+
+use WatsonSDK\Services\ContentItemModel;
 use WatsonSDK\Services\PersonalityInsights;
 use WatsonSDK\Services\PersonalityInsightsModel;
+
+use PHPUnit\Framework\TestCase;
 
 class PersonalityInsightsTest extends TestCase {
 
@@ -35,7 +37,7 @@ class PersonalityInsightsTest extends TestCase {
      */
     public function testPersonalityInsightsModel () {
 
-        $model = new PersonalityInsightsModel(new ContentItems('c'));
+        $model = new PersonalityInsightsModel(new ContentItemModel('c'));
 
         $this->assertInstanceOf(
             PersonalityInsightsModel::class,
@@ -54,7 +56,7 @@ class PersonalityInsightsTest extends TestCase {
         $this->assertEquals($model->getAccept(), TRUE);
         $this->assertEquals($model->getAcceptLanguage(), 'al');
         $this->assertEquals($model->getConsumptionPreferences(), TRUE);
-        $this->assertEquals($model->getContents(), [ 'contentItems' => [['content' => 'c', 'contenttype' => 'text/plain','language'=>'en'] ]] );
+        $this->assertEquals($model->getContents(), [ 'contentItems' => [ [ 'content' => 'c' ] ]] );
         $this->assertEquals($model->getContentLanguage(), 'cl');
         $this->assertEquals($model->getCsvHeaders(), TRUE);
         $this->assertEquals($model->getRawScores(), TRUE);
@@ -73,40 +75,42 @@ class PersonalityInsightsTest extends TestCase {
         ]);
 
         $model->setContents( [ [ 'content' => 'd', 'contenttype' => 'text/plain' ] ] );
-        $this->assertEquals($model->getData('@data'), [ 'contentItems' => [ [ 'content' => 'd', 'contenttype' => 'text/plain' ] ] ]);
+        $this->assertEquals($model->getContents(), [ 'contentItems' => [ [ 'content' => 'd', 'contenttype' => 'text/plain' ] ] ]);
     }
 
 
     /**
      * ContentItemsModel unit test
      */
-    public function testContentItemsModel(){
-        $model=new ContentItems('item');
+    public function testContentItemsModel() {
+
+        $model = new ContentItemModel('item');
+
         $this->assertInstanceOf(
-            ContentItems::class,
+            ContentItemModel::class,
             $model
         );
+
         $model->setContent('c');
-        $model->setContenttype('t');
+        $model->setContentType('t');
         $model->setCreated(1);
         $model->setUpdated(1);
-        $model->setForward(true);
+        $model->setForward(TRUE);
         $model->setId('id');
         $model->setLanguage('en');
-        $model->setParentid('pid');
-        $model->setReply(true);
+        $model->setParentId('pid');
+        $model->setReply(TRUE);
 
         $this->assertEquals($model->getContent(),'c');
-        $this->assertEquals($model->getContenttype(),'t');
+        $this->assertEquals($model->getContentType(),'t');
         $this->assertEquals($model->getCreated(),1);
         $this->assertEquals($model->getUpdated(),1);
-        $this->assertEquals($model->getForward(),true);
+        $this->assertEquals($model->getForward(),TRUE);
         $this->assertEquals($model->getId(),'id');
         $this->assertEquals($model->getLanguage(),'en');
-        $this->assertEquals($model->getParentid(),'pid');
-        $this->assertEquals($model->getReply(),true);
-        $this->assertEquals($model->toArray(),['content'=>'c','id'=>'id','contenttype'=>'t','created'=>1,'updated'=>1,'forward'=>true,'language'=>'en','parentid'=>'pid','reply'=>true]);
-
+        $this->assertEquals($model->getParentId(),'pid');
+        $this->assertEquals($model->getReply(),TRUE);
+        $this->assertEquals($model->getData('@name'), [ 'content' => 'c', 'id'=>'id', 'contenttype' => 't', 'created' => 1, 'updated' => 1,'forward' => TRUE, 'language' => 'en', 'parentid' => 'pid', 'reply' => TRUE ]);
     }
 
 
@@ -119,21 +123,22 @@ class PersonalityInsightsTest extends TestCase {
         $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new PersonalityInsightsModel(new ContentItems('The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
+        $model    = new PersonalityInsightsModel(new ContentItemModel('The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
 
-        $model->addContent(new ContentItems(' The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their personality characteristics. The service can infer consumption preferences based on the results of its analysis and, for JSON content that is timestamped, can report temporal behavior. '));
-        $model->addContent(new ContentItems(' For information about the meaning of the models that the service uses to describe personality characteristics, see Personality models. For information about the meaning of the consumption preferences, see Consumption preferences. '));
-        $model->addContent(new ContentItems(' Note: You can continue to use the previous version of the Personality Insights API (v2) until January 31, 2017. You can access reference documentation for the v2 API at API reference for v2. You can also access the interactive tool for testing calls to the v2 API and viewing live responses from the service at API explorer for v2. '));
-        $model->addContent(new ContentItems(' You authenticate to the Personality Insights API by providing the username and password that are provided in the service credentials for the service instance that you want to use. The API uses HTTP basic authentication. '));
-        $model->addContent(new ContentItems(' After creating an instance of the Personality Insights service, select Service Credentials from the navigation on the left side of its dashboard page to see the username and password that are associated with the instance. For more information, see Obtaining credentials for Watson services. '));
-        $model->addContent(new ContentItems(' Applications can also use tokens to establish authenticated communications with Watson services without embedding their service credentials in every call. You write an authentication proxy in Bluemix to obtain a token for your client application, which can then use the token to call the service directly. You use your service credentials to obtain a token for that service. For more information, see Using tokens with Watson services. '));
-        $model->addContent(new ContentItems(' By default, Bluemix collects data from all requests and uses the data to improve the Watson services. If you do not want to share your data, you can disable request logging by setting the X-Watson-Learning-Opt-Out header to true for each request. Data is not collected for any request that includes this header. For more information, see Controlling request logging for Watson services. '));
-        $model->addContent(new ContentItems(' The Personality Insights service uses standard HTTP response codes to indicate whether a method completed successfully. A 200-level response always indicates success. A 400-level response indicates some sort of failure. And a 500-level response typically indicates an internal system error. '));
-        $model->addContent(new ContentItems(' Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input content. It can analyze text in Arabic, English, Japanese, or Spanish and return its results in a variety of languages. You can provide plain text, HTML, or JSON input. The service returns output in JSON format by default, but you can request the output in CSV format. '));
-        $model->addContent(new ContentItems(' Visual Recognition understands the contents of images - visual concepts tag the image, find human faces, approximate age and gender, and find similar images in a collection. You can also train the service by creating your own custom concepts. Use Visual Recognition to detect a dress type in retail, identify spoiled fruit in inventory, and more. '));
-        $model->addContent(new ContentItems(' The IBM Watson™ Visual Recognition service uses deep learning algorithms to analyze images for scenes, objects, faces, and other content. The response includes keywords that provide information about the content. '));
-        $model->addContent(new ContentItems(' A set of built-in classes provides highly accurate results without training. You can train custom classifiers to create specialized classes. You can also create custom collections of your own images, and then upload an image to search the collection for similar images. '));
-        $item=new ContentItems("this is a test for contentItem Model");
+        $model->addContent(new ContentItemModel(' The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their personality characteristics. The service can infer consumption preferences based on the results of its analysis and, for JSON content that is timestamped, can report temporal behavior. '));
+        $model->addContent(new ContentItemModel(' For information about the meaning of the models that the service uses to describe personality characteristics, see Personality models. For information about the meaning of the consumption preferences, see Consumption preferences. '));
+        $model->addContent(new ContentItemModel(' Note: You can continue to use the previous version of the Personality Insights API (v2) until January 31, 2017. You can access reference documentation for the v2 API at API reference for v2. You can also access the interactive tool for testing calls to the v2 API and viewing live responses from the service at API explorer for v2. '));
+        $model->addContent(new ContentItemModel(' You authenticate to the Personality Insights API by providing the username and password that are provided in the service credentials for the service instance that you want to use. The API uses HTTP basic authentication. '));
+        $model->addContent(new ContentItemModel(' After creating an instance of the Personality Insights service, select Service Credentials from the navigation on the left side of its dashboard page to see the username and password that are associated with the instance. For more information, see Obtaining credentials for Watson services. '));
+        $model->addContent(new ContentItemModel(' Applications can also use tokens to establish authenticated communications with Watson services without embedding their service credentials in every call. You write an authentication proxy in Bluemix to obtain a token for your client application, which can then use the token to call the service directly. You use your service credentials to obtain a token for that service. For more information, see Using tokens with Watson services. '));
+        $model->addContent(new ContentItemModel(' By default, Bluemix collects data from all requests and uses the data to improve the Watson services. If you do not want to share your data, you can disable request logging by setting the X-Watson-Learning-Opt-Out header to true for each request. Data is not collected for any request that includes this header. For more information, see Controlling request logging for Watson services. '));
+        $model->addContent(new ContentItemModel(' The Personality Insights service uses standard HTTP response codes to indicate whether a method completed successfully. A 200-level response always indicates success. A 400-level response indicates some sort of failure. And a 500-level response typically indicates an internal system error. '));
+        $model->addContent(new ContentItemModel(' Generates a personality profile for the author of the input text. The service accepts a maximum of 20 MB of input content. It can analyze text in Arabic, English, Japanese, or Spanish and return its results in a variety of languages. You can provide plain text, HTML, or JSON input. The service returns output in JSON format by default, but you can request the output in CSV format. '));
+        $model->addContent(new ContentItemModel(' Visual Recognition understands the contents of images - visual concepts tag the image, find human faces, approximate age and gender, and find similar images in a collection. You can also train the service by creating your own custom concepts. Use Visual Recognition to detect a dress type in retail, identify spoiled fruit in inventory, and more. '));
+        $model->addContent(new ContentItemModel(' The IBM Watson™ Visual Recognition service uses deep learning algorithms to analyze images for scenes, objects, faces, and other content. The response includes keywords that provide information about the content. '));
+        $model->addContent(new ContentItemModel(' A set of built-in classes provides highly accurate results without training. You can train custom classifiers to create specialized classes. You can also create custom collections of your own images, and then upload an image to search the collection for similar images. '));
+
+        $item = new ContentItemModel("this is a test for contentItem Model");
         $model->addContent($item);
 
         $this->assertInstanceOf(
@@ -144,8 +149,7 @@ class PersonalityInsightsTest extends TestCase {
         $model->setConsumptionPreferences(TRUE);
 
         if(isset($username) && isset($password)) {
-            $result = $insights->Profile($model);
-
+            $result = $insights->getProfile($model);
             $this->assertEquals(200, $result->getStatusCode());
         }
     }
@@ -159,20 +163,20 @@ class PersonalityInsightsTest extends TestCase {
         $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new PersonalityInsightsModel(new ContentItems('c'));
+        $model    = new PersonalityInsightsModel(new ContentItemModel('c'));
 
         $this->assertInstanceOf(
             PersonalityInsights::class,
             $insights
         );
 
-        $profile = json_decode(file_get_contents(__DIR__ . './../Tests/Data/PersonalityInsights.json'), true);
+        $profile = json_decode(file_get_contents(__DIR__ . './../Tests/Data/PersonalityInsights.json'), TRUE);
+
         $model->setContents($profile['contentItems']);
         $model->setRawScores(TRUE);
 
         if(isset($username) && isset($password)) {
             $result = $insights->getProfile($model);
-
             $this->assertEquals(200, $result->getStatusCode());
         }
     }
@@ -183,8 +187,8 @@ class PersonalityInsightsTest extends TestCase {
     public function testPersonalityInsightsResponseError() {
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
-        $model = new PersonalityInsightsModel(new ContentItems('c'));
-        $result = $insights->Profile($model);
+        $model = new PersonalityInsightsModel(new ContentItemModel('c'));
+        $result = $insights->getProfile($model);
         $this->assertEquals(401, $result->getStatusCode());
     }
 
