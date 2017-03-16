@@ -109,9 +109,9 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
     }
 
     /**
-     * NaturalLanguageUnderstanding unit test for handling error response from Analyze method
+     * NaturalLanguageUnderstanding unit test for handling error response from analyze method
      */
-    public function testAnalyzeResponseError() {
+    public function testNaturalLanguageUnderstandingResponseError() {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
@@ -122,7 +122,7 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
     /**
      * NaturalLanguageUnderstanding unit test for handling error response from listModels method
      */
-    public function testListModelsResponseError() {
+    public function testNaturalLanguageUnderstandingListModelsResponseError() {
 
         $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
         $result = $nlu->listModels();

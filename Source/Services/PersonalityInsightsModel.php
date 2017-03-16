@@ -122,7 +122,7 @@ class PersonalityInsightsModel extends ServiceModel {
      */
     function __construct(ContentItemModel $val, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
 
-        $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('@name') ]];
+        $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('@name') ] ];
         $this->_raw_scores = $raw_scores;
         $this->_consumption_preferences = $consumption_preferences;
         $this->_csv_headers = $csv_headers;
