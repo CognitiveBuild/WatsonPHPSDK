@@ -42,9 +42,15 @@ class NaturalLanguageClassifier extends WatsonService {
     /**
      * Sends data to create and train a classifier and returns information about the new classifier.
      */
-    public function createClassifier($training_file, $language = NaturalLanguageClassifierModel::LANGUAGE_EN, $name = '') {
+    public function createClassifier($training_file, $language = NaturalLanguageClassifierModel::LANGUAGE_EN, $name = NULL) {
 
-        $this->_httpConfig->setData([ 'training_data' => $training_file, 'training_metadata' => [ 'language' => $language, 'name' => $name ] ]);
+        $data = [ 'training_data' => $training_file, 'training_metadata' => [ 'language' => $language ] ];
+
+        if(is_null($name) === FALSE && strlen($name) > 0) {
+            $data['training_metadata']['name'] = $name;
+        }
+
+        $this->_httpConfig->setData($data);
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_MULTIPART);
