@@ -29,6 +29,7 @@ class HttpClientConfiguration {
     const METHOD_PATCH = 'PATCH';
 
     const DATA_TYPE_JSON = 'json';
+    const DATA_TYPE_BODY = 'body';
     const DATA_TYPE_FORM = 'form_params';
     const DATA_TYPE_MULTIPART = 'multipart';
 
@@ -53,6 +54,8 @@ class HttpClientConfiguration {
     private $_headers;
     // Float describing the timeout of the request in seconds. Use 0 to wait indefinitely (the default behavior)
     private $_timeout;
+    // Float describing the number of seconds to wait while trying to connect to a server. Use 0 to wait indefinitely (the default behavior).
+    private $_connection_timeout;
     // Pass an array of HTTP authentication parameters to use with the request. 
     // The array must contain the username in index [0], the password in index [1], and you can optionally provide a built-in authentication type in index [2]. 
     // Pass null to disable authentication for a request.
@@ -60,15 +63,17 @@ class HttpClientConfiguration {
 
     /**
      * Constructor
-     * @param $url
-     * @param $method
-     * @param $query
-     * @param $data
-     * @param $type
-     * @param $headers
-     * @param $timeout
+     * @param $url string | NULL
+     * @param $method string
+     * @param $query array
+     * @param $data array
+     * @param $type string | NULL
+     * @param $headers array
+     * @param $timeout integer
+     * @param $connection_timeout integer
+     * @param $credentials array | NULL
      */
-    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = null, $headers = [], $timeout = 0, $credentials = NULL) {
+    function __construct($url = NULL, $method = self::METHOD_GET, $query = [], $data = [], $type = NULL, $headers = [], $timeout = 0, $connection_timeout = 0, $credentials = NULL) {
 
         $this->setURL($url);
         $this->setMethod($method);
@@ -77,6 +82,7 @@ class HttpClientConfiguration {
         $this->setType($type);
         $this->setHeaders($headers);
         $this->setTimeout($timeout);
+        $this->setConnectionTimeout($timeout);
         $this->setCredentials($credentials);
     }
 
@@ -114,7 +120,10 @@ class HttpClientConfiguration {
             $options['timeout'] = $this->getTimeout();
         }
 
-        // TODO: Set connection timeout
+        // Set response timeout
+        if($this->getConnectionTimeout() > 0) {
+            $options['connect_timeout'] = $this->getConnectionTimeout();
+        }
 
         return $options;
     }
@@ -237,6 +246,22 @@ class HttpClientConfiguration {
      */
     public function setTimeout($val) {
         $this->_timeout = $val;
+    }
+
+    /**
+     * Get connection timeout
+     * @return Float
+     */
+    public function getConnectionTimeout() {
+        return $this->_connection_timeout;
+    }
+
+    /**
+     * Set connection timeout 
+     * @param $val Float
+     */
+    public function setConnectionTimeout($val) {
+        $this->_connection_timeout = $val;
     }
 
     /**
