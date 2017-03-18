@@ -21,9 +21,7 @@ use WatsonSDK\Common\HttpClient;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
 
-use PHPUnit\Framework\TestCase;
-
-final class HttpClientTest extends TestCase {
+final class HttpClientTest extends BaseTestCase {
 
     /**
      * HttpClientConfiguration unit test

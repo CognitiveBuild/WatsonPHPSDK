@@ -26,27 +26,19 @@ use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzerModel;
+use WatsonSDK\Services\ToneAnalyzer\RequestModel;
 
-use PHPUnit\Framework\TestCase;
-
-final class ToneAnalyzerTest extends TestCase {
-
-    protected function setUp() {
-
-        $env = new Environment(__DIR__);
-        $env->load();
-    }
+final class ToneAnalyzerTest extends BaseTestCase {
 
     /**
-     * ToneAnalyzerModel unit test
+     * RequestModel unit test
      */
     public function testToneAnalyzerModel () {
 
-        $model = new ToneAnalyzerModel();
+        $model = new RequestModel();
 
         $this->assertInstanceOf(
-            ToneAnalyzerModel::class, 
+            RequestModel::class, 
             $model
         );
 
@@ -81,7 +73,7 @@ final class ToneAnalyzerTest extends TestCase {
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new ToneAnalyzerModel();
+        $model    = new RequestModel();
 
         $this->assertInstanceOf(
             ToneAnalyzer::class, 
@@ -114,7 +106,7 @@ final class ToneAnalyzerTest extends TestCase {
         $provider = new SimpleTokenProvider('http://php-sdk.migg.cn/invalidToken.php');
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-        $model = new ToneAnalyzerModel();
+        $model = new RequestModel();
         $model->setText('This is a test.');
         $result = $analyzer->getTone($model);
 
@@ -134,7 +126,7 @@ final class ToneAnalyzerTest extends TestCase {
         $provider = new SimpleTokenProvider(NULL, $token);
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-        $model = new ToneAnalyzerModel();
+        $model = new RequestModel();
         $model->setText('I feel so happy');
 
         $result = $analyzer->getTone($model);
@@ -147,7 +139,7 @@ final class ToneAnalyzerTest extends TestCase {
      */ 
     private function getToken($username, $password) {
 
-        $serviceUrl = ToneAnalyzerModel::BASE_URL.'/analyze?version='.ToneAnalyzerModel::VERSION;
+        $serviceUrl = RequestModel::BASE_URL.'/analyze?version='.RequestModel::VERSION;
 
         return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
     }

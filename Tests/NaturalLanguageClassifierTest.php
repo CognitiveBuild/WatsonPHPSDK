@@ -25,30 +25,8 @@ use WatsonSDK\Common\SimpleTokenHelper;
 use WatsonSDK\Common\WatsonCredential;
 
 use WatsonSDK\Services\NaturalLanguageClassifier;
-use WatsonSDK\Services\NaturalLanguageClassifierModel;
 
-use PHPUnit\Framework\TestCase;
-
-final class NaturalLanguageClassifierTest extends TestCase {
-
-    protected function setUp() {
-
-        $env = new Environment(__DIR__);
-        $env->load();
-    }
-
-    /**
-     * NaturalLanguageClassifierModel unit test
-     */
-    public function testNaturalLanguageClassifierModel () {
-
-        $model = new NaturalLanguageClassifierModel();
-
-        $this->assertInstanceOf(
-            NaturalLanguageClassifierModel::class, 
-            $model
-        );
-    }
+final class NaturalLanguageClassifierTest extends BaseTestCase {
 
     /**
      * NaturalLanguageClassifier unit test with basic authentication
@@ -70,7 +48,7 @@ final class NaturalLanguageClassifierTest extends TestCase {
 
             $classifier_name = 'Unit Test';
             $training_file_path = 'http://php-sdk.migg.cn/data/NaturalLanguageClassifier.csv';
-            $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN, $classifier_name);
+            $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifier::LANGUAGE_EN, $classifier_name);
 
             $content = json_decode($result->getContent(), true);
 
@@ -125,7 +103,7 @@ final class NaturalLanguageClassifierTest extends TestCase {
         $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
 
         $training_file_path = 'http://php-sdk.migg.cn/data/NaturalLanguageClassifier.Empty.csv';
-        $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN);
+        $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifier::LANGUAGE_EN);
         $this->assertEquals(400, $result->getStatusCode());
     }
 

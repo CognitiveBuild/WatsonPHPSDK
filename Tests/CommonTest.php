@@ -20,9 +20,7 @@ namespace WatsonSDK\Tests;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\SimpleTokenProvider;
 
-use PHPUnit\Framework\TestCase;
-
-final class CommonTest extends TestCase {
+final class CommonTest extends BaseTestCase {
 
     /**
      * ToneAnalyzerTokenProvider unit test
