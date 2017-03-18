@@ -24,6 +24,8 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
+use WatsonSDK\Services\ToneAnalyzer\RequestModel;
+
 /**
  * Tone Analyzer class
  */
@@ -42,18 +44,18 @@ class ToneAnalyzer extends WatsonService {
     /**
      * Invoke `tone` service
      * 
-     * @param $model ToneAnalyzerModel
+     * @param $model RequestModel
      * 
      * @return HttpResponse
      */
-    public function getTone(ToneAnalyzerModel $model) {
+    public function getTone(RequestModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(ToneAnalyzerModel::BASE_URL."/tone");
+        $this->_httpConfig->setURL(RequestModel::BASE_URL."/tone");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);

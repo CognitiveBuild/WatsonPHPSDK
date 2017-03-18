@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-namespace WatsonSDK\Services;
+namespace WatsonSDK\Services\NaturalLanguageUnderstanding;
 
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Natural Language Understanding entity class
+ * Natural Language Understanding request model
  */
-class NaturalLanguageUnderstandingModel extends ServiceModel {
+class RequestModel extends ServiceModel {
 
     const VERSION = '2017-02-27';
     const BASE_URL = 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1';

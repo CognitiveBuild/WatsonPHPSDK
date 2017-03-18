@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-namespace WatsonSDK\Services;
+namespace WatsonSDK\Services\ToneAnalyzer;
 
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Tone Analyzer entity class
+ * Tone Analyzer request model
  */
-class ToneAnalyzerModel extends ServiceModel {
+class RequestModel extends ServiceModel {
 
     const VERSION = '2016-05-19';
     const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';

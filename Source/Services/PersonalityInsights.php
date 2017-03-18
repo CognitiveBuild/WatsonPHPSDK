@@ -24,6 +24,8 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
+use WatsonSDK\Services\PersonalityInsights\RequestModel;
+
 /**
  * Personality Insights class
  */
@@ -46,11 +48,11 @@ class PersonalityInsights extends WatsonService {
      * You can provide plain text, HTML, or JSON input. 
      * The service returns output in JSON format by default, but you can request the output in CSV format. 
      * 
-     * @param $model PersonalityInsightsModel
+     * @param $model RequestModel
      * 
      * @return HttpResponse
      */
-    public function getProfile(PersonalityInsightsModel $model) {
+    public function getProfile(RequestModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
@@ -58,7 +60,7 @@ class PersonalityInsights extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(PersonalityInsightsModel::BASE_URL."/profile");
+        $this->_httpConfig->setURL(RequestModel::BASE_URL."/profile");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
