@@ -26,6 +26,12 @@ class SimpleTokenProvider implements TokenProviderInterface {
     private static $_token = NULL;
     private $_url = '';
 
+    /**
+     * Constructor
+     * 
+     * @param $url string | NULL
+     * @param $token string | NULL
+     */
     function __construct($url = NULL, $token = NULL) {
 
         if(is_null($url) && is_null($token)) {
@@ -37,6 +43,11 @@ class SimpleTokenProvider implements TokenProviderInterface {
         $this->setToken($token);
     }
 
+    /**
+     * Get token string
+     * 
+     * @return string
+     */
     public function getToken() {
 
         if(is_null(self::$_token)) {
@@ -55,6 +66,11 @@ class SimpleTokenProvider implements TokenProviderInterface {
         return self::$_token;
     }
 
+    /**
+     * Get token string
+     * 
+     * @param $token string
+     */
     public function setToken($token) {
         self::$_token = $token;
     }

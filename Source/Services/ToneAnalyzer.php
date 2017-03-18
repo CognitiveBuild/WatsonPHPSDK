@@ -43,6 +43,7 @@ class ToneAnalyzer extends WatsonService {
      * Invoke `tone` service
      * 
      * @param $model ToneAnalyzerModel
+     * 
      * @return HttpResponse
      */
     public function getTone(ToneAnalyzerModel $model) {

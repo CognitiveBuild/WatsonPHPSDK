@@ -31,8 +31,8 @@ class WatsonCredential {
     /**
      * WatsonCredential constructor
      * 
-     * @param $username
-     * @param $password
+     * @param $username string | NULL
+     * @param $password string | NULL
      */
     function __construct($username = NULL, $password = NULL) {
 
@@ -43,8 +43,10 @@ class WatsonCredential {
     /**
      * An alternative way of initializing WatsonCredential instance
      * 
-     * @param $username
-     * @param $password
+     * @param $username string
+     * @param $password string
+     * 
+     * @return WatsonCredential
      */
     final public static function initWithCredentials($username, $password) {
 
@@ -55,8 +57,9 @@ class WatsonCredential {
     /**
      * Use token provider to initialize a WatsonCredential instance
      * 
-     * @param $username
-     * @param $password
+     * @param $_token_provider TokenProviderInterface
+     * 
+     * @return WatsonCredential
      */
     final public static function initWithTokenProvider(TokenProviderInterface $token_provider) {
 

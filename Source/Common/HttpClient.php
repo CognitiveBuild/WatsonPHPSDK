@@ -26,21 +26,28 @@ use GuzzleHttp\Exception\RequestException;
 
 class HttpClient {
 
-    // HttpClient instance
+    /**
+     * HttpClient instance
+     */
     private $_request;
 
     /**
      * Constructor
-     * @param 
      */
     function __construct() {
+
         $this->_request = new Client();
     }
 
     /**
      * Send out HTTP request
+     * 
+     * @param $config HttpClientConfiguration
+     * @return HttpResponse
+     * @throws HttpClientException
      */
     public function request(HttpClientConfiguration $config) {
+
         try {
             // Convert to Guzzle request options
             $options = $config->toOptions();
