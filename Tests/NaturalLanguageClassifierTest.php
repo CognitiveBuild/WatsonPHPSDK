@@ -53,43 +53,41 @@ final class NaturalLanguageClassifierTest extends TestCase {
     /**
      * NaturalLanguageClassifier unit test with basic authentication
      */
-    // public function testNaturalLanguageClassifier() {
+    public function testNaturalLanguageClassifier() {
 
-    //     $username = getenv('NATURAL_LANGUAGE_CLASSIFIER_USERNAME');
-    //     $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
+        $username = getenv('NATURAL_LANGUAGE_CLASSIFIER_USERNAME');
+        $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
+        $classified_id = getenv('NATURAL_LANGUAGE_CLASSIFIER_CLASSIFIER');
 
-    //     $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
 
-    //     $this->assertInstanceOf(
-    //         NaturalLanguageClassifier::class, 
-    //         $nlc
-    //     );
+        $this->assertInstanceOf(
+            NaturalLanguageClassifier::class, 
+            $nlc
+        );
 
-    //     if(isset($username) && isset($password)) {
+        if(isset($username) && isset($password)) {
 
-    //         $classifier_name = 'Test';
-    //         $training_file = file_get_contents(__DIR__ . './../Tests/Data/NaturalLanguageClassifier.csv');
-    //         $result = $nlc->createClassifier($training_file, NaturalLanguageClassifierModel::LANGUAGE_EN, $classifier_name);
+            $classifier_name = 'Unit Test';
+            $training_file_path = __DIR__ . './../Tests/Data/NaturalLanguageClassifier.csv';
+            $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN, $classifier_name);
 
-    //         print_r($result);
+            $content = json_decode($result->getContent(), true);
 
-    //         $content = json_decode($result->getContent(), true);
-    //         $classifier_id = $content['classifier_id'];
+            $classifier_id = $content['classifier_id'];
 
-    //         $classifier = $nlc->getClassifier($classifier_id);
-    //         $this->assertEquals(200, $classifier->getStatusCode());
+            $classifier = $nlc->getClassifier($classifier_id);
+            $this->assertEquals(200, $classifier->getStatusCode());
 
-    //         $classifiers = $nlc->listClassifiers();
-    //         $this->assertEquals(200, $classifiers->getStatusCode());
+            $classifiers = $nlc->listClassifiers();
+            $this->assertEquals(200, $classifiers->getStatusCode());
 
-    //         // go forward,locomotion_forward
-    //         $result = $nlc->classify('go forward', $classifier_id);
-    //         $this->assertEquals(200, $result->getStatusCode());
-
-    //         $delete = $nlc->deleteClassifier($classifier_id);
-    //         $this->assertEquals(200, $delete->getStatusCode());
-    //     }
-    // }
+            // go forward,locomotion_forward
+            $result = $nlc->classify('Go forward', $classifier_id);
+            $this->assertEquals(404, $result->getStatusCode()); // not yet trained
+            $result = $nlc->classify('How are you', $classified_id); // trained
+        }
+    }
 
     /**
      * NaturalLanguageClassifier unit test for handling error response from classify method
@@ -107,8 +105,52 @@ final class NaturalLanguageClassifierTest extends TestCase {
      */
     public function testNaturalLanguageClassifierGetClassifierResponseError() {
 
-        $nlu = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
-        $result = $nlu->getClassifier('fake-id');
+        $username = getenv('NATURAL_LANGUAGE_CLASSIFIER_USERNAME');
+        $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
+
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
+
+        $result = $nlc->getClassifier('fake-id');
+        $this->assertEquals(404, $result->getStatusCode());
+    }
+
+    /**
+     * NaturalLanguageClassifier unit test for handling error response from getClassifier method
+     */
+    public function testNaturalLanguageClassifierCreateClassifierResponseError() {
+
+        $username = getenv('NATURAL_LANGUAGE_CLASSIFIER_USERNAME');
+        $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
+
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
+
+        $training_file_path = __DIR__ . './../Tests/Data/NaturalLanguageClassifier.Empty.csv';
+        $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN);
+        $this->assertEquals(400, $result->getStatusCode());
+    }
+
+    /**
+     * NaturalLanguageClassifier unit test for handling error response from listClassifiers method
+     */
+    public function testNaturalLanguageClassifierListClassifiersResponseError() {
+
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
+
+        $result = $nlc->listClassifiers();
         $this->assertEquals(401, $result->getStatusCode());
+    }
+
+    /**
+     * NaturalLanguageClassifier unit test for handling error response from deleteClassifier method
+     */
+    public function testNaturalLanguageClassifierDeleteClassifierResponseError() {
+
+        $username = getenv('NATURAL_LANGUAGE_CLASSIFIER_USERNAME');
+        $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
+
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
+
+        $result = $nlc->deleteClassifier('fake-id');
+        $this->assertEquals(404, $result->getStatusCode());
     }
 }
