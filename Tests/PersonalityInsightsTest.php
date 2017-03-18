@@ -178,7 +178,7 @@ class PersonalityInsightsTest extends TestCase {
             $insights
         );
 
-        $profile = json_decode(file_get_contents(__DIR__ . './../Tests/Data/PersonalityInsights.json'), TRUE);
+        $profile = json_decode(file_get_contents(__DIR__ . '/../Tests/Data/PersonalityInsights.json'), TRUE);
 
         $model->setContents($profile['contentItems']);
         $model->setRawScores(TRUE);
