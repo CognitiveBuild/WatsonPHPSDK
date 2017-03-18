@@ -47,6 +47,7 @@ class PersonalityInsights extends WatsonService {
      * The service returns output in JSON format by default, but you can request the output in CSV format. 
      * 
      * @param $model PersonalityInsightsModel
+     * 
      * @return HttpResponse
      */
     public function getProfile(PersonalityInsightsModel $model) {

@@ -34,5 +34,4 @@ class NaturalLanguageClassifierModel extends ServiceModel {
     const LANGUAGE_JA = 'ja';
     const LANGUAGE_PT = 'pt';
     const LANGUAGE_ES = 'es';
-
 }
