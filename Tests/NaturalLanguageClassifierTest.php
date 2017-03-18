@@ -69,7 +69,7 @@ final class NaturalLanguageClassifierTest extends TestCase {
         if(isset($username) && isset($password)) {
 
             $classifier_name = 'Unit Test';
-            $training_file_path = __DIR__ . '/../Tests/Data/NaturalLanguageClassifier.csv';
+            $training_file_path = 'http://php-sdk.migg.cn/data/NaturalLanguageClassifier.csv';
             $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN, $classifier_name);
 
             $content = json_decode($result->getContent(), true);
@@ -124,7 +124,7 @@ final class NaturalLanguageClassifierTest extends TestCase {
 
         $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
 
-        $training_file_path = __DIR__ . '/../Tests/Data/NaturalLanguageClassifier.Empty.csv';
+        $training_file_path = 'http://php-sdk.migg.cn/data/NaturalLanguageClassifier.Empty.csv';
         $result = $nlc->createClassifier($training_file_path, NaturalLanguageClassifierModel::LANGUAGE_EN);
         $this->assertEquals(400, $result->getStatusCode());
     }
