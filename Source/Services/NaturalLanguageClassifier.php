@@ -29,6 +29,17 @@ use WatsonSDK\Common\WatsonCredential;
  */
 class NaturalLanguageClassifier extends WatsonService {
 
+    const BASE_URL = 'https://gateway.watsonplatform.net/natural-language-classifier/api/v1';
+
+    const LANGUAGE_EN = 'en';
+    const LANGUAGE_AR = 'ar';
+    const LANGUAGE_FR = 'fr';
+    const LANGUAGE_DE = 'de';
+    const LANGUAGE_IT = 'it';
+    const LANGUAGE_JA = 'ja';
+    const LANGUAGE_PT = 'pt';
+    const LANGUAGE_ES = 'es';
+
     /**
      * Constructor
      * 
@@ -47,7 +58,7 @@ class NaturalLanguageClassifier extends WatsonService {
      * @param $name string | NULL
      * @return HttpResponse
      */
-    public function createClassifier($training_file_path, $language = NaturalLanguageClassifierModel::LANGUAGE_EN, $name = NULL) {
+    public function createClassifier($training_file_path, $language = self::LANGUAGE_EN, $name = NULL) {
 
         $training_data_file = fopen($training_file_path, 'r');
         $training_metadata_file = tmpfile();
@@ -73,7 +84,7 @@ class NaturalLanguageClassifier extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_MULTIPART);
-        $this->_httpConfig->setURL(NaturalLanguageClassifierModel::BASE_URL."/classifiers");
+        $this->_httpConfig->setURL(self::BASE_URL."/classifiers");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -95,7 +106,7 @@ class NaturalLanguageClassifier extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(NaturalLanguageClassifierModel::BASE_URL."/classifiers");
+        $this->_httpConfig->setURL(self::BASE_URL."/classifiers");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -118,7 +129,7 @@ class NaturalLanguageClassifier extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(NaturalLanguageClassifierModel::BASE_URL."/classifiers/{$classifier_id}");
+        $this->_httpConfig->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -143,7 +154,7 @@ class NaturalLanguageClassifier extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_DELETE);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(NaturalLanguageClassifierModel::BASE_URL."/classifiers/{$classifier_id}");
+        $this->_httpConfig->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -170,7 +181,7 @@ class NaturalLanguageClassifier extends WatsonService {
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(NaturalLanguageClassifierModel::BASE_URL."/{$classifier_id}/classify");
+        $this->_httpConfig->setURL(self::BASE_URL."/{$classifier_id}/classify");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
