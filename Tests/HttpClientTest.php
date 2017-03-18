@@ -25,6 +25,9 @@ use PHPUnit\Framework\TestCase;
 
 final class HttpClientTest extends TestCase {
 
+    /**
+     * HttpClientConfiguration unit test
+     */
     public function testHttpClientConfigurationDefaultValues() {
 
         $config = new HttpClientConfiguration();
@@ -38,6 +41,7 @@ final class HttpClientTest extends TestCase {
         $this->assertEquals($config->getMethod(), 'GET');
         $this->assertNull($config->getURL());
         $this->assertEquals($config->getTimeout(), 0);
+        $this->assertEquals($config->getConnectionTimeout(), 0);
         $this->assertNull($config->getType());
         $this->assertEquals($config->getQuery(), []);
         $this->assertEquals($config->getHeaders(), []);
@@ -58,24 +62,27 @@ final class HttpClientTest extends TestCase {
         $config->addHeaders([ 'x' => 'y' ]);
         $this->assertEquals($config->getHeaders(), [ 'p' => 'q', 'x' => 'y' ]);
         // 
-        $config->setTimeout(20000);
-        $this->assertEquals($config->getTimeout(), 20000);
+        $config->setTimeout(20);
+        $this->assertEquals($config->getTimeout(), 20);
         // 
-        $config->setURL('https://phpsdk.mybluemix.net/');
-        $this->assertEquals($config->getURL(), 'https://phpsdk.mybluemix.net/');
+        $config->setConnectionTimeout(3.14);
+        $this->assertEquals($config->getConnectionTimeout(), 3.14);
+        // 
+        $config->setURL('http://php-sdk.migg.cn/');
+        $this->assertEquals($config->getURL(), 'http://php-sdk.migg.cn/');
         //
         $config->setType(HttpClientConfiguration::DATA_TYPE_FORM);
         $this->assertEquals($config->getType(), 'form_params');
         //
-        $this->assertEquals($config->toOptions(), [ 'form_params' => [ 'key' => 'value' ], 'query' => [ 'p' => 'q' ], 'headers' => [ 'p' => 'q', 'x' => 'y' ], 'auth' => [ 'username', 'password' ], 'timeout' => 20000 ]);
+        $this->assertEquals($config->toOptions(), [ 'form_params' => [ 'key' => 'value' ], 'query' => [ 'p' => 'q' ], 'headers' => [ 'p' => 'q', 'x' => 'y' ], 'auth' => [ 'username', 'password' ], 'timeout' => 20, 'connect_timeout' => 3.14 ]);
     }
 
-    // 
+    // HttpClient unit test
     public function testHttpClientRequest() {
 
         $httpClient = new HttpClient();
         $config = new HttpClientConfiguration();
-        $config->setURL('https://phpsdk.mybluemix.net/');
+        $config->setURL('http://php-sdk.migg.cn/');
 
         $this->assertInstanceOf(
             HttpClient::class, 
@@ -89,7 +96,7 @@ final class HttpClientTest extends TestCase {
         $this->assertNotEquals($response->getSize(), 0);
 
         try {
-            $response = $httpClient->request(new HttpClientConfiguration('https://phpsdk.mybluemix.net/404.php'));
+            $response = $httpClient->request(new HttpClientConfiguration('http://php-sdk.migg.cn/404.php'));
         }
         catch (HttpClientException $ex) {
             $this->assertEquals($ex->getCode(), 404);

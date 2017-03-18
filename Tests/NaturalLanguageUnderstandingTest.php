@@ -42,14 +42,14 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
      */
     public function testNaturalLanguageUnderstandingModel () {
 
-        $model = new NaturalLanguageUnderstandingModel('https://phpsdk.mybluemix.net/', [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ], NaturalLanguageUnderstandingModel::TYPE_URL);
+        $model = new NaturalLanguageUnderstandingModel('http://php-sdk.migg.cn/', [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ], NaturalLanguageUnderstandingModel::TYPE_URL);
 
         $this->assertInstanceOf(
             NaturalLanguageUnderstandingModel::class, 
             $model
         );
 
-        $this->assertEquals($model->getContents(), [ NaturalLanguageUnderstandingModel::TYPE_URL => 'https://phpsdk.mybluemix.net/' ]);
+        $this->assertEquals($model->getContents(), [ NaturalLanguageUnderstandingModel::TYPE_URL => 'http://php-sdk.migg.cn/' ]);
         $this->assertEquals($model->getFeatures(), [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ]);
 
         $model->setContents(NaturalLanguageUnderstandingModel::TYPE_TEXT, 'Hello World!');
@@ -91,14 +91,14 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
         $username = getenv('NATURAL_LANGUAGE_UNDERSTANDING_USERNAME');
         $password = getenv('NATURAL_LANGUAGE_UNDERSTANDING_PASSWORD');
 
-        $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials($username, $password));
-
-        $this->assertInstanceOf(
-            NaturalLanguageUnderstanding::class, 
-            $nlu
-        );
-
         if(isset($username) && isset($password)) {
+            $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials($username, $password));
+
+            $this->assertInstanceOf(
+                NaturalLanguageUnderstanding::class, 
+                $nlu
+            );
+
             $models = $nlu->listModels();
             $this->assertEquals(200, $models->getStatusCode());
 
@@ -113,10 +113,16 @@ final class NaturalLanguageUnderstandingTest extends TestCase {
      */
     public function testNaturalLanguageUnderstandingResponseError() {
 
-        $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
-        $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
-        $result = $nlu->analyze($model);
-        $this->assertEquals(401, $result->getStatusCode());
+        $username = getenv('NATURAL_LANGUAGE_UNDERSTANDING_USERNAME');
+        $password = getenv('NATURAL_LANGUAGE_UNDERSTANDING_PASSWORD');
+
+        if(isset($username) && isset($password)) {
+            $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials($username, $password));
+
+            $model = new NaturalLanguageUnderstandingModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ ]);
+            $result = $nlu->analyze($model);
+            $this->assertEquals(400, $result->getStatusCode());
+        }
     }
 
     /**
