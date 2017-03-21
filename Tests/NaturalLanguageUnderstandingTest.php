@@ -25,26 +25,26 @@ use WatsonSDK\Common\SimpleTokenHelper;
 use WatsonSDK\Common\WatsonCredential;
 
 use WatsonSDK\Services\NaturalLanguageUnderstanding;
-use WatsonSDK\Services\NaturalLanguageUnderstanding\RequestModel;
+use WatsonSDK\Services\NaturalLanguageUnderstanding\AnalyzeModel;
 
 final class NaturalLanguageUnderstandingTest extends BaseTestCase {
 
     /**
-     * RequestModel unit test
+     * AnalyzeModel unit test
      */
-    public function testRequestModel () {
+    public function testAnalyzeModel () {
 
-        $model = new RequestModel('http://php-sdk.migg.cn/', [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ], RequestModel::TYPE_URL);
+        $model = new AnalyzeModel('http://php-sdk.migg.cn/', [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ], AnalyzeModel::TYPE_URL);
 
         $this->assertInstanceOf(
-            RequestModel::class, 
+            AnalyzeModel::class, 
             $model
         );
 
-        $this->assertEquals($model->getContents(), [ RequestModel::TYPE_URL => 'http://php-sdk.migg.cn/' ]);
+        $this->assertEquals($model->getContents(), [ AnalyzeModel::TYPE_URL => 'http://php-sdk.migg.cn/' ]);
         $this->assertEquals($model->getFeatures(), [ 'entities' => [ 'limit' => 10 ], 'keywords' => [ 'limit' => 10 ] ]);
 
-        $model->setContents(RequestModel::TYPE_TEXT, 'Hello World!');
+        $model->setContents(AnalyzeModel::TYPE_TEXT, 'Hello World!');
         $model->setFeatures( [ 'entities' => [ 'limit' => 5 ] ] );
         $model->setLanguage('fr');
         $model->setClean(TRUE);
@@ -94,7 +94,7 @@ final class NaturalLanguageUnderstandingTest extends BaseTestCase {
             $models = $nlu->listModels();
             $this->assertEquals(200, $models->getStatusCode());
 
-            $model = new RequestModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
+            $model = new AnalyzeModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
             $result = $nlu->analyze($model);
             $this->assertEquals(200, $result->getStatusCode());
         }
@@ -111,7 +111,7 @@ final class NaturalLanguageUnderstandingTest extends BaseTestCase {
         if(isset($username) && isset($password)) {
             $nlu = new NaturalLanguageUnderstanding(WatsonCredential::initWithCredentials($username, $password));
 
-            $model = new RequestModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ ]);
+            $model = new AnalyzeModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ ]);
             $result = $nlu->analyze($model);
             $this->assertEquals(400, $result->getStatusCode());
         }

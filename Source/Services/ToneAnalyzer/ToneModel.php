@@ -20,9 +20,9 @@ namespace WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Tone Analyzer request model
+ * Tone Analyzer tone request model
  */
-class RequestModel extends ServiceModel {
+class ToneModel extends ServiceModel {
 
     const VERSION = '2016-05-19';
     const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';

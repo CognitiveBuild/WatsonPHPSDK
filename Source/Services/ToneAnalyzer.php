@@ -21,10 +21,11 @@ use WatsonSDK\Common\HttpClient;
 use WatsonSDK\Common\HttpResponse;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
+use WatsonSDK\Common\InvalidParameterException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
-use WatsonSDK\Services\ToneAnalyzer\RequestModel;
+use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 
 /**
  * Tone Analyzer class
@@ -42,20 +43,22 @@ class ToneAnalyzer extends WatsonService {
     }
 
     /**
-     * Invoke `tone` service
+     * Analyzes the tone of a piece of text. 
+     * The message is analyzed for several tones - social, emotional, and language. 
+     * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.
      * 
-     * @param $model RequestModel
+     * @param $model ToneModel
      * 
      * @return HttpResponse
      */
-    public function getTone(RequestModel $model) {
+    private function getToneByModel(ToneModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(RequestModel::BASE_URL."/tone");
+        $this->_httpConfig->setURL(ToneModel::BASE_URL."/tone");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -63,6 +66,44 @@ class ToneAnalyzer extends WatsonService {
         catch(HttpClientException $ex) {
             $response = new HttpResponse($ex->getCode(), $ex->getMessage());
             return $response;
+        }
+    }
+
+    /**
+     * Analyzes the tone of a piece of text. 
+     * The message is analyzed for several tones - social, emotional, and language. 
+     * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.
+     * 
+     * @param $text string
+     * 
+     * @return HttpResponse
+     */
+    private function getToneByText($text) {
+
+        $model = new ToneModel($text);
+        return $this->getToneByModel($model);
+    }
+
+    /**
+     * Analyzes the tone of a piece of text. 
+     * The message is analyzed for several tones - social, emotional, and language. 
+     * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.
+     * 
+     * @param $val mix
+     * 
+     * @return HttpResponse
+     * @throws InvalidParameterException
+     */
+    public function getTone($val) {
+
+        if($val instanceof ToneModel) {
+            return $this->getToneByModel($val);
+        }
+        else if(is_string($val)) {
+            return $this->getToneByText($val);
+        }
+        else {
+            throw new InvalidParameterException();
         }
     }
 }

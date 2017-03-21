@@ -26,20 +26,20 @@ use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Services\PersonalityInsights;
-use WatsonSDK\Services\PersonalityInsights\RequestModel;
+use WatsonSDK\Services\PersonalityInsights\ProfileModel;
 use WatsonSDK\Services\PersonalityInsights\ContentItemModel;
 
 class PersonalityInsightsTest extends BaseTestCase {
 
     /**
-     * RequestModel unit test
+     * ProfileModel unit test
      */
-    public function testRequestModel () {
+    public function testProfileModel () {
 
-        $model = new RequestModel( new ContentItemModel('c') );
+        $model = new ProfileModel( new ContentItemModel('c') );
 
         $this->assertInstanceOf(
-            RequestModel::class,
+            ProfileModel::class,
             $model
         );
 
@@ -122,7 +122,7 @@ class PersonalityInsightsTest extends BaseTestCase {
         $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new RequestModel(new ContentItemModel('The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
+        $model    = new ProfileModel(new ContentItemModel('The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
 
         $model->addContent(new ContentItemModel(' The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their personality characteristics. The service can infer consumption preferences based on the results of its analysis and, for JSON content that is timestamped, can report temporal behavior. '));
         $model->addContent(new ContentItemModel(' For information about the meaning of the models that the service uses to describe personality characteristics, see Personality models. For information about the meaning of the consumption preferences, see Consumption preferences. '));
@@ -162,7 +162,7 @@ class PersonalityInsightsTest extends BaseTestCase {
         $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new RequestModel(new ContentItemModel('c'));
+        $model    = new ProfileModel('This sentence will not be included.');
 
         $this->assertInstanceOf(
             PersonalityInsights::class,
@@ -186,7 +186,7 @@ class PersonalityInsightsTest extends BaseTestCase {
     public function testPersonalityInsightsResponseError() {
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
-        $model = new RequestModel(new ContentItemModel('c'));
+        $model = new ProfileModel(new ContentItemModel('c'));
         $result = $insights->getProfile($model);
         $this->assertEquals(401, $result->getStatusCode());
     }

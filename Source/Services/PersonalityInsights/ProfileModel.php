@@ -20,9 +20,9 @@ namespace WatsonSDK\Services\PersonalityInsights;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Personality Insights request model
+ * Personality Insights profile request model
  */
-class RequestModel extends ServiceModel {
+class ProfileModel extends ServiceModel {
 
     const VERSION = '2016-10-20';
     const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
@@ -111,7 +111,7 @@ class RequestModel extends ServiceModel {
     /**
      * Constructor
      *
-     * @param $val ContentItemModel
+     * @param $val string | ContentItemModel
      * @param $raw_scores boolean | NULL
      * @param $consumption_preferences boolean | NULL
      * @param $csv_headers boolean | NULL
@@ -120,9 +120,16 @@ class RequestModel extends ServiceModel {
      * @param $content_language string | NULL
      * @param $version string
      */
-    function __construct(ContentItemModel $val, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
+    function __construct($val, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
 
-        $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('@name') ] ];
+        if($val instanceof ContentItemModel) {
+            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('@name') ] ];
+        }
+        else if(is_string($val)) {
+            $model = new ContentItemModel($val);
+            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $model->getData('@name') ] ];
+        }
+
         $this->_raw_scores = $raw_scores;
         $this->_consumption_preferences = $consumption_preferences;
         $this->_csv_headers = $csv_headers;

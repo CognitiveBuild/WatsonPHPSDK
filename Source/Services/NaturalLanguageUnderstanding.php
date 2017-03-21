@@ -24,7 +24,7 @@ use WatsonSDK\Common\HttpClientException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 
-use WatsonSDK\Services\NaturalLanguageUnderstanding\RequestModel;
+use WatsonSDK\Services\NaturalLanguageUnderstanding\AnalyzeModel;
 
 /**
  * Natural Language Understanding class
@@ -44,17 +44,17 @@ class NaturalLanguageUnderstanding extends WatsonService {
     /**
      * Analyze features of natural language content.
      * 
-     * @param $model RequestModel
+     * @param $model AnalyzeModel
      * @return HttpResponse
      */
-    public function analyze(RequestModel $model) {
+    public function analyze(AnalyzeModel $model) {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(RequestModel::BASE_URL.'/analyze');
+        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL.'/analyze');
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -73,11 +73,11 @@ class NaturalLanguageUnderstanding extends WatsonService {
     public function listModels() {
 
         $this->_httpConfig->setData([]);
-        $this->_httpConfig->setQuery( [ 'version' => RequestModel::VERSION ] );
+        $this->_httpConfig->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(RequestModel::BASE_URL."/models");
+        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL."/models");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);
@@ -99,11 +99,11 @@ class NaturalLanguageUnderstanding extends WatsonService {
     public function deleteModels($modelId) {
 
         $this->_httpConfig->setData([]);
-        $this->_httpConfig->setQuery( [ 'version' => RequestModel::VERSION ] );
+        $this->_httpConfig->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_DELETE);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(RequestModel::BASE_URL."/models/{$model_id}");
+        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL."/models/{$model_id}");
 
         try {
             return $this->_httpClient->request($this->_httpConfig);

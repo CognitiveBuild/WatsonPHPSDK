@@ -20,9 +20,9 @@ namespace WatsonSDK\Services\NaturalLanguageUnderstanding;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Natural Language Understanding request model
+ * Natural Language Understanding analyze request model
  */
-class RequestModel extends ServiceModel {
+class AnalyzeModel extends ServiceModel {
 
     const VERSION = '2017-02-27';
     const BASE_URL = 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1';

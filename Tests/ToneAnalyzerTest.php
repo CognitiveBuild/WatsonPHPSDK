@@ -26,19 +26,19 @@ use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzer\RequestModel;
+use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 
 final class ToneAnalyzerTest extends BaseTestCase {
 
     /**
-     * RequestModel unit test
+     * ToneModel unit test
      */
     public function testToneAnalyzerModel () {
 
-        $model = new RequestModel();
+        $model = new ToneModel();
 
         $this->assertInstanceOf(
-            RequestModel::class, 
+            ToneModel::class, 
             $model
         );
 
@@ -73,7 +73,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
         $password = getenv('TONE_ANALYZER_PASSWORD');
 
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new RequestModel();
+        $model    = new ToneModel();
 
         $this->assertInstanceOf(
             ToneAnalyzer::class, 
@@ -82,6 +82,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
 
         $model->setText('I am so happy!');
         $model->setTones('social');
+        $model->setSentences(TRUE);
 
         if(isset($username) && isset($password)) {
             $result = $analyzer->getTone($model);
@@ -106,7 +107,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
         $provider = new SimpleTokenProvider('http://php-sdk.migg.cn/invalidToken.php');
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-        $model = new RequestModel();
+        $model = new ToneModel();
         $model->setText('This is a test.');
         $result = $analyzer->getTone($model);
 
@@ -126,10 +127,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
         $provider = new SimpleTokenProvider(NULL, $token);
         $analyzer = new ToneAnalyzer(WatsonCredential::initWithTokenProvider($provider));
 
-        $model = new RequestModel();
-        $model->setText('I feel so happy');
-
-        $result = $analyzer->getTone($model);
+        $result = $analyzer->getTone('I feel so happy');
 
         $this->assertEquals(200, $result->getStatusCode());
     }
@@ -139,7 +137,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
      */ 
     private function getToken($username, $password) {
 
-        $serviceUrl = RequestModel::BASE_URL.'/analyze?version='.RequestModel::VERSION;
+        $serviceUrl = ToneModel::BASE_URL.'/analyze?version='.ToneModel::VERSION;
 
         return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
     }
