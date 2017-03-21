@@ -36,16 +36,6 @@ use WatsonSDK\Services\ToneAnalyzer;
 use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 ```
 
-If you are using multiple services at the same time in same source file, leverage `as` keyword to differenciate the request models as below:
-```php
-...
-use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzer\ToneModel;
-use WatsonSDK\Services\PersonalityInsights;
-use WatsonSDK\Services\PersonalityInsights\ProfileModel;
-...
-```
-
 ## API Reference
 Please [visit our wiki](https://github.com/CognitiveBuild/WatsonPHPSDK/wiki).
 
