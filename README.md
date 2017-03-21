@@ -33,16 +33,16 @@ For common use, one of the namespaces of `WatsonCredential` or `SimpleTokenProvi
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\SimpleTokenProvider;
 use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzer\RequestModel;
+use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 ```
 
 If you are using multiple services at the same time in same source file, leverage `as` keyword to differenciate the request models as below:
 ```php
 ...
 use WatsonSDK\Services\ToneAnalyzer;
-use WatsonSDK\Services\ToneAnalyzer\RequestModel as ToneAnalyzerModel;
+use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 use WatsonSDK\Services\PersonalityInsights;
-use WatsonSDK\Services\PersonalityInsights\RequestModel as PersonalityInsightsModel;
+use WatsonSDK\Services\PersonalityInsights\ProfileModel;
 ...
 ```
 
@@ -73,7 +73,7 @@ $analyzer = new ToneAnalyzer( WatsonCredential::initWithTokenProvider( $tokenPro
 
 Place the content to be analyzed, call the Tone API and check the result: 
 ```php
-$model = new RequestModel();
+$model = new ToneModel();
 $model->setText('your text to be analyzed.');
 
 $result = $analyzer->getTone($model);
@@ -108,7 +108,7 @@ echo $result->getContent();
 
 Analyze features of natural language content: 
 ```php
-$model = new RequestModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
+$model = new AnalyzeModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
 $result = $nlu->analyze($model);
 
 // View results
@@ -122,7 +122,7 @@ The following example demonstrates how to use the Personality Insights service:
 
 ```php
 $insights = new PersonalityInsights( WatsonCredential::initWithCredentials('your_username', 'your_password') );
-$model = new RequestModel( new ContentItemModel('Enter more than 100 unique words here...'));
+$model = new ProfileModel( new ContentItemModel('Enter more than 100 unique words here...'));
 $mode->setConsumptionPreferences(TRUE);
 $result = $insights->getProfile($model);
 
