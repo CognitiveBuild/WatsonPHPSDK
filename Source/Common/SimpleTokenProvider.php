@@ -31,6 +31,8 @@ class SimpleTokenProvider implements TokenProviderInterface {
      * 
      * @param $url string | NULL
      * @param $token string | NULL
+     * 
+     * @throws InvalidParameterException
      */
     function __construct($url = NULL, $token = NULL) {
 
