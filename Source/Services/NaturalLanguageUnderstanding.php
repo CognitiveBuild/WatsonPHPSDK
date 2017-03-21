@@ -93,10 +93,10 @@ class NaturalLanguageUnderstanding extends WatsonService {
      * 
      * @codeCoverageIgnore
      * 
-     * @param $modelId string
+     * @param $model_id string
      * @return HttpResponse
      */
-    public function deleteModels($modelId) {
+    public function deleteModels($model_id) {
 
         $this->_httpConfig->setData([]);
         $this->_httpConfig->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
