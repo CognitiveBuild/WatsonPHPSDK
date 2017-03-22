@@ -41,6 +41,7 @@ Please [visit our wiki](https://github.com/CognitiveBuild/WatsonPHPSDK/wiki).
 
 ## Services
 * [Tone Analyzer](#tone-analyzer)
+* [Natural Language Classifier](#natural-language-classifier)
 * [Natural Language Understanding](#natural-language-understanding)
 * [Personality Insights](#personality-insights)
 
@@ -65,10 +66,17 @@ Place the content to be analyzed, call the Tone API and check the result:
 ```php
 $model = new ToneModel();
 $model->setText('your text to be analyzed.');
-
 $result = $analyzer->getTone($model);
+echo $result->getContent();
+```
 
-// View results
+## Natural Language Classifier
+The IBM Watson™ Natural Language Classifier service uses machine learning algorithms to return the top matching predefined classes for short text input. You create and train a classifier to connect predefined classes to example texts so that the service can apply those classes to new inputs.
+
+The following example demonstrates how to use the Natural Language Classifier:
+```php
+$nlc = new NaturalLanguageClassifier( WatsonCredential::initWithCredentials('your_username', 'your_password') );
+$result = $nlc->classify('your text to be classified.', 'your classifier id');
 echo $result->getContent();
 ```
 
@@ -76,32 +84,11 @@ echo $result->getContent();
 Analyze text to extract meta-data from content such as concepts, entities, keywords, categories, sentiment, emotion, relations, semantic roles, using natural language understanding. With custom annotation models developed using Watson Knowledge Studio, identify industry/domain specific entities and relations in unstructured text.
 
 The following example demonstrates how to use the Natural Language Understanding:
+
 ```php
 $nlu = new NaturalLanguageUnderstanding( WatsonCredential::initWithCredentials('your_username', 'your_password') );
-```
-
-List available custom models:
-```php
-$result = $nlu->listModels();
-
-// View results
-echo $result->getContent();
-```
-
-Delete a custom model:
-```php
-$result = $nlu->deleteModels('your_custom_model_id');
-
-// View results
-echo $result->getContent();
-```
-
-Analyze features of natural language content: 
-```php
 $model = new AnalyzeModel('Watson PHP SDK for IBM Watson Developer Cloud.', [ 'keywords' => [ 'limit' => 5 ] ]);
 $result = $nlu->analyze($model);
-
-// View results
 echo $result->getContent();
 ```
 
@@ -115,8 +102,6 @@ $insights = new PersonalityInsights( WatsonCredential::initWithCredentials('your
 $model = new ProfileModel( new ContentItemModel('Enter more than 100 unique words here...'));
 $mode->setConsumptionPreferences(TRUE);
 $result = $insights->getProfile($model);
-
-// View results
 echo $result->getContent();
 ```
 
