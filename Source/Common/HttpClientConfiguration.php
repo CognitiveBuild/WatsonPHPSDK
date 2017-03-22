@@ -225,6 +225,15 @@ class HttpClientConfiguration {
     }
 
     /**
+     * Add a request header
+     * @param $key string
+     * @param $val mix
+     */
+    public function addHeader($key, $val) {
+        $this->_headers[$key] = $val;
+    }
+
+    /**
      * Override request headers
      * @param $val array
      */

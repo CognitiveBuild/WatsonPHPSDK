@@ -37,7 +37,7 @@ final class NaturalLanguageClassifierTest extends BaseTestCase {
         $password = getenv('NATURAL_LANGUAGE_CLASSIFIER_PASSWORD');
         $classified_id = getenv('NATURAL_LANGUAGE_CLASSIFIER_CLASSIFIER');
 
-        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password));
+        $nlc = new NaturalLanguageClassifier(WatsonCredential::initWithCredentials($username, $password), TRUE);
 
         $this->assertInstanceOf(
             NaturalLanguageClassifier::class, 

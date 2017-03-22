@@ -30,8 +30,9 @@ class WatsonService {
      * Constructor
      * 
      * @param $credential WatsonCredential
+     * @param $xWatsonLearningOptOut boolean
      */
-    function __construct(WatsonCredential $credential) {
+    function __construct(WatsonCredential $credential, $xWatsonLearningOptOut = NULL) {
 
         $this->_httpClient = new HttpClient();
         $this->_httpConfig = new HttpClientConfiguration();
@@ -46,5 +47,10 @@ class WatsonService {
             $credential->setToken($token);
             $this->_httpConfig->setHeaders([ 'X-Watson-Authorization-Token' => $credential->getToken() ]);
         }
+
+        if($xWatsonLearningOptOut) {
+            $this->_httpConfig->addHeader('X-Watson-Learning-Opt-Out', $xWatsonLearningOptOut);
+        }
     }
+
 }
