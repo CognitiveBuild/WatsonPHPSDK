@@ -33,16 +33,6 @@ use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 class ToneAnalyzer extends WatsonService {
 
     /**
-     * Constructor
-     * 
-     * @param $credential WatsonCredential
-     */
-    function __construct(WatsonCredential $credential) {
-
-        parent::__construct($credential);
-    }
-
-    /**
      * Analyzes the tone of a piece of text. 
      * The message is analyzed for several tones - social, emotional, and language. 
      * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.

@@ -32,16 +32,6 @@ use WatsonSDK\Services\NaturalLanguageUnderstanding\AnalyzeModel;
 class NaturalLanguageUnderstanding extends WatsonService {
 
     /**
-     * Constructor
-     * 
-     * @param $credential WatsonCredential
-     */
-    function __construct(WatsonCredential $credential) {
-
-        parent::__construct($credential);
-    }
-
-    /**
      * Analyze features of natural language content.
      * 
      * @param $model AnalyzeModel
@@ -51,6 +41,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
 
         $this->_httpConfig->setData($model->getData('@data'));
         $this->_httpConfig->setQuery($model->getData('@query'));
+        $this->_httpConfig->setHeaders($model->getData('@header'));
 
         $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
         $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);

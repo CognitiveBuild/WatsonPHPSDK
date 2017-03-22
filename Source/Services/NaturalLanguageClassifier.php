@@ -41,16 +41,6 @@ class NaturalLanguageClassifier extends WatsonService {
     const LANGUAGE_ES = 'es';
 
     /**
-     * Constructor
-     * 
-     * @param $credential WatsonCredential
-     */
-    function __construct(WatsonCredential $credential) {
-
-        parent::__construct($credential);
-    }
-
-    /**
      * Sends data to create and train a classifier and returns information about the new classifier.
      * 
      * @param $training_file Resource

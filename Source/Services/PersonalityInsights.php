@@ -33,16 +33,6 @@ use WatsonSDK\Services\PersonalityInsights\ContentItemModel;
 class PersonalityInsights extends WatsonService {
 
     /**
-     * Constructor
-     * 
-     * @param $credential WatsonCredential
-     */
-    function __construct(WatsonCredential $credential) {
-
-        parent::__construct($credential);
-    }
-
-    /**
      * Generates a personality profile for the author of the input text. 
      * The service accepts a maximum of 20 MB of input content. 
      * It can analyze text in Arabic, English, Japanese, or Spanish and return its results in a variety of languages. 
