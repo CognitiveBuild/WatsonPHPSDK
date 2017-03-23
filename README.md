@@ -105,6 +105,33 @@ $result = $insights->getProfile($model);
 echo $result->getContent();
 ```
 
+## API response
+All of the service responses are wrapped in `HttpResponse` class instead of original format of response, so it will be easy for you to use your own HttpClient if necessory.
+Once there is a result from Watson APIs, there are three common methods you can leverage:
+```php
+// Get HTTP status code
+public function getStatusCode();
+// Get actual size of response content
+public function getSize();
+// Get the content of the response
+public function getContent();
+```
+
+We use `Tone Analyzer` for instance:
+```php
+$analyzer = new ToneAnalyzer(...);
+// getTone will return HttpResponse type
+$result = $analyzer->getTone('your text to be analyzed.');
+
+var_dump($result->getStatusCode());
+var_dump($result->getSize());
+var_dump($result->getContent());
+
+// Also there is another way under string context
+// You can use $result as the response content instead of using $result->getContent();.
+echo $result;
+```
+
 ## Token based authentication
 Refer to the samples of [Tone Analyzer](#tone-analyzer) about how to invoke the service by using TokenProvider.
 
