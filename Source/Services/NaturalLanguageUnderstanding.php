@@ -39,21 +39,17 @@ class NaturalLanguageUnderstanding extends WatsonService {
      */
     public function analyze(AnalyzeModel $model) {
 
-        $this->_httpConfig->setData($model->getData('@data'));
-        $this->_httpConfig->setQuery($model->getData('@query'));
-        $this->_httpConfig->setHeaders($model->getData('@header'));
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL.'/analyze');
+        $config->setData($model->getData('@data'));
+        $config->setQuery($model->getData('@query'));
+        $config->setHeaders($model->getData('@header'));
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        $config->setMethod(HttpClientConfiguration::METHOD_POST);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(AnalyzeModel::BASE_URL.'/analyze');
+
+        return $this->sendRequest($config);
     }
 
     /**
@@ -63,20 +59,15 @@ class NaturalLanguageUnderstanding extends WatsonService {
      */
     public function listModels() {
 
-        $this->_httpConfig->setData([]);
-        $this->_httpConfig->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL."/models");
+        $config->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        $config->setMethod(HttpClientConfiguration::METHOD_GET);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(AnalyzeModel::BASE_URL."/models");
+
+        return $this->sendRequest($config);
     }
 
     /**
@@ -89,19 +80,13 @@ class NaturalLanguageUnderstanding extends WatsonService {
      */
     public function deleteModels($model_id) {
 
-        $this->_httpConfig->setData([]);
-        $this->_httpConfig->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
+        $config = $this->initConfig();
+        $config->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_DELETE);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(AnalyzeModel::BASE_URL."/models/{$model_id}");
+        $config->setMethod(HttpClientConfiguration::METHOD_DELETE);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(AnalyzeModel::BASE_URL."/models/{$model_id}");
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        return $this->sendRequest($config);
     }
 }

@@ -24,7 +24,8 @@ use WatsonSDK\Common\WatsonCredential;
 class WatsonService {
 
     protected $_httpClient;
-    protected $_httpConfig;
+    private $_credential;
+    private $_xWatsonLearningOptOut;
 
     /**
      * Constructor
@@ -35,22 +36,50 @@ class WatsonService {
     function __construct(WatsonCredential $credential, $xWatsonLearningOptOut = NULL) {
 
         $this->_httpClient = new HttpClient();
-        $this->_httpConfig = new HttpClientConfiguration();
-
-        if(is_null($credential->getTokenProvider())) {
-            // Basic authentication
-            $this->_httpConfig->setCredentials([ $credential->getUsername(), $credential->getPassword() ]);
-        }
-        else {
-            // Token authentication
-            $token = $credential->getTokenProvider()->getToken();
-            $credential->setToken($token);
-            $this->_httpConfig->setHeaders([ 'X-Watson-Authorization-Token' => $credential->getToken() ]);
-        }
-
-        if($xWatsonLearningOptOut) {
-            $this->_httpConfig->addHeader('X-Watson-Learning-Opt-Out', $xWatsonLearningOptOut);
-        }
+        $this->_credential = $credential;
+        $this->_xWatsonLearningOptOut = $xWatsonLearningOptOut;
     }
 
+    /**
+     * Prepare configurations and headers
+     * 
+     * @return HttpClientConfiguration
+     */
+    protected function initConfig() {
+
+        $config = new HttpClientConfiguration();
+
+        if(is_null($this->_credential->getTokenProvider())) {
+            $config->setCredentials([ $this->_credential->getUsername(), $this->_credential->getPassword() ]);
+        }
+        else {
+            $token = $this->_credential->getTokenProvider()->getToken();
+            $this->_credential->setToken($token);
+            $config->setHeaders([ 'X-Watson-Authorization-Token' => $this->_credential->getToken() ]);
+        }
+
+        if(is_null($this->_xWatsonLearningOptOut) == FALSE) {
+            $config->addHeader('X-Watson-Learning-Opt-Out', $this->_xWatsonLearningOptOut);
+        }
+
+        return $config;
+    }
+
+    /**
+     * Send out HTTP request
+     * 
+     * @param $config HttpClientConfiguration
+     * 
+     * @return HttpResponse
+     */
+    protected function sendRequest(HttpClientConfiguration $config) {
+
+        try {
+            return $this->_httpClient->request($config);
+        }
+        catch(HttpClientException $ex) {
+            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
+            return $response;
+        }
+    }
 }

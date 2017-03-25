@@ -70,19 +70,15 @@ class NaturalLanguageClassifier extends WatsonService {
             ]
         ];
 
-        $this->_httpConfig->setData($data);
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_MULTIPART);
-        $this->_httpConfig->setURL(self::BASE_URL."/classifiers");
+        $config->setData($data);
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        $config->setMethod(HttpClientConfiguration::METHOD_POST);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_MULTIPART);
+        $config->setURL(self::BASE_URL."/classifiers");
+
+        return $this->sendRequest($config);
     }
 
     /**
@@ -92,19 +88,13 @@ class NaturalLanguageClassifier extends WatsonService {
      */
     public function listClassifiers() {
 
-        $this->_httpConfig->setData([]);
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(self::BASE_URL."/classifiers");
+        $config->setMethod(HttpClientConfiguration::METHOD_GET);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(self::BASE_URL."/classifiers");
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        return $this->sendRequest($config);
     }
 
     /**
@@ -115,19 +105,13 @@ class NaturalLanguageClassifier extends WatsonService {
      */
     public function getClassifier($classifier_id) {
 
-        $this->_httpConfig->setData([]);
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_GET);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
+        $config->setMethod(HttpClientConfiguration::METHOD_GET);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        return $this->sendRequest($config);
     }
 
     /**
@@ -140,19 +124,13 @@ class NaturalLanguageClassifier extends WatsonService {
      */
     public function deleteClassifier($classifier_id) {
 
-        $this->_httpConfig->setData([]);
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_DELETE);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
+        $config->setMethod(HttpClientConfiguration::METHOD_DELETE);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(self::BASE_URL."/classifiers/{$classifier_id}");
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        return $this->sendRequest($config);
     }
 
     /**
@@ -167,18 +145,13 @@ class NaturalLanguageClassifier extends WatsonService {
      */
     public function classify($text, $classifier_id) {
 
-        $this->_httpConfig->setData([ 'text' => $text ]);
+        $config = $this->initConfig();
+        $config->setData([ 'text' => $text ]);
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(self::BASE_URL."/{$classifier_id}/classify");
+        $config->setMethod(HttpClientConfiguration::METHOD_POST);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(self::BASE_URL."/{$classifier_id}/classify");
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        return $this->sendRequest($config);
     }
 }

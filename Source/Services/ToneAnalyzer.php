@@ -43,20 +43,16 @@ class ToneAnalyzer extends WatsonService {
      */
     private function getToneByModel(ToneModel $model) {
 
-        $this->_httpConfig->setData($model->getData('@data'));
-        $this->_httpConfig->setQuery($model->getData('@query'));
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(ToneModel::BASE_URL."/tone");
+        $config->setData($model->getData('@data'));
+        $config->setQuery($model->getData('@query'));
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        $config->setMethod(HttpClientConfiguration::METHOD_POST);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(ToneModel::BASE_URL."/tone");
+
+        return $this->sendRequest($config);
     }
 
     /**

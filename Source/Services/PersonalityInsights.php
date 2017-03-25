@@ -45,21 +45,17 @@ class PersonalityInsights extends WatsonService {
      */
     private function getProfileByModel(ProfileModel $model) {
 
-        $this->_httpConfig->setData($model->getData('@data'));
-        $this->_httpConfig->setQuery($model->getData('@query'));
-        $this->_httpConfig->addHeaders($model->getData('@header'));
+        $config = $this->initConfig();
 
-        $this->_httpConfig->setMethod(HttpClientConfiguration::METHOD_POST);
-        $this->_httpConfig->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $this->_httpConfig->setURL(ProfileModel::BASE_URL."/profile");
+        $config->setData($model->getData('@data'));
+        $config->setQuery($model->getData('@query'));
+        $config->addHeaders($model->getData('@header'));
 
-        try {
-            return $this->_httpClient->request($this->_httpConfig);
-        }
-        catch(HttpClientException $ex) {
-            $response = new HttpResponse($ex->getCode(), $ex->getMessage());
-            return $response;
-        }
+        $config->setMethod(HttpClientConfiguration::METHOD_POST);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(ProfileModel::BASE_URL."/profile");
+
+        return $this->sendRequest($config);
     }
 
     /**
