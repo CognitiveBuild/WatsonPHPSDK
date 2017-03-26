@@ -140,7 +140,6 @@ class NaturalLanguageClassifier extends WatsonService {
      * 
      * @param $text string 
      * @param $classifier_id string
-     * 
      * @return HttpResponse
      */
     public function classify($text, $classifier_id) {

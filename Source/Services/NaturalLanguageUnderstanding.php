@@ -31,6 +31,8 @@ use WatsonSDK\Services\NaturalLanguageUnderstanding\AnalyzeModel;
  */
 class NaturalLanguageUnderstanding extends WatsonService {
 
+    const BASE_URL = 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1';
+
     /**
      * Analyze features of natural language content.
      * 
@@ -43,11 +45,11 @@ class NaturalLanguageUnderstanding extends WatsonService {
 
         $config->setData($model->getData('@data'));
         $config->setQuery($model->getData('@query'));
-        $config->setHeaders($model->getData('@header'));
+        $config->addHeaders($model->getData('@header'));
 
         $config->setMethod(HttpClientConfiguration::METHOD_POST);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $config->setURL(AnalyzeModel::BASE_URL.'/analyze');
+        $config->setURL(self::BASE_URL.'/analyze');
 
         return $this->sendRequest($config);
     }
@@ -55,17 +57,18 @@ class NaturalLanguageUnderstanding extends WatsonService {
     /**
      * List available custom models
      * 
+     * @param $version string
      * @return HttpResponse
      */
     public function listModels() {
 
-        $config = $this->initConfig();
+        $config = $this->initConfig($version = AnalyzeModel::VERSION);
 
-        $config->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
+        $config->setQuery( [ 'version' => $version ] );
 
         $config->setMethod(HttpClientConfiguration::METHOD_GET);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $config->setURL(AnalyzeModel::BASE_URL."/models");
+        $config->setURL(self::BASE_URL."/models");
 
         return $this->sendRequest($config);
     }
@@ -76,16 +79,17 @@ class NaturalLanguageUnderstanding extends WatsonService {
      * @codeCoverageIgnore
      * 
      * @param $model_id string
+     * @param $version string
      * @return HttpResponse
      */
-    public function deleteModels($model_id) {
+    public function deleteModels($model_id, $version = AnalyzeModel::VERSION) {
 
         $config = $this->initConfig();
-        $config->setQuery( [ 'version' => AnalyzeModel::VERSION ] );
+        $config->setQuery( [ 'version' => $version ] );
 
         $config->setMethod(HttpClientConfiguration::METHOD_DELETE);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $config->setURL(AnalyzeModel::BASE_URL."/models/{$model_id}");
+        $config->setURL(self::BASE_URL."/models/{$model_id}");
 
         return $this->sendRequest($config);
     }

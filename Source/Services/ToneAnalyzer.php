@@ -32,13 +32,14 @@ use WatsonSDK\Services\ToneAnalyzer\ToneModel;
  */
 class ToneAnalyzer extends WatsonService {
 
+    const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';
+
     /**
      * Analyzes the tone of a piece of text. 
      * The message is analyzed for several tones - social, emotional, and language. 
      * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.
      * 
      * @param $model ToneModel
-     * 
      * @return HttpResponse
      */
     private function getToneByModel(ToneModel $model) {
@@ -50,7 +51,7 @@ class ToneAnalyzer extends WatsonService {
 
         $config->setMethod(HttpClientConfiguration::METHOD_POST);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $config->setURL(ToneModel::BASE_URL."/tone");
+        $config->setURL(self::BASE_URL."/tone");
 
         return $this->sendRequest($config);
     }
@@ -61,7 +62,6 @@ class ToneAnalyzer extends WatsonService {
      * For each tone, various traits are derived. For example, conscientiousness, agreeableness, and openness.
      * 
      * @param $text string
-     * 
      * @return HttpResponse
      */
     private function getToneByText($text) {

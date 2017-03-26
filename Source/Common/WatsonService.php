@@ -55,7 +55,7 @@ class WatsonService {
         else {
             $token = $this->_credential->getTokenProvider()->getToken();
             $this->_credential->setToken($token);
-            $config->setHeaders([ 'X-Watson-Authorization-Token' => $this->_credential->getToken() ]);
+            $config->addHeader('X-Watson-Authorization-Token', $this->_credential->getToken());
         }
 
         if(is_null($this->_xWatsonLearningOptOut) == FALSE) {

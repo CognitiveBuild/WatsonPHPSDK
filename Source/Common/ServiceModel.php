@@ -36,9 +36,9 @@ class ServiceModel {
     /**
      * Generate attributes with data using annotations
      * 
-     * @return array
+     * @return array | NULL
      */
-    final public function getData($type = '@query', $nullable = FALSE) {
+    final public function getData($type = '@query', $nullable_data = FALSE, $nullable_attribute = FALSE) {
 
         $reflection = new ReflectionClass($this);
         $attributes = $reflection->getProperties();
@@ -49,7 +49,7 @@ class ServiceModel {
             $docComment = $attribute->getDocComment();
             $value = $attribute->getValue($this);
 
-            if(is_null($value) && $nullable === FALSE) {
+            if(is_null($value) && $nullable_attribute === FALSE) {
                 continue;
             }
 
@@ -71,10 +71,18 @@ class ServiceModel {
                         }
                     }
                 }
-                $queries[$key] = $value;
+                if($value instanceof ServiceModel) {
+                    $queries[$key] = $value->getData($type, $nullable_data, $nullable_attribute);
+                }
+                else {
+                    $queries[$key] = $value;
+                }
             }
         }
 
+        if($nullable_data && count($queries) === 0) {
+            return NULL;
+        }
         return $queries;
     }
 

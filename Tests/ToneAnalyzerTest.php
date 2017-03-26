@@ -137,7 +137,7 @@ final class ToneAnalyzerTest extends BaseTestCase {
      */ 
     private function getToken($username, $password) {
 
-        $serviceUrl = ToneModel::BASE_URL.'/analyze?version='.ToneModel::VERSION;
+        $serviceUrl = ToneAnalyzer::BASE_URL.'/analyze?version='.ToneModel::VERSION;
 
         return SimpleTokenHelper::requestToken($username, $password, $serviceUrl);
     }

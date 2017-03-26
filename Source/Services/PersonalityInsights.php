@@ -32,6 +32,8 @@ use WatsonSDK\Services\PersonalityInsights\ContentItemModel;
  */
 class PersonalityInsights extends WatsonService {
 
+    const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
+
     /**
      * Generates a personality profile for the author of the input text. 
      * The service accepts a maximum of 20 MB of input content. 
@@ -40,20 +42,19 @@ class PersonalityInsights extends WatsonService {
      * The service returns output in JSON format by default, but you can request the output in CSV format. 
      * 
      * @param $model ProfileModel
-     * 
      * @return HttpResponse
      */
     private function getProfileByModel(ProfileModel $model) {
 
         $config = $this->initConfig();
 
+        $config->addHeaders($model->getData('@header'));
         $config->setData($model->getData('@data'));
         $config->setQuery($model->getData('@query'));
-        $config->addHeaders($model->getData('@header'));
 
         $config->setMethod(HttpClientConfiguration::METHOD_POST);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
-        $config->setURL(ProfileModel::BASE_URL."/profile");
+        $config->setURL(self::BASE_URL."/profile");
 
         return $this->sendRequest($config);
     }
@@ -66,7 +67,6 @@ class PersonalityInsights extends WatsonService {
      * The service returns output in JSON format by default, but you can request the output in CSV format. 
      * 
      * @param $text string
-     * 
      * @return HttpResponse
      */
     private function getProfileByText($text) {
@@ -84,7 +84,6 @@ class PersonalityInsights extends WatsonService {
      * The service returns output in JSON format by default, but you can request the output in CSV format. 
      * 
      * @param $val string | ProfileModel
-     * 
      * @return HttpResponse
      */
     public function getProfile($val) {

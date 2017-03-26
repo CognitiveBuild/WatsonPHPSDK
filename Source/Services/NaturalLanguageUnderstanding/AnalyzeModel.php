@@ -25,7 +25,6 @@ use WatsonSDK\Common\ServiceModel;
 class AnalyzeModel extends ServiceModel {
 
     const VERSION = '2017-02-27';
-    const BASE_URL = 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1';
 
     const TYPE_TEXT = 'text';
     const TYPE_HTML = 'html';

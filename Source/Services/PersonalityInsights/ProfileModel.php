@@ -25,7 +25,6 @@ use WatsonSDK\Common\ServiceModel;
 class ProfileModel extends ServiceModel {
 
     const VERSION = '2016-10-20';
-    const BASE_URL = 'https://gateway.watsonplatform.net/personality-insights/api/v3';
 
     const TYPE_CONTENT_ITEMS = 'contentItems';
 

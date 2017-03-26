@@ -62,7 +62,10 @@ class HttpResponse {
      * 
      * @return string
      */
-    public function getContent() {
+    public function getContent($json_decode = FALSE, $json_assoc = TRUE) {
+        if($json_decode) {
+            return json_decode($this->_content, $json_assoc);
+        }
         return $this->_content;
     }
 

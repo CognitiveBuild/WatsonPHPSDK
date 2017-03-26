@@ -25,7 +25,6 @@ use WatsonSDK\Common\ServiceModel;
 class ToneModel extends ServiceModel {
 
     const VERSION = '2016-05-19';
-    const BASE_URL = 'https://gateway.watsonplatform.net/tone-analyzer/api/v3';
 
     /**
      * @data(text)
