@@ -34,17 +34,17 @@ class ServiceModel {
     protected $_version;
 
     /**
-     * Generate attributes with data using annotations
+     * Generate properties with data using annotations
      * 
      * @return array | NULL
      */
     final public function getData($type = '@query', $nullable_data = FALSE, $nullable_attribute = FALSE) {
 
         $reflection = new ReflectionClass($this);
-        $attributes = $reflection->getProperties();
+        $properties = $reflection->getProperties();
         $queries = [];
 
-        foreach($attributes as $attribute) {
+        foreach($properties as $attribute) {
             $attribute->setAccessible(true);
             $docComment = $attribute->getDocComment();
             $value = $attribute->getValue($this);
