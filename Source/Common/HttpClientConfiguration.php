@@ -221,6 +221,10 @@ class HttpClientConfiguration {
      * @param $val array
      */
     public function addHeaders($val) {
+
+        if(is_null($val) || is_array($val) === FALSE) {
+            return;
+        }
         $this->_headers = array_merge($this->_headers, $val);
     }
 
