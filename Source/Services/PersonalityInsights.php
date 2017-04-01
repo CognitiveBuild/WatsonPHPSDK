@@ -85,17 +85,18 @@ class PersonalityInsights extends WatsonService {
      * 
      * @param $val string | ProfileModel
      * @return HttpResponse
+     * @throws InvalidParameterException
      */
     public function getProfile($val) {
 
         if($val instanceof ProfileModel) {
             return $this->getProfileByModel($val);
         }
-        else if(is_string($val)) {
+
+        if(is_string($val)) {
             return $this->getProfileByText($val);
         }
-        else {
-            throw new InvalidParameterException();
-        }
+
+        throw new InvalidParameterException();
     }
 }

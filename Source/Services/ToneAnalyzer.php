@@ -85,11 +85,11 @@ class ToneAnalyzer extends WatsonService {
         if($val instanceof ToneModel) {
             return $this->getToneByModel($val);
         }
-        else if(is_string($val)) {
+
+        if(is_string($val)) {
             return $this->getToneByText($val);
         }
-        else {
-            throw new InvalidParameterException();
-        }
+
+        throw new InvalidParameterException();
     }
 }
