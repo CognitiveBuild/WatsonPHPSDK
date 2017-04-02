@@ -54,30 +54,28 @@ final class ConversationTest extends BaseTestCase {
         );
 
         if(isset($username) && isset($password) && isset($workspace_id)) {
-            $result = $conversation->sendMessage( new MessageRequestModel( '' ), $workspace_id );
-            $this->assertEquals(200, $result->getStatusCode());
-        }
-    }
+            $greetings = $conversation->sendMessage( '', $workspace_id );
+            $this->assertEquals(200, $greetings->getStatusCode());
 
-    /**
-     * Conversation unit test with text using basic authentication
-     */
-    public function testConversationWithText () {
+            $result = $greetings->getContent(TRUE);
+            $context = $result['context'];
+            $system = $context['system'];
 
-        $username = getenv('CONVERSATION_USERNAME');
-        $password = getenv('CONVERSATION_PASSWORD');
-        $workspace_id = getenv('CONVERSATION_WORKSPACE_ID');
+            $dialogModel = new DialogModel( $system['dialog_stack'][0]['dialog_node'] );
 
-        $conversation = new Conversation( WatsonCredential::initWithCredentials($username, $password) );
+            $systemModel = new SystemResponseModel( $dialogModel, $system['dialog_turn_counter'], $system['dialog_request_counter'] );
 
-        $this->assertInstanceOf(
-            Conversation::class, 
-            $conversation
-        );
+            $contextModel = new ContextModel( $context['conversation_id'], $systemModel );
 
-        if(isset($username) && isset($password) && isset($workspace_id)) {
-            $result = $conversation->sendMessage( '', $workspace_id );
-            $this->assertEquals(200, $result->getStatusCode());
+            $model = new MessageRequestModel( 'What is IBM?', NULL, $contextModel, new EntityModel(), new IntentModel(), new OutputDataModel() );
+
+            $this->assertNull($model->getEntities());
+            $this->assertNull($model->getIntents());
+            $this->assertNull($model->getOutput());
+
+            $answer = $conversation->sendMessage( $model, $workspace_id );
+            $this->assertEquals(200, $answer->getStatusCode());
+
         }
     }
 
