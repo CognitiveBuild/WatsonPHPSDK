@@ -23,9 +23,9 @@ use WatsonSDK\Common\SimpleTokenProvider;
 final class CommonTest extends BaseTestCase {
 
     /**
-     * ToneAnalyzerTokenProvider unit test
+     * SimpleTokenProvider unit test
      */
-    public function testToneAnalyzerTokenProvider () {
+    public function testSimpleTokenProvider () {
 
         $provider = new SimpleTokenProvider('https://your-token-factory-url');
 
