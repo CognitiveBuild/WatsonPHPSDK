@@ -91,6 +91,18 @@ final class ToneAnalyzerTest extends BaseTestCase {
     }
 
     /**
+     * ToneAnalyzer unit test for raising InvalidParameterException
+     */
+    public function testToneAnalyzerInvalidParameterException() {
+
+        $this->expectException(InvalidParameterException::class);
+
+        $analyzer = new ToneAnalyzer(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
+
+        $result = $analyzer->getTone(0);
+    }
+
+    /**
      * Unit Test for invalid parameters of SimpleTokenProvider
      */ 
     public function testTokenProviderException() {

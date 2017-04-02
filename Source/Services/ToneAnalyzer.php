@@ -21,9 +21,9 @@ use WatsonSDK\Common\HttpClient;
 use WatsonSDK\Common\HttpResponse;
 use WatsonSDK\Common\HttpClientConfiguration;
 use WatsonSDK\Common\HttpClientException;
-use WatsonSDK\Common\InvalidParameterException;
 use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
+use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Services\ToneAnalyzer\ToneModel;
 

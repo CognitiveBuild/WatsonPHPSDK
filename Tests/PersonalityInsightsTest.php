@@ -112,7 +112,6 @@ class PersonalityInsightsTest extends BaseTestCase {
         $this->assertEquals($model->getData('@name'), [ 'content' => 'c', 'id'=>'id', 'contenttype' => 't', 'created' => 1, 'updated' => 1,'forward' => TRUE, 'language' => 'en', 'parentid' => 'pid', 'reply' => TRUE ]);
     }
 
-
     /**
      * PersonalityInsights unit test with basic authentication
      */
@@ -122,7 +121,24 @@ class PersonalityInsightsTest extends BaseTestCase {
         $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
 
         $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
-        $model    = new ProfileModel(new ContentItemModel('The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
+
+        if(isset($username) && isset($password)) {
+            $text = file_get_contents('http://php-sdk.migg.cn/data/PersonalityInsights.text');
+            $result = $insights->getProfile($text);
+            $this->assertEquals(200, $result->getStatusCode());
+        }
+    }
+
+    /**
+     * PersonalityInsights unit test with basic authentication
+     */
+    public function testPersonalityInsightsWithModel() {
+
+        $username = getenv('PERSONALITY_INSIGHTS_USERNAME');
+        $password = getenv('PERSONALITY_INSIGHTS_PASSWORD');
+
+        $insights = new PersonalityInsights(WatsonCredential::initWithCredentials($username, $password));
+        $model    = new ProfileModel(new ContentItemModel(' The IBM Watson™ Personality Insights service enables applications to derive insights from social media, enterprise data, or other digital communications. The service uses linguistic analytics to infer individuals\' intrinsic personality characteristics, including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum posts. '));
 
         $model->addContent(new ContentItemModel(' The service can automatically infer, from potentially noisy social media, portraits of individuals that reflect their personality characteristics. The service can infer consumption preferences based on the results of its analysis and, for JSON content that is timestamped, can report temporal behavior. '));
         $model->addContent(new ContentItemModel(' For information about the meaning of the models that the service uses to describe personality characteristics, see Personality models. For information about the meaning of the consumption preferences, see Consumption preferences. '));
@@ -191,4 +207,13 @@ class PersonalityInsightsTest extends BaseTestCase {
         $this->assertEquals(401, $result->getStatusCode());
     }
 
+    /**
+     * PersonalityInsights unit test for raising InvalidParameterException
+     */
+    public function testPersonalityInsightsInvalidParameterException() {
+
+        $this->expectException(InvalidParameterException::class);
+        $insights = new PersonalityInsights(WatsonCredential::initWithCredentials('invalid-username', 'invalid-password'));
+        $result = $insights->getProfile(0);
+    }
 }
