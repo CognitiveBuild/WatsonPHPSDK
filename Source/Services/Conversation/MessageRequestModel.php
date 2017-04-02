@@ -61,7 +61,7 @@ class MessageRequestModel extends ServiceModel {
      * Entities to use when evaluating the message. 
      * Include entities from the previous response to continue using those entities rather than detecting entities in the new input. 
      * 
-     * @var RuntimeEntityModel[]
+     * @var EntityModel[]
      */
     protected $_entities;
 
@@ -71,7 +71,7 @@ class MessageRequestModel extends ServiceModel {
      * Intents to use when evaluating the user input. 
      * Include the intents from the previous response to continue using those intents rather than trying to recognize intents in the new input. 
      * 
-     * @var RuntimeIntentModel[]
+     * @var IntentModel[]
      */
     protected $_intents;
 
@@ -91,11 +91,11 @@ class MessageRequestModel extends ServiceModel {
      * @param $text string
      * @param $alternate_intents boolean | NULL
      * @param $context ContextModel | NULL
-     * @param $entities RuntimeEntityModel | NULL
+     * @param $entities EntityModel | NULL
      * @param $intents RuntimeIntent | NULL
      * @param $output OutputDataModel | NULL
      */
-    function __construct($text, $alternate_intents = NULL, ContextModel $context = NULL, RuntimeEntityModel $entities = NULL, RuntimeIntentModel $intents = NULL, OutputDataModel $output = NULL) {
+    function __construct($text, $alternate_intents = NULL, ContextModel $context = NULL, EntityModel $entities = NULL, IntentModel $intents = NULL, OutputDataModel $output = NULL) {
 
         $input = new InputDataModel($text);
 

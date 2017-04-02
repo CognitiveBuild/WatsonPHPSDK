@@ -20,9 +20,9 @@ namespace WatsonSDK\Services\Conversation;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Conversation RuntimeIntent model
+ * Conversation Intent model
  */
-class RuntimeIntentModel extends ServiceModel {
+class IntentModel extends ServiceModel {
 
     /**
      * @name(intent)

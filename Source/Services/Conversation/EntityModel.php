@@ -20,9 +20,9 @@ namespace WatsonSDK\Services\Conversation;
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Conversation RuntimeEntity model
+ * Conversation Entity model
  */
-class RuntimeEntityModel extends ServiceModel {
+class EntityModel extends ServiceModel {
 
     /**
      * @name(entity)

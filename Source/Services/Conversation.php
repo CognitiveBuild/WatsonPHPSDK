@@ -87,6 +87,7 @@ class Conversation extends WatsonService {
         if($val instanceof MessageRequestModel) {
             return $this->sendMessageByModel($val, $workspace_id, $version);
         }
+
         if(is_string($val)) {
             return $this->sendMessageByText($val, $workspace_id, $version);
         }
