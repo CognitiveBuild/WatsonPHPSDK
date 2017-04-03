@@ -35,8 +35,6 @@ class Conversation extends WatsonService {
     const BASE_URL = 'https://gateway.watsonplatform.net/conversation/api/v1';
     const VERSION = '2017-02-03';
 
-    private $_context = NULL;
-
     /**
      * Send message to Conversation service by using the MessageRequestModel instance
      * 
