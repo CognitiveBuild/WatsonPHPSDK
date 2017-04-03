@@ -58,6 +58,7 @@ final class HttpClientTest extends BaseTestCase {
         $config->setHeaders([ 'p' => 'q' ]);
         $this->assertEquals($config->getHeaders(), [ 'p' => 'q' ]);
         $config->addHeaders([ 'x' => 'y' ]);
+        $config->addHeaders(NULL);
         $this->assertEquals($config->getHeaders(), [ 'p' => 'q', 'x' => 'y' ]);
         // 
         $config->setTimeout(20);
