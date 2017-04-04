@@ -209,6 +209,15 @@ class HttpClientConfiguration {
     }
 
     /**
+     * Set request query
+     * @param $name string
+     * @param $val mix
+     */
+    public function addQuery($key, $val) {
+        $this->_query[$key] = $val;
+    }
+
+    /**
      * Get request header
      * @return array
      */

@@ -35,6 +35,14 @@ class Conversation extends WatsonService {
     const BASE_URL = 'https://gateway.watsonplatform.net/conversation/api/v1';
     const VERSION = '2017-02-03';
 
+    const SORT_BY_NAME_ASC = 'name';
+    const SORT_BY_MODIFIED_ASC = 'modified';
+    const SORT_BY_WORKSPACE_ID_ASC = 'workspace_id';
+
+    const SORT_BY_NAME_DESC = '-name';
+    const SORT_BY_MODIFIED_DESC = '-modified';
+    const SORT_BY_WORKSPACE_ID_DESC = '-workspace_id';
+
     /**
      * Send message to Conversation service by using the MessageRequestModel instance
      * 
@@ -92,6 +100,40 @@ class Conversation extends WatsonService {
         }
 
         throw new InvalidParameterException();
+    }
+
+    /**
+     * List the workspaces associated with a Conversation service instance.
+     * 
+     * @return HttpResponse
+     */
+    public function listWorkspaces($page_limit = NULL, $include_count = NULL, $sort = NULL, $cursor = NULL, $version = self::VERSION) {
+
+        $config = $this->initConfig();
+
+        $config->setQuery([ 'version' => $version ]);
+
+        if(is_null($page_limit) === FALSE && is_integer($page_limit)) {
+            $config->addQuery('page_limit', $page_limit);
+        }
+
+        if(is_null($include_count) === FALSE) {
+            $config->addQuery('include_count', $include_count);
+        }
+
+        if(is_null($sort) === FALSE) {
+            $config->addQuery('sort', $sort);
+        }
+
+        if(is_null($cursor) === FALSE) {
+            $config->addQuery('cursor', $cursor);
+        }
+
+        $config->setMethod(HttpClientConfiguration::METHOD_GET);
+        $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
+        $config->setURL(self::BASE_URL."/workspaces");
+
+        return $this->sendRequest($config);
     }
 
 }
