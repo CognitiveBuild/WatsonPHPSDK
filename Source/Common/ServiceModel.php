@@ -38,7 +38,7 @@ class ServiceModel {
      * 
      * @return array | NULL
      */
-    final public function getData($type = '@query', $nullable_data = FALSE, $nullable_attribute = FALSE) {
+    final public function getData($type = '@(array|query|data|name)', $nullable_data = FALSE, $nullable_attribute = FALSE) {
 
         $reflection = new ReflectionClass($this);
         $properties = $reflection->getProperties();
@@ -50,11 +50,18 @@ class ServiceModel {
             $value = $attribute->getValue($this);
 
             if(is_null($value) && $nullable_attribute === FALSE) {
+                print 'null';
                 continue;
             }
 
             $matches = [];
-            $match = preg_match("/{$type}(.*?)\n/", $docComment, $matches);
+            $pattern = "/{$type}(.*?)\n/";
+            $match = preg_match($pattern, $docComment, $matches);
+
+            print 'Matched: '.$pattern;
+            print_r($matches);
+            echo '
+';
 
             if($match) {
                 $key = $attribute->getName();
@@ -62,6 +69,7 @@ class ServiceModel {
                     $name = trim($matches[1]);
                     $name = preg_replace('/[<>()\[\]{}#\* ]/', '', $name);
                     if($name !== '') {
+                        // Dynamic type
                         if($name === '=' && is_array($value)) {
                             $key = key($value);
                             $value = $value[$key];
@@ -73,6 +81,16 @@ class ServiceModel {
                 }
                 if($value instanceof ServiceModel) {
                     $queries[$key] = $value->getData($type, $nullable_data, $nullable_attribute);
+                }
+                else if($type === '@array' && is_array($value)) {
+                    foreach($sub_value as $value) {
+                        if($sub_value instanceof ServiceModel) {
+                            $queries[$key][] = $sub_value->getData($type, $nullable_data, $nullable_attribute);
+                        }
+                        else {
+                            $queries[$key][] = $sub_value;
+                        }
+                    }
                 }
                 else {
                     $queries[$key] = $value;

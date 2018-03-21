@@ -34,6 +34,7 @@ class IntentModel extends ServiceModel {
     protected $_intent;
 
     /**
+     * @name(confidence)
      * A decimal percentage that represents the confidence that Watson has in this intent. Higher values represent higher confidences. 
      * 
      * @var float

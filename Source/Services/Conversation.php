@@ -136,4 +136,10 @@ class Conversation extends WatsonService {
         return $this->sendRequest($config);
     }
 
+    // Create a workspace based on JSON input. 
+    // You must provide JSON data defining the content of the new workspace. 
+    public function createWorkspace($workspace, $version = self::VERSION) {
+        
+    }
+
 }

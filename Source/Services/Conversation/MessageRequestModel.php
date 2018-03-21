@@ -29,7 +29,7 @@ class MessageRequestModel extends ServiceModel {
      * 
      * The user input.
      * 
-     * @var array
+     * @var InputDataModel
      */
     protected $_input;
 
@@ -46,7 +46,7 @@ class MessageRequestModel extends ServiceModel {
     protected $_alternate_intents;
 
     /**
-     * @data(context)
+     * @array(context)
      * 
      * State information for the conversation. 
      * To maintain state, include the Context object from the previous response when sending multiple requests for the same conversation. 
@@ -56,7 +56,7 @@ class MessageRequestModel extends ServiceModel {
     protected $_context;
 
     /**
-     * @data(entities)
+     * @array(entities)
      * 
      * Entities to use when evaluating the message. 
      * Include entities from the previous response to continue using those entities rather than detecting entities in the new input. 
@@ -66,7 +66,7 @@ class MessageRequestModel extends ServiceModel {
     protected $_entities;
 
     /**
-     * @data(intents)
+     * @array(intents)
      * 
      * Intents to use when evaluating the user input. 
      * Include the intents from the previous response to continue using those intents rather than trying to recognize intents in the new input. 
@@ -76,7 +76,7 @@ class MessageRequestModel extends ServiceModel {
     protected $_intents;
 
     /**
-     * @data(output)
+     * @array(output)
      * 
      * System output. 
      * Include the output from the previous response to maintain intermediate informationif you have several requests within the same dialog turn. 
@@ -88,35 +88,35 @@ class MessageRequestModel extends ServiceModel {
     /**
      * Constructor.
      * 
-     * @param $text string
+     * @param $text string | InputDataModel
      * @param $alternate_intents boolean | NULL
      * @param $context ContextModel | NULL
      * @param $entities EntityModel | NULL
      * @param $intents RuntimeIntent | NULL
      * @param $output OutputDataModel | NULL
      */
-    function __construct($text, $alternate_intents = NULL, ContextModel $context = NULL, EntityModel $entities = NULL, IntentModel $intents = NULL, OutputDataModel $output = NULL) {
+    function __construct($input, $alternate_intents = NULL, array $context = NULL, array $entities = NULL, array $intents = NULL, array $output = NULL) {
 
-        $input = new InputDataModel($text);
+        if(is_string($input)) {
+            $input = new InputDataModel($input);
+        }
 
-        $this->setInput($input->getData('@name'));
+        $this->setInput($input);
 
         $this->setAlternateIntents($alternate_intents);
 
-        if(is_null($context) === FALSE) {
-            $this->setContext($context->getData('@name', TRUE));
-        }
+        $this->setContext($context);
 
         if(is_null($entities) === FALSE) {
-            $this->setEntities($entities->getData('@name', TRUE));
+            $this->setEntities($entities);
         }
 
         if(is_null($intents) === FALSE) {
-            $this->setIntents($intents->getData('@name', TRUE));
+            $this->setIntents($intents);
         }
 
         if(is_null($output) === FALSE) {
-            $this->setOutput($output->getData('@name', TRUE));
+            $this->setOutput($output);
         }
     }
 

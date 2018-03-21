@@ -80,6 +80,24 @@ final class ConversationTest extends BaseTestCase {
     }
 
     /**
+     * Conversation unit test with model using basic authentication
+     */
+    public function testListWorkspaces () {
+
+        $username = getenv('CONVERSATION_USERNAME');
+        $password = getenv('CONVERSATION_PASSWORD');
+
+        if(isset($username) && isset($password)) {
+            $conversation = new Conversation( WatsonCredential::initWithCredentials($username, $password) );
+
+            $result = $conversation->listWorkspaces(5, TRUE, Conversation::SORT_BY_NAME_DESC);
+
+            $this->assertEquals(200, $result->getStatusCode());
+        }
+
+    }
+
+    /**
      * Conversation unit test for raising InvalidParameterException
      */
     public function testConversationInvalidParameterException () {
