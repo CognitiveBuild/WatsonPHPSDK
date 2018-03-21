@@ -38,7 +38,7 @@ class ServiceModel {
      * 
      * @return array | NULL
      */
-    final public function getData($type = '@(array|query|data|name)', $nullable_data = FALSE, $nullable_attribute = FALSE) {
+    final public function getData($type = 'array|query|data|name', $nullable_data = FALSE, $nullable_attribute = FALSE) {
 
         $reflection = new ReflectionClass($this);
         $properties = $reflection->getProperties();
@@ -50,12 +50,11 @@ class ServiceModel {
             $value = $attribute->getValue($this);
 
             if(is_null($value) && $nullable_attribute === FALSE) {
-                print 'null';
                 continue;
             }
 
             $matches = [];
-            $pattern = "/{$type}(.*?)\n/";
+            $pattern = "/@({$type})(\((.*?)\))/";
             $match = preg_match($pattern, $docComment, $matches);
 
             print 'Matched: '.$pattern;

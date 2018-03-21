@@ -43,9 +43,9 @@ class NaturalLanguageUnderstanding extends WatsonService {
 
         $config = $this->initConfig();
 
-        $config->setData($model->getData('@data'));
-        $config->setQuery($model->getData('@query'));
-        $config->addHeaders($model->getData('@header'));
+        $config->setData($model->getData('data'));
+        $config->setQuery($model->getData('query'));
+        $config->addHeaders($model->getData('header'));
 
         $config->setMethod(HttpClientConfiguration::METHOD_POST);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);

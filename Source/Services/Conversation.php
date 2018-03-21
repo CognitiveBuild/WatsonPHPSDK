@@ -54,9 +54,9 @@ class Conversation extends WatsonService {
     public function sendMessageByModel(MessageRequestModel $model, $workspace_id, $version = self::VERSION) {
 
         $config = $this->initConfig();
-        $config->addHeaders($model->getData('@header'));
+        $config->addHeaders($model->getData('header'));
 
-        $config->setData($model->getData('@data'));
+        $config->setData($model->getData('data'));
 
         $config->setQuery( [ 'version' => $version ] );
         $config->setMethod(HttpClientConfiguration::METHOD_POST);

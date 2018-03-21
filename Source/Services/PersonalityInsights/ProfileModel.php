@@ -122,11 +122,11 @@ class ProfileModel extends ServiceModel {
     function __construct($val, $raw_scores = NULL, $consumption_preferences = NULL, $csv_headers = NULL, $accept_language = NULL, $accept = NULL, $content_language = NULL, $version = self::VERSION) {
 
         if($val instanceof ContentItemModel) {
-            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('@name') ] ];
+            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $val->getData('name') ] ];
         }
         else if(is_string($val)) {
             $model = new ContentItemModel($val);
-            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $model->getData('@name') ] ];
+            $this->_mix = [ self::TYPE_CONTENT_ITEMS => [ $model->getData('name') ] ];
         }
 
         $this->_raw_scores = $raw_scores;
@@ -159,7 +159,7 @@ class ProfileModel extends ServiceModel {
      * @param $val ContentItemModel
      */
     public function addContent($val) {
-        array_push($this->_mix[self::TYPE_CONTENT_ITEMS], $val->getData('@name'));
+        array_push($this->_mix[self::TYPE_CONTENT_ITEMS], $val->getData('name'));
     }
 
     /**

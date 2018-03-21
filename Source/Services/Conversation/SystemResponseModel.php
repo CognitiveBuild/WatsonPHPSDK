@@ -54,7 +54,7 @@ class SystemResponseModel extends ServiceModel {
 
     function __construct(DialogModel $dialog, $dialog_turn_counter, $dialog_request_counter) {
 
-        $this->setDialogStack([ $dialog->getData('@name') ]);
+        $this->setDialogStack([ $dialog->getData('name') ]);
         $this->setDialogTurnCounter($dialog_turn_counter);
         $this->setDialogRequestCounter($dialog_request_counter);
     }

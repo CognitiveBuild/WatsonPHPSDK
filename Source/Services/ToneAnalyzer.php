@@ -46,8 +46,8 @@ class ToneAnalyzer extends WatsonService {
 
         $config = $this->initConfig();
 
-        $config->setData($model->getData('@data'));
-        $config->setQuery($model->getData('@query'));
+        $config->setData($model->getData('data'));
+        $config->setQuery($model->getData('query'));
 
         $config->setMethod(HttpClientConfiguration::METHOD_POST);
         $config->setType(HttpClientConfiguration::DATA_TYPE_JSON);
