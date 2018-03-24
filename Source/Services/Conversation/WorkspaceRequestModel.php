@@ -27,7 +27,7 @@ class WorkspaceRequestModel extends ServiceModel {
     const LANGUAGE_ENGLISH = 'en';
 
     /**
-     * @data(name)
+     * @name(name)
      * 
      * The name of the workspace.
      * 
@@ -36,7 +36,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_name;
 
     /**
-     * @data(description)
+     * @name(description)
      * 
      * The description of the workspace. 
      * 
@@ -45,7 +45,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_description;
 
     /**
-     * @data(language)
+     * @name(language)
      * 
      * The language of the workspace. 
      * 
@@ -54,7 +54,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_language;
 
     /**
-     * @data(metadata)
+     * @name(metadata)
      * 
      * Any metadata that is required by the workspace.
      * 
@@ -63,7 +63,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_metadata;
 
     /**
-     * @data(counterexamples)
+     * @name(counterexamples)
      * 
      * An array of CreateExample objects defining input examples that have been marked as irrelevant input.
      * 
@@ -72,7 +72,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_counterexamples;
 
     /**
-     * @data(dialog_nodes)
+     * @name(dialog_nodes)
      * 
      * An array of CreateDialogNode objects defining the nodes in the workspace dialog.
      * 
@@ -81,7 +81,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_dialog_nodes;
 
     /**
-     * @data(entities)
+     * @name(entities)
      * 
      * An array of CreateEntity objects defining the entities for the workspace.
      * 
@@ -90,7 +90,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_entities;
 
     /**
-     * @data(intents)
+     * @name(intents)
      * 
      * An array of CreateIntent objects defining the intents for the workspace.
      * 

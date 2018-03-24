@@ -51,7 +51,7 @@ class AnalyzeModel extends ServiceModel {
     protected $_mix;
 
     /**
-     * @data(features)
+     * @name(features)
      * 
      * Specify the features to analyze in the text, and the options to enable for each feature.
      * At least one feature is required, and you can include as many as you like. 
@@ -71,7 +71,7 @@ class AnalyzeModel extends ServiceModel {
     protected $_features;
 
     /**
-     * @data(language)
+     * @name(language)
      * 
      * ISO 639-1 code indicating the language to use for the analysis.
      * This code overrides the automatic language detection performed by the service.
@@ -82,21 +82,21 @@ class AnalyzeModel extends ServiceModel {
     protected $_language;
 
     /**
-     * @data(clean)
+     * @name(clean)
      * 
      * Set to false to disable text cleaning. By default, the service cleans input to remove generally unwanted content, such as advertisements.
      */
     protected $_clean;
 
     /**
-     * @data(fallback_to_raw)
+     * @name(fallback_to_raw)
      * 
      * Whether to use raw HTML content if text cleaning fails. This defaults to false.
      */
     protected $_fallback_to_raw;
 
     /**
-     * @data(return_analyzed_text)
+     * @name(return_analyzed_text)
      * 
      * Whether to use raw HTML content if text cleaning fails. This defaults to false.
      */

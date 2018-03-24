@@ -25,7 +25,7 @@ use WatsonSDK\Common\ServiceModel;
 class MessageRequestModel extends ServiceModel {
 
     /**
-     * @data(input)
+     * @name(input)
      * 
      * The user input.
      * 
@@ -34,7 +34,7 @@ class MessageRequestModel extends ServiceModel {
     protected $_input;
 
     /**
-     * @data(alternate_intents)
+     * @name(alternate_intents)
      * 
      * Whether to return more than one intent. 
      * Set to true to return all matching intents. 
@@ -46,12 +46,12 @@ class MessageRequestModel extends ServiceModel {
     protected $_alternate_intents;
 
     /**
-     * @array(context)
+     * @name(context)
      * 
      * State information for the conversation. 
      * To maintain state, include the Context object from the previous response when sending multiple requests for the same conversation. 
      * 
-     * @var ContextModel[]
+     * @var ContextModel
      */
     protected $_context;
 
@@ -95,7 +95,7 @@ class MessageRequestModel extends ServiceModel {
      * @param $intents RuntimeIntent | NULL
      * @param $output OutputDataModel | NULL
      */
-    function __construct($input, $alternate_intents = NULL, array $context = NULL, array $entities = NULL, array $intents = NULL, array $output = NULL) {
+    function __construct($input, $alternate_intents = NULL, ContextModel $context = NULL, array $entities = NULL, array $intents = NULL, array $output = NULL) {
 
         if(is_string($input)) {
             $input = new InputDataModel($input);
@@ -159,7 +159,7 @@ class MessageRequestModel extends ServiceModel {
     /**
      * Set state information for the conversation
      * 
-     * @return array
+     * @return ContextModel
      */
     public function getContext() {
         return $this->_context;
@@ -168,7 +168,7 @@ class MessageRequestModel extends ServiceModel {
     /**
      * Set state information for the conversation
      * 
-     * @param $val array
+     * @param ContextModel $val
      */
     public function setContext($val) {
         $this->_context = $val;

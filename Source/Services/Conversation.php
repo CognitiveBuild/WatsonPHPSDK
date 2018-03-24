@@ -56,7 +56,7 @@ class Conversation extends WatsonService {
         $config = $this->initConfig();
         $config->addHeaders($model->getData('header'));
 
-        $config->setData($model->getData('data'));
+        $config->setData($model->getData());
 
         $config->setQuery( [ 'version' => $version ] );
         $config->setMethod(HttpClientConfiguration::METHOD_POST);

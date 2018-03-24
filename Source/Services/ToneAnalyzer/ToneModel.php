@@ -27,7 +27,7 @@ class ToneModel extends ServiceModel {
     const VERSION = '2016-05-19';
 
     /**
-     * @data(text)
+     * @name(text)
      *
      * Text that contains the content to be analyzed. The Tone Analyzer Service supports up to 128KB of text,
      * or about 1000 sentences.Sentences with less than three words cannot be analyzed.

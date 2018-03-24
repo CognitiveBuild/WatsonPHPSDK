@@ -38,13 +38,14 @@ class ServiceModel {
      * 
      * @return array | NULL
      */
-    final public function getData($type = 'array|query|data|name', $nullable_data = FALSE, $nullable_attribute = FALSE) {
+    final public function getData($type = 'array|data|name', $nullable_data = FALSE, $nullable_attribute = FALSE) {
 
         $reflection = new ReflectionClass($this);
         $properties = $reflection->getProperties();
         $queries = [];
 
         foreach($properties as $attribute) {
+
             $attribute->setAccessible(true);
             $docComment = $attribute->getDocComment();
             $value = $attribute->getValue($this);
@@ -54,19 +55,16 @@ class ServiceModel {
             }
 
             $matches = [];
-            $pattern = "/@({$type})(\((.*?)\))/";
+            $pattern = "/@({$type})\((.*?)\)/";
             $match = preg_match($pattern, $docComment, $matches);
-
-            print 'Matched: '.$pattern;
-            print_r($matches);
-            echo '
-';
 
             if($match) {
                 $key = $attribute->getName();
-                if(count($matches) > 1) {
-                    $name = trim($matches[1]);
+                $count = count($matches);
+                if($count > 2) {
+                    $name = trim($matches[2]);
                     $name = preg_replace('/[<>()\[\]{}#\* ]/', '', $name);
+
                     if($name !== '') {
                         // Dynamic type
                         if($name === '=' && is_array($value)) {
@@ -77,23 +75,24 @@ class ServiceModel {
                             $key = $name;
                         }
                     }
-                }
-                if($value instanceof ServiceModel) {
-                    $queries[$key] = $value->getData($type, $nullable_data, $nullable_attribute);
-                }
-                else if($type === '@array' && is_array($value)) {
-                    foreach($sub_value as $value) {
-                        if($sub_value instanceof ServiceModel) {
-                            $queries[$key][] = $sub_value->getData($type, $nullable_data, $nullable_attribute);
-                        }
-                        else {
-                            $queries[$key][] = $sub_value;
+                    if($value instanceof ServiceModel) {
+                        $queries[$key] = $value->getData($type, $nullable_data, $nullable_attribute);
+                    }
+                    else if($name === 'array' && is_array($value)) {
+                        foreach($sub_value as $value) {
+                            if($sub_value instanceof ServiceModel) {
+                                $queries[$key][] = $sub_value->getData($type, $nullable_data, $nullable_attribute);
+                            }
+                            else {
+                                $queries[$key][] = $sub_value;
+                            }
                         }
                     }
+                    else {
+                        $queries[$key] = $value;
+                    }
                 }
-                else {
-                    $queries[$key] = $value;
-                }
+                
             }
         }
 

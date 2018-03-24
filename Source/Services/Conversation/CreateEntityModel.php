@@ -34,7 +34,7 @@ class CreateEntityModel extends ServiceModel {
     protected $_entity;
 
     /**
-     * @data(description)
+     * @name(description)
      * 
      * The description of the entity.
      * 
@@ -43,7 +43,7 @@ class CreateEntityModel extends ServiceModel {
     protected $_description;
 
     /**
-     * @data(metadata)
+     * @name(metadata)
      * 
      * Any metadata related to the entity.
      * 
@@ -52,7 +52,7 @@ class CreateEntityModel extends ServiceModel {
     protected $_metadata;
 
     /**
-     * @data(values)
+     * @name(values)
      * 
      * An array of entity values.
      * 
@@ -61,7 +61,7 @@ class CreateEntityModel extends ServiceModel {
     protected $_values;
 
     /**
-     * @data(fuzzy_match)
+     * @name(fuzzy_match)
      * 
      * Whether to use fuzzy matching for the entity.
      * 
