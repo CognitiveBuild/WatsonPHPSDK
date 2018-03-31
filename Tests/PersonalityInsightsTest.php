@@ -60,14 +60,14 @@ class PersonalityInsightsTest extends BaseTestCase {
         $this->assertEquals($model->getCsvHeaders(), TRUE);
         $this->assertEquals($model->getRawScores(), TRUE);
 
-        $this->assertEquals($model->getData('@query'), [
+        $this->assertEquals($model->getData('query'), [
             'raw_scores' => TRUE,
             'consumption_preferences' => TRUE,
             'version' => 'new-version',
             'csv_headers' => TRUE
         ]);
 
-        $this->assertEquals($model->getData('@header'), [
+        $this->assertEquals($model->getData('header'), [
             'Content-Language' => 'cl',
             'Accept-Language' => 'al',
             'Accept' => TRUE
@@ -109,7 +109,8 @@ class PersonalityInsightsTest extends BaseTestCase {
         $this->assertEquals($model->getLanguage(),'en');
         $this->assertEquals($model->getParentId(),'pid');
         $this->assertEquals($model->getReply(),TRUE);
-        $this->assertEquals($model->getData('@name'), [ 'content' => 'c', 'id'=>'id', 'contenttype' => 't', 'created' => 1, 'updated' => 1,'forward' => TRUE, 'language' => 'en', 'parentid' => 'pid', 'reply' => TRUE ]);
+
+        $this->assertEquals($model->getData('array|name|data|query'), [ 'content' => 'c', 'id'=>'id', 'contenttype' => 't', 'created' => 1, 'updated' => 1,'forward' => TRUE, 'language' => 'en', 'parentid' => 'pid', 'reply' => TRUE ]);
     }
 
     /**

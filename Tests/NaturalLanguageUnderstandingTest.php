@@ -60,7 +60,7 @@ final class NaturalLanguageUnderstandingTest extends BaseTestCase {
         $this->assertEquals($model->getReturnAnalyzedText(), TRUE);
         $this->assertEquals($model->getFallbackToRaw(), TRUE);
 
-        $this->assertEquals($model->getData('@data'), [
+        $this->assertEquals($model->getData(), [
             'language' => 'fr', 
             'clean' => TRUE, 
             'fallback_to_raw' => TRUE, 
@@ -69,7 +69,7 @@ final class NaturalLanguageUnderstandingTest extends BaseTestCase {
             'text' => 'Hello World!'
         ]);
 
-        $this->assertEquals($model->getData('@query'), [
+        $this->assertEquals($model->getData('query'), [
             'version' => 'new-version'
         ]);
 

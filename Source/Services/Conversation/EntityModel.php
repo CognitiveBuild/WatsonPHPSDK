@@ -52,17 +52,50 @@ class EntityModel extends ServiceModel {
     protected $_value;
 
     /**
-     * Constructor.
+     * @name(confidence)
      * 
-     * @param $entity string | NULL
-     * @param $location array
-     * @param $value string | NULL
+     * A decimal percentage that represents Watson's confidence in the entity.
+     *
+     * @var float
      */
-    function __construct($entity = NULL, $location = NULL, $value = NULL) {
+    protected $_confidence;
+
+    /**
+     * @name(metadata)
+     * 
+     * Any metadata for the entity.
+     *
+     * @var array
+     */
+    protected $_metadata;
+
+    /**
+     * @array(groups)
+     * 
+     * The recognized capture groups for the entity, as defined by the entity pattern.
+     *
+     * @var CaptureGroup[]
+     */
+    protected $_groups;
+
+    /**
+     * Constructor.
+     *
+     * @param string $entity
+     * @param array $location
+     * @param string $value
+     * @param float $confidence
+     * @param array $metadata
+     * @param array $groups
+     */
+    function __construct($entity = NULL, array $location = NULL, $value = NULL, $confidence = NULL, array $metadata = NULL, array $groups = NULL) {
 
         $this->setEntity($entity);
         $this->setLocation($location);
         $this->setValue($value);
+        $this->setConfidence($confidence);
+        $this->setMetadata($metadata);
+        $this->setGroups($groups);
     }
 
     /**
@@ -117,5 +150,59 @@ class EntityModel extends ServiceModel {
      */
     public function setValue($val) {
         $this->_value = $val;
+    }
+
+    /**
+     * Get the decimal percentage that represents Watson's confidence in the entity.
+     * 
+     * @return float
+     */
+    public function getConfidence() {
+        return $this->_confidence;
+    }
+
+    /**
+     * Set the decimal percentage that represents Watson's confidence in the entity.
+     * 
+     * @param float $val
+     */
+    public function setConfidence($val) {
+        $this->_confidence = $val;
+    }
+
+    /**
+     * Get metadata for the entity.
+     * 
+     * @return array
+     */
+    public function getMetadata() {
+        return $this->_metadata;
+    }
+
+    /**
+     * Set metadata for the entity.
+     * 
+     * @param array $val
+     */
+    public function setMetadata($val) {
+        $this->_metadata = $val;
+    }
+
+    /**
+     * Get the recognized capture groups for the entity, as defined by the entity pattern.
+     * 
+     * @return array
+     */
+    public function getGroups() {
+        return $this->_groups;
+    }
+
+    /**
+     * Set the recognized capture groups for the entity, as defined by the entity pattern.
+     * 
+     * @param array $val
+     */
+    public function setGroups($val) {
+        $this->_groups = $val;
     }
 }

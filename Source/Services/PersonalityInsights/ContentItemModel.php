@@ -202,6 +202,7 @@ class ContentItemModel extends ServiceModel {
     }
 
     /**
+     * Get the MIME type of the content.
      * @return string
      */
     public function getContentType() {
@@ -209,7 +210,7 @@ class ContentItemModel extends ServiceModel {
     }
 
     /**
-     * Get the MIME type of the content.
+     * Set the MIME type of the content.
      * @param $content_type string
      */
     public function setContentType($content_type) {

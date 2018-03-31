@@ -81,21 +81,21 @@ class MessageRequestModel extends ServiceModel {
      * System output. 
      * Include the output from the previous response to maintain intermediate informationif you have several requests within the same dialog turn. 
      * 
-     * @var OutputDataModel[]
+     * @var OutputDataModel
      */
     protected $_output;
 
     /**
      * Constructor.
      * 
-     * @param $text string | InputDataModel
-     * @param $alternate_intents boolean | NULL
-     * @param $context ContextModel | NULL
-     * @param $entities EntityModel | NULL
-     * @param $intents RuntimeIntent | NULL
-     * @param $output OutputDataModel | NULL
+     * @param string | InputDataModel $text
+     * @param boolean | NULL $alternate_intents
+     * @param ContextModel | NULL $context
+     * @param EntityModel | NULL $entities
+     * @param RuntimeIntent | NULL $intents
+     * @param OutputDataModel | NULL $output
      */
-    function __construct($input, $alternate_intents = NULL, ContextModel $context = NULL, array $entities = NULL, array $intents = NULL, array $output = NULL) {
+    function __construct($input, $alternate_intents = NULL, ContextModel $context = NULL, array $entities = NULL, array $intents = NULL, OutputDataModel $output = NULL) {
 
         if(is_string($input)) {
             $input = new InputDataModel($input);
@@ -213,7 +213,7 @@ class MessageRequestModel extends ServiceModel {
     /**
      * Get system output.
      * 
-     * @return array
+     * @return OutputDataModel
      */
     public function getOutput() {
         return $this->_output;
@@ -222,7 +222,7 @@ class MessageRequestModel extends ServiceModel {
     /**
      * Set system output.
      * 
-     * @param $val array
+     * @param OutputDataModel $val
      */
     public function setOutput($val) {
         $this->_output = $val;

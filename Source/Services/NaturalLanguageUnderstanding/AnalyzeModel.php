@@ -51,7 +51,7 @@ class AnalyzeModel extends ServiceModel {
     protected $_mix;
 
     /**
-     * @name(features)
+     * @array(features)
      * 
      * Specify the features to analyze in the text, and the options to enable for each feature.
      * At least one feature is required, and you can include as many as you like. 
@@ -106,7 +106,7 @@ class AnalyzeModel extends ServiceModel {
      * Constructor
      * 
      * @param $content string
-     * @param $features array
+     * @param array $features
      * @param $type string
      * @param $language string | NULL
      * @param $clean boolean | NULL

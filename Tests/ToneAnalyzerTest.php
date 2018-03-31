@@ -52,13 +52,13 @@ final class ToneAnalyzerTest extends BaseTestCase {
         $this->assertEquals($model->getTones(), 'e');
         $this->assertEquals($model->getSentences(), TRUE);
 
-        $this->assertEquals($model->getData('@query'), [
+        $this->assertEquals($model->getData('query'), [
             'tones' => 'e',
             'version' => 'new-version',
             'sentences' => TRUE
         ]);
 
-        $this->assertEquals($model->getData('@data'), [
+        $this->assertEquals($model->getData('name'), [
             'text' => 't'
         ]);
 

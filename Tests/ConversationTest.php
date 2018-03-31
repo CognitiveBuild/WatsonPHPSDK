@@ -67,7 +67,7 @@ final class ConversationTest extends BaseTestCase {
 
             $contextModel = new ContextModel( $context['conversation_id'], $systemModel );
 
-            $model = new MessageRequestModel( 'What is IBM?', NULL, $contextModel, new EntityModel(), new IntentModel(), new OutputDataModel() );
+            $model = new MessageRequestModel( 'What is IBM?', NULL, $contextModel);
 
             $this->assertNull($model->getEntities());
             $this->assertNull($model->getIntents());

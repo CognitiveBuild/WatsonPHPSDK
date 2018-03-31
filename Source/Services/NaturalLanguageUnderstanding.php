@@ -43,7 +43,7 @@ class NaturalLanguageUnderstanding extends WatsonService {
 
         $config = $this->initConfig();
 
-        $config->setData($model->getData('data'));
+        $config->setData($model->getData());
         $config->setQuery($model->getData('query'));
         $config->addHeaders($model->getData('header'));
 
