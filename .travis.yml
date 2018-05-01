@@ -4,15 +4,15 @@ php:
 - '7.0'
 - '7.1'
 - hhvm
-#before_script:
-#- composer install --no-interaction --prefer-source --dev
+before_script:
+- curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
+- composer install
 matrix:
   allow_failures:
   - php: hhvm
   fast_finish: true
 script:
 - ./vendor/bin/phpunit --coverage-clover=clover.xml
-- curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
 after_script:
 - bash <(curl -s https://codecov.io/bash)
 notifications:
