@@ -4,8 +4,8 @@ php:
 - '7.0'
 - '7.1'
 - hhvm
-before_script:
-- composer install --no-interaction --prefer-source --dev
+#before_script:
+#- composer install --no-interaction --prefer-source --dev
 matrix:
   allow_failures:
   - php: hhvm
