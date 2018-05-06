@@ -6,7 +6,7 @@ php:
 - hhvm
 before_script:
 - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-- composer install --no-interaction --prefer-source --dev
+- composer install --no-interaction --prefer-source
 matrix:
   allow_failures:
   - php: hhvm
