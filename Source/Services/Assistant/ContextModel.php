@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-namespace WatsonSDK\Services\Conversation;
+namespace WatsonSDK\Services\Assistant;
 
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Conversation Context model
+ * Assistant Context model
  */
 class ContextModel extends ServiceModel {
 

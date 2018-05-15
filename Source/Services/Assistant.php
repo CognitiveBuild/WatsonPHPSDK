@@ -25,12 +25,12 @@ use WatsonSDK\Common\WatsonService;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
 
-use WatsonSDK\Services\Conversation\MessageRequestModel;
+use WatsonSDK\Services\Assistant\MessageRequestModel;
 
 /**
- * Conversation class
+ * Assistant class
  */
-class Conversation extends WatsonService {
+class Assistant extends WatsonService {
 
     const BASE_URL = 'https://gateway.watsonplatform.net/conversation/api/v1';
     const VERSION = '2017-02-03';
@@ -44,7 +44,7 @@ class Conversation extends WatsonService {
     const SORT_BY_WORKSPACE_ID_DESC = '-workspace_id';
 
     /**
-     * Send message to Conversation service by using the MessageRequestModel instance
+     * Send message to Assistant service by using the MessageRequestModel instance
      * 
      * @param MessageRequestModel $model
      * @param $workspace_id string
@@ -72,7 +72,7 @@ class Conversation extends WatsonService {
     }
 
     /**
-     * Send text message to Conversation service
+     * Send text message to Assistant service
      * 
      * @param $message string
      * @return HttpResponse
@@ -84,7 +84,7 @@ class Conversation extends WatsonService {
     }
 
     /**
-     * Send message to Conversation service
+     * Send message to Assistant service
      * 
      * @param  $val MessageRequestModel | string
      * @return HttpResponse
@@ -103,7 +103,7 @@ class Conversation extends WatsonService {
     }
 
     /**
-     * List the workspaces associated with a Conversation service instance.
+     * List the workspaces associated with a Assistant service instance.
      * 
      * @return HttpResponse
      */

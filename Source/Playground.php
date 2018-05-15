@@ -13,16 +13,17 @@ use WatsonSDK\Common\WatsonUtility;
 use WatsonSDK\Common\InvalidParameterException;
 
 use WatsonSDK\Tests\Environment;
-use WatsonSDK\Services\Conversation;
-use WatsonSDK\Services\Conversation\InputDataModel;
-use WatsonSDK\Services\Conversation\MessageRequestModel;
-use WatsonSDK\Services\Conversation\ContextModel;
-use WatsonSDK\Services\Conversation\EntityModel;
-use WatsonSDK\Services\Conversation\IntentModel;
-use WatsonSDK\Services\Conversation\OutputDataModel;
-use WatsonSDK\Services\Conversation\SystemResponseModel;
-use WatsonSDK\Services\Conversation\DialogModel;
+use WatsonSDK\Services\Assistant;
+use WatsonSDK\Services\Assistant\InputDataModel;
+use WatsonSDK\Services\Assistant\MessageRequestModel;
+use WatsonSDK\Services\Assistant\ContextModel;
+use WatsonSDK\Services\Assistant\EntityModel;
+use WatsonSDK\Services\Assistant\IntentModel;
+use WatsonSDK\Services\Assistant\OutputDataModel;
+use WatsonSDK\Services\Assistant\SystemResponseModel;
+use WatsonSDK\Services\Assistant\DialogModel;
 
+use WatsonSDK\Services\PersonalityInsights;
 use WatsonSDK\Services\PersonalityInsights\ProfileModel;
 use WatsonSDK\Services\PersonalityInsights\ContentItemModel;
 use WatsonSDK\Services\NaturalLanguageUnderstanding;

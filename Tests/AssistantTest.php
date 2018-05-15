@@ -25,35 +25,36 @@ use WatsonSDK\Common\SimpleTokenHelper;
 use WatsonSDK\Common\WatsonCredential;
 use WatsonSDK\Common\InvalidParameterException;
 
-use WatsonSDK\Services\Conversation;
-use WatsonSDK\Services\Conversation\InputDataModel;
-use WatsonSDK\Services\Conversation\MessageRequestModel;
-use WatsonSDK\Services\Conversation\ContextModel;
-use WatsonSDK\Services\Conversation\EntityModel;
-use WatsonSDK\Services\Conversation\IntentModel;
-use WatsonSDK\Services\Conversation\OutputDataModel;
-use WatsonSDK\Services\Conversation\SystemResponseModel;
-use WatsonSDK\Services\Conversation\DialogModel;
+use WatsonSDK\Services\Assistant;
+use WatsonSDK\Services\Assistant\InputDataModel;
+use WatsonSDK\Services\Assistant\MessageRequestModel;
+use WatsonSDK\Services\Assistant\ContextModel;
+use WatsonSDK\Services\Assistant\EntityModel;
+use WatsonSDK\Services\Assistant\IntentModel;
+use WatsonSDK\Services\Assistant\OutputDataModel;
+use WatsonSDK\Services\Assistant\SystemResponseModel;
+use WatsonSDK\Services\Assistant\DialogModel;
 
-final class ConversationTest extends BaseTestCase {
+final class AssistantTest extends BaseTestCase {
 
     /**
-     * Conversation unit test with model using basic authentication
+     * Assistant unit test with model using basic authentication
      */
-    public function testConversationWithModel () {
+    public function testAssistantWithModel () {
 
         $username = getenv('CONVERSATION_USERNAME');
         $password = getenv('CONVERSATION_PASSWORD');
         $workspace_id = getenv('CONVERSATION_WORKSPACE_ID');
 
-        $conversation = new Conversation( WatsonCredential::initWithCredentials($username, $password) );
+        $conversation = new Assistant( WatsonCredential::initWithCredentials($username, $password) );
 
         $this->assertInstanceOf(
-            Conversation::class, 
+            Assistant::class, 
             $conversation
         );
 
         if(isset($username) && isset($password) && isset($workspace_id)) {
+
             $greetings = $conversation->sendMessage( '', $workspace_id );
             $this->assertEquals(200, $greetings->getStatusCode());
 
@@ -80,7 +81,7 @@ final class ConversationTest extends BaseTestCase {
     }
 
     /**
-     * Conversation unit test with model using basic authentication
+     * Assistant unit test with model using basic authentication
      */
     public function testListWorkspaces () {
 
@@ -88,9 +89,9 @@ final class ConversationTest extends BaseTestCase {
         $password = getenv('CONVERSATION_PASSWORD');
 
         if(isset($username) && isset($password)) {
-            $conversation = new Conversation( WatsonCredential::initWithCredentials($username, $password) );
+            $conversation = new Assistant( WatsonCredential::initWithCredentials($username, $password) );
 
-            $result = $conversation->listWorkspaces(5, TRUE, Conversation::SORT_BY_NAME_DESC);
+            $result = $conversation->listWorkspaces(5, TRUE, Assistant::SORT_BY_NAME_DESC);
 
             $this->assertEquals(200, $result->getStatusCode());
         }
@@ -98,13 +99,13 @@ final class ConversationTest extends BaseTestCase {
     }
 
     /**
-     * Conversation unit test for raising InvalidParameterException
+     * Assistant unit test for raising InvalidParameterException
      */
-    public function testConversationInvalidParameterException () {
+    public function testAssistantInvalidParameterException () {
 
         $this->expectException(InvalidParameterException::class);
 
-        $conversation = new Conversation( WatsonCredential::initWithCredentials('invalid-username', 'invalid-password') );
+        $conversation = new Assistant( WatsonCredential::initWithCredentials('invalid-username', 'invalid-password') );
 
         $result = $conversation->sendMessage( 0, 'invalid-workspace-id' );
         $this->assertEquals(200, $result->getStatusCode());

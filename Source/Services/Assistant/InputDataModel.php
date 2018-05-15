@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-namespace WatsonSDK\Services\Conversation;
+namespace WatsonSDK\Services\Assistant;
 
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Conversation InputData model
+ * Assistant InputData model
  */
 class InputDataModel extends ServiceModel {
 

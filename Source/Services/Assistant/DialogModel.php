@@ -15,39 +15,49 @@
  * limitations under the License.
  */
 
-namespace WatsonSDK\Services\Conversation;
+namespace WatsonSDK\Services\Assistant;
 
 use WatsonSDK\Common\ServiceModel;
 
 /**
- * Conversation CreateExample model
+ * Assistant DialogStack model
  */
-class CreateExampleModel extends ServiceModel {
+class DialogModel extends ServiceModel {
 
     /**
-     * @name(text)
+     * @name(dialog_node)
      * 
-     * The text of a user input example. 
+     * The ID of a dialog node.
      * 
      * @var string
      */
-    protected $_text;
+    protected $_dialog_node;
 
     /**
-     * Get the text of a user input example.
+     * Constructor.
      * 
-     * @return string
+     * @param $dialog_node string
      */
-    public function getText() {
-        return $this->_text;
+    function __construct($dialog_node) {
+
+        $this->setDialogNode($dialog_node);
     }
 
     /**
-     * Set the text of a user input example.
+     * Get the ID of a dialog node.
+     * 
+     * @return string
+     */
+    public function getDialogNode() {
+        return $this->_dialog_node;
+    }
+
+    /**
+     * Set the ID of a dialog node.
      * 
      * @param $val string
      */
-    public function setText($val) {
-        $this->_text = $val;
+    public function setDialogNode($val) {
+        $this->_dialog_node = $val;
     }
 }
