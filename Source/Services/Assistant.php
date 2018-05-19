@@ -136,10 +136,30 @@ class Assistant extends WatsonService {
         return $this->sendRequest($config);
     }
 
-    // Create a workspace based on JSON input. 
-    // You must provide JSON data defining the content of the new workspace. 
-    public function createWorkspace($workspace, $version = self::VERSION) {
-        
+
+    /**
+     * Create a workspace based on JSON input.
+     * 
+     * You must provide JSON data defining the content of the new workspace. 
+     * This operation is limited to 30 requests per 30 minutes. 
+     * For more information, see Rate limiting.
+     * https://www.ibm.com/watson/developercloud/conversation/api/v1/curl.html?curl#rate-limiting
+     *
+     * @param string $name
+     * @param string $description
+     * @param string $language
+     * @param array $intents
+     * @param array $entities
+     * @param array $dialog_nodes
+     * @param array $counterexamples
+     * @param array | NULL $metadata
+     * @param boolean $learning_opt_out
+     * @param string $version
+     * 
+     * @return HttpResponse
+     */
+    public function createWorkspace($name, $description, $language, array $intents = [], array $entities = [], array $dialog_nodes = [], array $counterexamples = [], $metadata = NULL, $learning_opt_out = FALSE, $version = self::VERSION) {
+
     }
 
 }

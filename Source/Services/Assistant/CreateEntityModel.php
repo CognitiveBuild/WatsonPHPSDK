@@ -70,6 +70,24 @@ class CreateEntityModel extends ServiceModel {
     protected $_fuzzy_match;
 
     /**
+     * Constructor.
+     *
+     * @param string $entity
+     * @param string $description
+     * @param array $metadata
+     * @param array $values
+     * @param boolean $fuzzy_match
+     */
+    function __construct($entity, $description = '', $metadata = NULL, array $values = [], $fuzzy_match = FALSE) {
+
+        $this->setEntity($entity);
+        $this->setDescription($description);
+        $this->setMetadata($metadata);
+        $this->setValues($values);
+        $this->setFuzzyMatch($fuzzy_match);
+    }
+
+    /**
      * Get the name of the entity (for example, beverage).
      * 
      * @return string
