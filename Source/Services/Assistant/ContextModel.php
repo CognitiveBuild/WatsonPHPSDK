@@ -45,8 +45,8 @@ class ContextModel extends ServiceModel {
     /**
      * Constructor.
      * 
-     * @param $conversation_id string
-     * @param $system SystemResponseModel
+     * @param string $conversation_id
+     * @param SystemResponseModel $system
      */
     function __construct($conversation_id = NULL, SystemResponseModel $system = NULL) {
 
@@ -71,7 +71,7 @@ class ContextModel extends ServiceModel {
     /**
      * Set the unique identifier of the conversation.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setConversationId($val) {
         $this->_conversation_id = $val;
@@ -80,7 +80,7 @@ class ContextModel extends ServiceModel {
     /**
      * Get the unique identifier of the conversation.
      * 
-     * @return array
+     * @return SystemResponseModel
      */
     public function getSystem() {
         return $this->_system;
@@ -89,7 +89,7 @@ class ContextModel extends ServiceModel {
     /**
      * Set the unique identifier of the conversation.
      * 
-     * @param $val array
+     * @param SystemResponseModel $val 
      */
     public function setSystem($val) {
         $this->_system = $val;

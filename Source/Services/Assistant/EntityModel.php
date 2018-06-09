@@ -38,7 +38,7 @@ class EntityModel extends ServiceModel {
      * 
      * An array of zero-based character offsets that indicate where the detected entity values begin and end in the input text.
      * 
-     * @var array
+     * @var integer[]
      */
     protected $_location;
 

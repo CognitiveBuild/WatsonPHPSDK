@@ -25,7 +25,7 @@ use WatsonSDK\Common\ServiceModel;
 class SystemResponseModel extends ServiceModel {
 
     /**
-     * @name(dialog_stack)
+     * @array(dialog_stack)
      * 
      * An array of DialogStack objects identifying the dialog nodes that are in focus in the conversation.
      * 
@@ -71,7 +71,7 @@ class SystemResponseModel extends ServiceModel {
     /**
      * Set array of DialogStack objects.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setDialogStack($val) {
         $this->_dialog_stack = $val;
@@ -80,7 +80,7 @@ class SystemResponseModel extends ServiceModel {
     /**
      * Set array of DialogStack objects.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function addDialogStack($val) {
         $this->_dialog_stack[] = $val;
@@ -89,7 +89,7 @@ class SystemResponseModel extends ServiceModel {
     /**
      * Get the number of cycles of user input and response.
      * 
-     * @return void
+     * @return integer
      */
     public function getDialogTurnCounter() {
         return $this->_dialog_turn_counter;
@@ -98,7 +98,7 @@ class SystemResponseModel extends ServiceModel {
     /**
      * Set the number of cycles of user input and response.
      * 
-     * @param $val integer
+     * @param integer $val 
      */
     public function setDialogTurnCounter($val) {
         $this->_dialog_turn_counter = $val;
@@ -116,7 +116,7 @@ class SystemResponseModel extends ServiceModel {
     /**
      * Get number of inputs.
      * 
-     * @param $val integer
+     * @param integer $val
      */
     public function setDialogRequestCounter($val) {
         $this->_dialog_request_counter = $val;

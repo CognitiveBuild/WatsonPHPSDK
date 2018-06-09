@@ -48,7 +48,7 @@ class CreateIntentModel extends ServiceModel {
     /**
      * @array(examples)
      *
-     * @var array
+     * @var CreateExample[]
      */
     protected $_examples;
 
@@ -57,7 +57,7 @@ class CreateIntentModel extends ServiceModel {
      * 
      * @param $intent string
      * @param $description string
-     * @param array $examples
+     * @param CreateExample[] $examples
      */
     function __construct($intent, $description = '', array $examples = []) {
 
@@ -78,7 +78,7 @@ class CreateIntentModel extends ServiceModel {
     /**
      * Set the name of the recognized intent.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setIntent($val) {
         $this->_intent = $val;
@@ -88,7 +88,7 @@ class CreateIntentModel extends ServiceModel {
      * Set the description of the intent. 
      * This string cannot contain carriage return, newline, or tab characters, and it must be no longer than 128 characters.
      * 
-     * @return float
+     * @return string
      */
     public function getDescription() {
         return $this->_description;
@@ -97,7 +97,7 @@ class CreateIntentModel extends ServiceModel {
     /**
      * Get the description of the intent. 
      * 
-     * @param $val float
+     * @param string $val
      */
     public function setDescription($val) {
         $this->_description = $val;
@@ -106,7 +106,7 @@ class CreateIntentModel extends ServiceModel {
     /**
      * Set array of user input examples for the intent.
      * 
-     * @return float
+     * @return array
      */
     public function getExamples() {
         return $this->_examples;
@@ -115,7 +115,7 @@ class CreateIntentModel extends ServiceModel {
     /**
      * Get array of user input examples for the intent.
      * 
-     * @param $val float
+     * @param array $val
      */
     public function setExamples($val) {
         $this->_examples = $val;

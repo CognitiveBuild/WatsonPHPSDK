@@ -34,7 +34,7 @@ class OutputDataModel extends ServiceModel {
     protected $_text;
 
     /**
-     * @name(log_messages)
+     * @array(log_messages)
      * 
      * Up to 50 messages logged with the request. Returns an empty array if no messages are returned.
      * 
@@ -43,7 +43,7 @@ class OutputDataModel extends ServiceModel {
     protected $_log_messages;
 
     /**
-     * @name(nodes_visited)
+     * @array(nodes_visited)
      * 
      * An array of the nodes that were triggered to create the response. 
      * This information is useful for debugging and for visualizing the path taken through the node tree.
@@ -55,9 +55,9 @@ class OutputDataModel extends ServiceModel {
     /**
      * Constructor.
      * 
-     * @param $text array | NULL
-     * @param $logMessages array | NULL
-     * @param $nodesVisited array | NULL
+     * @param array $text
+     * @param array $logMessages
+     * @param array $nodesVisited
      */
     function __construct($text = NULL, $logMessages = NULL, $nodesVisited = NULL) {
 
@@ -78,7 +78,7 @@ class OutputDataModel extends ServiceModel {
     /**
      * Set the text of the user input.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setText($val) {
         $this->_text = $val;
@@ -96,7 +96,7 @@ class OutputDataModel extends ServiceModel {
     /**
      * Set messages logged.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setLogMessages($val) {
         $this->_log_messages = $val;
@@ -114,7 +114,7 @@ class OutputDataModel extends ServiceModel {
     /**
      * Set nodes that were triggered to create the response.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setNodesVisited($val) {
         $this->_nodes_visited = $val;

@@ -43,7 +43,7 @@ class CreateEntityModel extends ServiceModel {
     protected $_description;
 
     /**
-     * @name(metadata)
+     * @array(metadata)
      * 
      * Any metadata related to the entity.
      * 
@@ -52,11 +52,11 @@ class CreateEntityModel extends ServiceModel {
     protected $_metadata;
 
     /**
-     * @name(values)
+     * @array(values)
      * 
      * An array of entity values.
      * 
-     * @var array
+     * @var CreateValue[]
      */
     protected $_values;
 

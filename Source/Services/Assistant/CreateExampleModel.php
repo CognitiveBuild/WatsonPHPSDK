@@ -36,7 +36,7 @@ class CreateExampleModel extends ServiceModel {
     /**
      * Constructor.
      * 
-     * @param $text string
+     * @param string $text
      */
     function __construct($text) {
 
@@ -54,7 +54,7 @@ class CreateExampleModel extends ServiceModel {
     /**
      * Set the text of a user input example.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setText($val) {
         $this->_text = $val;

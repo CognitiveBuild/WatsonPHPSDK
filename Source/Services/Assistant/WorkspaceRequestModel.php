@@ -54,7 +54,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_language;
 
     /**
-     * @name(metadata)
+     * @array(metadata)
      * 
      * Any metadata that is required by the workspace.
      * 
@@ -63,7 +63,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_metadata;
 
     /**
-     * @name(counterexamples)
+     * @array(counterexamples)
      * 
      * An array of CreateExample objects defining input examples that have been marked as irrelevant input.
      * 
@@ -72,7 +72,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_counterexamples;
 
     /**
-     * @name(dialog_nodes)
+     * @array(dialog_nodes)
      * 
      * An array of CreateDialogNode objects defining the nodes in the workspace dialog.
      * 
@@ -81,7 +81,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_dialog_nodes;
 
     /**
-     * @name(entities)
+     * @array(entities)
      * 
      * An array of CreateEntity objects defining the entities for the workspace.
      * 
@@ -90,7 +90,7 @@ class WorkspaceRequestModel extends ServiceModel {
     protected $_entities;
 
     /**
-     * @name(intents)
+     * @array(intents)
      * 
      * An array of CreateIntent objects defining the intents for the workspace.
      * 
@@ -102,7 +102,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Constructor.
      *
-     * @param $name string
+     * @param string $name
      * @param string $description
      * @param string $language
      * @param array $metadata
@@ -135,7 +135,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set the name of the workspace.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setName($val) {
         $this->_name = $val;
@@ -153,7 +153,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set the description of the workspace.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setDescription($val) {
         $this->_description = $val;
@@ -171,7 +171,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set the language of the workspace.
      * 
-     * @param $val string
+     * @param string $val
      */
     public function setLanguage($val) {
         $this->_language = $val;
@@ -189,7 +189,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set the metadata that is required by the workspace.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setMetadata($val) {
         $this->_metadata = $val;
@@ -207,7 +207,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set array of CreateExample objects defining input examples that have been marked as irrelevant input.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setCounterExamples($val) {
         $this->_counterexamples = $val;
@@ -225,7 +225,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set array of CreateDialogNode objects defining the nodes in the workspace dialog.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setDialogNodes($val) {
         $this->_dialog_nodes = $val;
@@ -243,7 +243,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set array of CreateEntity objects defining the entities for the workspace.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setEntities($val) {
         $this->_entities = $val;
@@ -261,7 +261,7 @@ class WorkspaceRequestModel extends ServiceModel {
     /**
      * Set array of CreateIntent objects defining the intents for the workspace.
      * 
-     * @param $val array
+     * @param array $val
      */
     public function setIntents($val) {
         $this->_intents = $val;
