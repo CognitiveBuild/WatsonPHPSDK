@@ -24,6 +24,9 @@ use WatsonSDK\Common\ServiceModel;
  */
 class CreateValueModel extends ServiceModel {
 
+    const VALUE_TYPE_SYNONYMS = 'synonyms';
+    const VALUE_TYPE_PATTERNS = 'patterns';
+
     /**
      * @name(value)
      * 
@@ -88,7 +91,7 @@ class CreateValueModel extends ServiceModel {
     /**
      * Constructor.
      */
-    function __construct($value, array $metadata = NULL, array $synonyms = NULL, array $patterns, $value_type = 'synonyms') {
+    function __construct($value, array $metadata = NULL, array $synonyms = NULL, array $patterns, $value_type = self::VALUE_TYPE_SYNONYMS) {
 
         $this->setValue($value);
         $this->setMetadata($metadata);

@@ -22,7 +22,7 @@ use WatsonSDK\Common\ServiceModel;
 /**
  * Assistant Entity model
  */
-class EntityModel extends ServiceModel {
+class RuntimeEntityModel extends ServiceModel {
 
     /**
      * @name(entity)

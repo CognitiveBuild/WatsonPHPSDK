@@ -29,7 +29,7 @@ use WatsonSDK\Services\Assistant;
 use WatsonSDK\Services\Assistant\InputDataModel;
 use WatsonSDK\Services\Assistant\MessageRequestModel;
 use WatsonSDK\Services\Assistant\ContextModel;
-use WatsonSDK\Services\Assistant\EntityModel;
+use WatsonSDK\Services\Assistant\RuntimeEntityModel;
 use WatsonSDK\Services\Assistant\IntentModel;
 use WatsonSDK\Services\Assistant\OutputDataModel;
 use WatsonSDK\Services\Assistant\SystemResponseModel;

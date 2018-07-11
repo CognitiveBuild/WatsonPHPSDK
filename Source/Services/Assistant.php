@@ -104,10 +104,16 @@ class Assistant extends WatsonService {
 
     /**
      * List the workspaces associated with a Assistant service instance.
-     * 
+     *
+     * @param integer $page_limit
+     * @param boolean $include_count
+     * @param string $sort
+     * @param string $cursor
+     * @param boolean $include_audit
+     * @param string $version
      * @return HttpResponse
      */
-    public function listWorkspaces($page_limit = NULL, $include_count = NULL, $sort = NULL, $cursor = NULL, $version = self::VERSION) {
+    public function listWorkspaces($page_limit = NULL, $include_count = NULL, $sort = NULL, $cursor = NULL, $include_audit = NULL, $version = self::VERSION) {
 
         $config = $this->initConfig();
 
@@ -127,6 +133,10 @@ class Assistant extends WatsonService {
 
         if(is_null($cursor) === FALSE) {
             $config->addQuery('cursor', $cursor);
+        }
+
+        if(is_null($include_audit) === FALSE) {
+            $config->addQuery('include_audit', $include_audit);
         }
 
         $config->setMethod(HttpClientConfiguration::METHOD_GET);

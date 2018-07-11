@@ -61,7 +61,7 @@ class MessageRequestModel extends ServiceModel {
      * Entities to use when evaluating the message. 
      * Include entities from the previous response to continue using those entities rather than detecting entities in the new input. 
      * 
-     * @var EntityModel[]
+     * @var RuntimeEntityModel[]
      */
     protected $_entities;
 
@@ -86,12 +86,22 @@ class MessageRequestModel extends ServiceModel {
     protected $_output;
 
     /**
+     * @name(nodes_visited_details)
+     * 
+     * An array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * Included only if nodes_visited_details is set to true in the message request.
+     * 
+     * @var boolean
+     */
+    protected $_nodes_visited_details;
+
+    /**
      * Constructor.
      * 
      * @param string | InputDataModel $text
      * @param boolean | NULL $alternate_intents
      * @param ContextModel | NULL $context
-     * @param EntityModel | NULL $entities
+     * @param RuntimeEntityModel | NULL $entities
      * @param RuntimeIntent | NULL $intents
      * @param OutputDataModel | NULL $output
      */
@@ -228,4 +238,21 @@ class MessageRequestModel extends ServiceModel {
         $this->_output = $val;
     }
 
+    /**
+     * Get the array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * 
+     * @return boolean
+     */
+    public function getNodesVisitedDetails() {
+        return $this->_nodes_visited_details;
+    }
+
+    /**
+     * Set the array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * 
+     * @param boolean $val
+     */
+    public function setNodesVisitedDetails($val) {
+        $this->_nodes_visited_details = $val;
+    }
 }

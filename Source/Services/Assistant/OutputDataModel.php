@@ -53,17 +53,29 @@ class OutputDataModel extends ServiceModel {
     protected $_nodes_visited;
 
     /**
+     * @name(nodes_visited_details)
+     * 
+     * An array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * Included only if nodes_visited_details is set to true in the message request.
+     * 
+     * @var boolean
+     */
+    protected $_nodes_visited_details;
+
+    /**
      * Constructor.
      * 
      * @param array $text
      * @param array $logMessages
      * @param array $nodesVisited
      */
-    function __construct($text = NULL, $logMessages = NULL, $nodesVisited = NULL) {
+    function __construct($text = NULL, $logMessages = NULL, $nodesVisited = NULL, $nodes_visited_details = NULL) {
 
         $this->setText($text);
         $this->setLogMessages($logMessages);
         $this->setNodesVisited($nodesVisited);
+        $this->setNodesVisitedDetails($nodes_visited_details);
+
     }
 
     /**
@@ -118,5 +130,23 @@ class OutputDataModel extends ServiceModel {
      */
     public function setNodesVisited($val) {
         $this->_nodes_visited = $val;
+    }
+
+    /**
+     * Get the array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * 
+     * @return boolean
+     */
+    public function getNodesVisitedDetails() {
+        return $this->_nodes_visited_details;
+    }
+
+    /**
+     * Set the array of objects containing detailed diagnostic information about the nodes that were triggered during processing of the input message.
+     * 
+     * @param boolean $val
+     */
+    public function setNodesVisitedDetails($val) {
+        $this->_nodes_visited_details = $val;
     }
 }

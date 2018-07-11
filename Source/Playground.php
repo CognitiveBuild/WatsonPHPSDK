@@ -17,7 +17,7 @@ use WatsonSDK\Services\Assistant;
 use WatsonSDK\Services\Assistant\InputDataModel;
 use WatsonSDK\Services\Assistant\MessageRequestModel;
 use WatsonSDK\Services\Assistant\ContextModel;
-use WatsonSDK\Services\Assistant\EntityModel;
+use WatsonSDK\Services\Assistant\RuntimeEntityModel;
 use WatsonSDK\Services\Assistant\IntentModel;
 use WatsonSDK\Services\Assistant\OutputDataModel;
 use WatsonSDK\Services\Assistant\SystemResponseModel;
@@ -31,3 +31,5 @@ use WatsonSDK\Services\NaturalLanguageUnderstanding\AnalyzeModel;
 
 $env = new Environment(__DIR__ . '/../Tests/');
 $env->load();
+
+print_r( new RuntimeEntityModel() );
